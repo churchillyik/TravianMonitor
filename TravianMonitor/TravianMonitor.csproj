@@ -42,6 +42,7 @@
     <Compile Include="FormTrMonitor.Designer.cs">
       <DependentUpon>FormTrMonitor.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormTrMonitor.resx">

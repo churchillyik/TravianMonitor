@@ -11,6 +11,8 @@ namespace TravianMonitor
 {
     public partial class FormTrMonitor : Form
     {
+    	TravianAccessor UpCall = null;
+    	
         public FormTrMonitor()
         {
             InitializeComponent();
@@ -35,16 +37,17 @@ namespace TravianMonitor
             if (TravianAccessor.TrAcsr == null)
             {
                 TravianAccessor.TrAcsr = new TravianAccessor();
+                UpCall = TravianAccessor.TrAcsr;
             }
 
-            if (TravianAccessor.TrAcsr.glbCfg.strSvrURL != "")
+            if (UpCall.glbCfg.strSvrURL != "")
             {
-                this.textBoxSvrURL.Text = TravianAccessor.TrAcsr.glbCfg.strSvrURL;
+                this.textBoxSvrURL.Text = UpCall.glbCfg.strSvrURL;
             }
 
-            if (TravianAccessor.TrAcsr.glbCfg.nInterval != 0)
+            if (UpCall.glbCfg.nInterval != 0)
             {
-                this.numericUpDownInterval.Value = TravianAccessor.TrAcsr.glbCfg.nInterval;
+                this.numericUpDownInterval.Value = UpCall.glbCfg.nInterval;
             }
 
             InstructionLoad();
@@ -52,11 +55,10 @@ namespace TravianMonitor
 
         private void btnModifyServerURL_Click(object sender, EventArgs e)
         {
-            TravianAccessor.TrAcsr.glbCfg.strSvrURL = this.textBoxSvrURL.Text;
-            TravianAccessor.TrAcsr.glbCfg.nInterval = Convert.ToInt32(this.numericUpDownInterval.Value);
-            TravianAccessor.TrAcsr.SaveOptions();
+            string strURL = this.textBoxSvrURL.Text;
+            string strInterval = this.numericUpDownInterval.Value.ToString();
+            string strReturnDelay = this.numericUpDownReturnDelay.Value.ToString();
+            UpCall.glbCfg.SaveOptions(strURL, strInterval, strReturnDelay);
         }
-
-        
     }
 }
