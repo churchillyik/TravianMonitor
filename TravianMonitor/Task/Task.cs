@@ -47,7 +47,6 @@ namespace TravianMonitor
 		protected int nCurPhase;
 		protected List<QueryPhase> lstPhase = null;
 		protected int nVillageCursor;
-		protected List<TravianVillage> lstVillages = null;
 		protected string strQueryResult = null;
 		
 		public bool bToBeDeleted;
@@ -59,7 +58,6 @@ namespace TravianMonitor
 			status = CommunicationStatus.NoCommunication;
 			nCurPhase = 1;
 			nVillageCursor = 1;
-			lstVillages = trAccount.lstVillages;
 			bToBeDeleted = false;
 			
 			OtherInit(trAccount);
@@ -109,9 +107,10 @@ namespace TravianMonitor
 
 					QueryPhase phase = lstPhase[nCurPhase - 1];
 					string strURL;
-					if (phase.bRelatedToVillages && lstVillageID != null && nVillageCursor <= lstVillageID.Count)
+					if (phase.bRelatedToVillages && nVillageCursor <= UpCall.lstVillages.Count)
 					{
-						strURL = AddNewdid((lstVillageID[nVillageCursor - 1]), phase.strQueryURL);
+						TravianVillage trVillage = UpCall.lstVillages[nVillageCursor - 1];
+						strURL = AddNewdid(trVillage.nID, phase.strQueryURL);
 					}
 					else
 					{
@@ -131,10 +130,10 @@ namespace TravianMonitor
 					ParseResult();
 					
 					QueryPhase phase = lstPhase[nCurPhase - 1];
-					if (phase.bRelatedToVillages && lstVillageID != null && nVillageCursor <= lstVillageID.Count)
+					if (phase.bRelatedToVillages && nVillageCursor <= UpCall.lstVillages.Count)
 					{
 						nVillageCursor++;
-						if (nVillageCursor > lstVillageID.Count)
+						if (nVillageCursor > UpCall.lstVillages.Count)
 						{
 							nVillageCursor = 1;
 							nCurPhase++;
@@ -198,9 +197,9 @@ namespace TravianMonitor
 		
 		protected string AddNewdid(int VillageID, string Uri)
 		{
-			if(VillageID == 0)
+			if (VillageID == 0)
 				return Uri;
-			if(Uri.Contains("?"))
+			if (Uri.Contains("?"))
 				return Uri + "&newdid=" + VillageID;
 			else
 				return Uri + "?newdid=" + VillageID;
@@ -218,7 +217,7 @@ namespace TravianMonitor
 
 		protected bool CheckIfLogined()
 		{
-			if(strQueryResult.Contains("login"))
+			if (strQueryResult.Contains("login"))
 			{
 				return false;
 			}
@@ -293,6 +292,11 @@ namespace TravianMonitor
 		protected void DebugLog(string log)
 		{
 			TravianAccessor.TrAcsr.DebugLog(log, logType);
+		}
+		
+		private int UnixTime(DateTime time)
+		{
+			return Convert.ToInt32((DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
 		}
 	}
 }

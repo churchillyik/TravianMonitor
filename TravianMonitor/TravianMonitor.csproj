@@ -44,6 +44,7 @@
       <DependentUpon>FormTrMonitor.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalConfig.cs" />
+    <Compile Include="HtmlUtility.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormTrMonitor.resx">

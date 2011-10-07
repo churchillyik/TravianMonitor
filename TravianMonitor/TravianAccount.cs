@@ -13,8 +13,10 @@ namespace TravianMonitor
 {
 	public class TravianVillage
 	{
-		public int VillageID;
-		public int Tribe;
+		public int nID;
+		public int nPosX;
+		public int nPosY;
+		public string strName;
 		public int nSquareLvl;
 		public int[] Troops = new int[11];
 	}
@@ -24,10 +26,14 @@ namespace TravianMonitor
 	/// </summary>
 	public class TravianAccount
 	{
+		public int nTribe;
 		public List<TravianVillage> lstVillages = new List<TravianVillage>();
+		
 		private string strName;
 		private string strPassword;
+		
 		private TravianWebClient trWebClent = null;
+		
 		public TravianAccount(string name, string passwd)
 		{
 			strName = name;

@@ -48,7 +48,6 @@ namespace TravianMonitor
     		if (wk == null)
     			return;
     		
-    		wk.curTask.status = TaskStatus.ReadyForPageParse;
     		wk.bIsActive = false;
     		WkrPageQueryPool.Enqueue(wk);
     	}
