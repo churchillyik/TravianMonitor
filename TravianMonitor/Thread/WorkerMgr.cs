@@ -5,17 +5,6 @@ using System.IO;
 
 namespace TravianMonitor
 {
-	public enum LogTypes
-	{
-		TroopsMonitor,
-		TroopsSending
-	};
-    public class LogArgs : EventArgs
-    {
-        public string strLog;
-        public LogTypes type;
-    }
-    
     public class WorkerMgr
     {
     	private WorkerTaskExec WkrTaskExec = null;
@@ -51,6 +40,7 @@ namespace TravianMonitor
             wk.dicPostData = dicPostData;
             wk.curTask = tsk;
             wk.bIsActive = true;
+            wk.ThreadResume();
         }
 
     	private void StopPageQueryWorker(WorkerPageQuery wk)
@@ -62,14 +52,5 @@ namespace TravianMonitor
     		wk.bIsActive = false;
     		WkrPageQueryPool.Enqueue(wk);
     	}
-
-        public event EventHandler<LogArgs> OnLog;
-        private void DebugLog(string log, LogTypes type)
-        {
-            LogArgs arg = new LogArgs();
-            arg.strLog = log;
-            arg.type = type;
-            OnLog(this, arg);
-        }
     }
 }

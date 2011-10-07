@@ -38,12 +38,23 @@ namespace TravianMonitor
         {
 			while(true)
 			{
-				if (bIsActive && curTask.status == TaskStatus.ReadyForPageQuery)
+				if (!bIsActive)
 				{
-					
+					Thread.CurrentThread.Suspend();
 				}
+				
 				Thread.Sleep(1);
 			}
         }
+		
+		public void ThreadSuspend()
+		{
+			thrdWorker.Suspend();
+		}
+		
+		public void ThreadResume()
+		{
+			thrdWorker.Resume();
+		}
 	}
 }

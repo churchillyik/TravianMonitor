@@ -18,6 +18,7 @@ namespace TravianMonitor
 	{
 		private HttpWebRequest request;
 		private CookieContainer cookies;
+		public string strCurCookie = null;
 		private string strLastQueryPageURI = null;
 		public TravianWebClient()
 		{
