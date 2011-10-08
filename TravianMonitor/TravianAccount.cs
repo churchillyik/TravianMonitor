@@ -28,16 +28,19 @@ namespace TravianMonitor
 	{
 		public int nTribe;
 		public List<TravianVillage> lstVillages = new List<TravianVillage>();
+		public List<Task> lstTask = new List<Task>();
 		
-		private string strName;
-		private string strPassword;
+		public string strName;
+		public string strPassword;
 		
-		private TravianWebClient trWebClent = null;
+		public TravianWebClient trWebClient = null;
 		
 		public TravianAccount(string name, string passwd)
 		{
 			strName = name;
 			strPassword = passwd;
+			
+			trWebClient = new TravianWebClient();
 		}
 		
 	}

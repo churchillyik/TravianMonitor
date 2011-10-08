@@ -17,22 +17,20 @@ namespace TravianMonitor
 	/// </summary>
 	public class TaskRefreshVillages : Task
 	{
-		public TaskRefreshVillages()
+		public TaskRefreshVillages(TravianAccount trAccount) : base(trAccount)
 		{
 		}
 		
-		protected void OtherInit(TravianAccount trAccount)
+		new protected void OtherInit(TravianAccount trAccount)
 		{
-			lstPhase = new List<QueryPhase>()
-			{
-				new QueryPhase(false, "dorf1.php"),
-				new QueryPhase(false, "a2b.php"),
-				new QueryPhase(true, "build.php?gid=14"),
-				new QueryPhase(true, "build.php?gid=16"),
-			};
+			lstPhase = new List<QueryPhase>();
+			lstPhase.Add(new QueryPhase(false, "dorf1.php"));
+			lstPhase.Add(new QueryPhase(false, "a2b.php"));
+			lstPhase.Add(new QueryPhase(false, "build.php?gid=14"));
+			lstPhase.Add(new QueryPhase(false, "build.php?gid=16"));
 		}
 				
-		protected void ParseResult()
+		new protected void ParseResult()
 		{
 			switch (nCurPhase)
 			{

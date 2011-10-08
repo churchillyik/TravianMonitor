@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace TravianMonitor
 {
@@ -17,8 +18,6 @@ namespace TravianMonitor
 	public class WorkerTaskExec
 	{
 		private Thread thrdWorker;
-		
-		public Task curTask;
 		
 		public WorkerTaskExec()
 		{
@@ -31,13 +30,25 @@ namespace TravianMonitor
 		{
 			while(true)
 			{
-				switch (curTask.status)
-				{
-					case TaskStatus.ReadyForPageParse:
-						break;
-					
-				}
 				Thread.Sleep(1);
+				
+				if (TravianAccessor.TrAcsr.bIsAccountRefreshing)
+				{
+					continue;
+				}
+				
+				foreach (TravianAccount account in TravianAccessor.TrAcsr.lstAccounts)
+				{					
+					foreach (Task tsk in account.lstTask)
+					{
+						if (tsk.bToBeDeleted)
+						{
+							account.lstTask.Remove(tsk);
+							continue;
+						}
+						tsk.TakeActionAsk();
+					}
+				}
 			}
 		}
 	}

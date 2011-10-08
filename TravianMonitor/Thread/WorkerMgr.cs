@@ -34,7 +34,7 @@ namespace TravianMonitor
     		}
     		else
     		{
-            	WorkerPageQuery wk = WkrPageQueryPool.Dequeue();
+            	wk = WkrPageQueryPool.Dequeue();
     		}
             wk.strURL = strURL;
             wk.dicPostData = dicPostData;

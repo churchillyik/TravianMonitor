@@ -43,6 +43,11 @@ namespace TravianMonitor
 					Thread.CurrentThread.Suspend();
 				}
 				
+				TravianWebClient trWebClient = curTask.UpCall.trWebClient;
+				trWebClient.HttpQuery(strURL, dicPostData);
+				
+				curTask.TakeActionRep();
+				
 				Thread.Sleep(1);
 			}
         }

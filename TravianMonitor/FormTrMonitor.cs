@@ -141,7 +141,21 @@ namespace TravianMonitor
         
         void BtnRefreshVillagesClick(object sender, EventArgs e)
         {
+        	if (UpCall.bIsAccountRefreshing)
+        		return;
         	
+        	UpCall.bIsAccountRefreshing = true;
+        	
+        	UpCall.lstAccounts.Clear();
+        	foreach (UsersInfoDataSet.users_infoRow row in usersInfoDataSet.users_info.Rows)
+        	{
+        		TravianAccount account = new TravianAccount(row.account, row.password);
+        		TaskRefreshVillages tsk = new TaskRefreshVillages(account);
+        		account.lstTask.Add(tsk);
+        		UpCall.lstAccounts.Add(account);
+        	}
+        	
+        	UpCall.bIsAccountRefreshing = false;
         }
     }
 }

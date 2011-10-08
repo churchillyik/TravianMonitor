@@ -9,10 +9,13 @@ namespace TravianMonitor
     {
         static public TravianAccessor TrAcsr = null;
 
+        public bool bIsAccountRefreshing = false;
+        
         public GlobalConfig glbCfg = new GlobalConfig();
         public ReinTgs rTgs = new ReinTgs();
-        public WorkerMgr wk_mgr = new WorkerMgr();
-        
+        public List<TravianAccount> lstAccounts = new List<TravianAccount>();
+        public WorkerMgr wk_mgr = new WorkerMgr(20);
+
         public TravianAccessor()
         {
             

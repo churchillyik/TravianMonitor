@@ -7,7 +7,16 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using System.IO.Compression;
+using System.Threading;
+using System.Collections;
 using System.Net;
+using System.Web;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace TravianMonitor
 {
@@ -45,10 +54,9 @@ namespace TravianMonitor
 			request.KeepAlive = true;
 		}
 		
-		private string HttpQuery(int VillageID, string Uri, Dictionary<string, string> Data)
+		public string HttpQuery(string Uri, Dictionary<string, string> Data)
 		{
 			string BaseAddress = string.Format("http://{0}/", TravianAccessor.TrAcsr.glbCfg.strSvrURL);
-			Uri = AddNewdid(VillageID, Uri);
 			CreateRequest(BaseAddress + Uri);
 			if(Data == null)
 			{
@@ -72,7 +80,7 @@ namespace TravianMonitor
 			
 			string QueryString = null;
 			StringBuilder sb = new StringBuilder();
-			foreach(var x in Data)
+			foreach(KeyValuePair<string, string> x in Data)
 			{
 				if(sb.Length != 0)
 					sb.Append("&");
@@ -112,8 +120,7 @@ namespace TravianMonitor
 			{
 				if (cook.Name == "T3E")
 				{
-					TD.Dirty = true;
-					TD.Cookie = cook.Value;
+					this.strCurCookie = cook.Value;
 				}
 			}
 			

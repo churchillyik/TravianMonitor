@@ -41,7 +41,7 @@ namespace TravianMonitor
 	/// </summary>
 	public class Task
 	{		
-		protected TravianAccount UpCall;
+		public TravianAccount UpCall;
 		protected LogTypes logType;
 		protected CommunicationStatus status;
 		protected int nCurPhase;
@@ -83,6 +83,7 @@ namespace TravianMonitor
 				return;
 			}
 			
+			QueryPhase phase = lstPhase[nCurPhase - 1];
 			switch (status)
 			{
 				case CommunicationStatus.NoCommunication:
@@ -96,7 +97,7 @@ namespace TravianMonitor
 					break;
 					
 				case CommunicationStatus.ToCommunicate: 
-					if (trWebClient.strCurCookie == null)
+					if (UpCall.trWebClient.strCurCookie == null)
 					{
 						status = CommunicationStatus.LoginStart1;
 						Login1();
@@ -105,7 +106,6 @@ namespace TravianMonitor
 					
 					status = CommunicationStatus.Communicating;
 
-					QueryPhase phase = lstPhase[nCurPhase - 1];
 					string strURL;
 					if (phase.bRelatedToVillages && nVillageCursor <= UpCall.lstVillages.Count)
 					{
@@ -129,7 +129,6 @@ namespace TravianMonitor
 					}
 					ParseResult();
 					
-					QueryPhase phase = lstPhase[nCurPhase - 1];
 					if (phase.bRelatedToVillages && nVillageCursor <= UpCall.lstVillages.Count)
 					{
 						nVillageCursor++;
@@ -149,7 +148,7 @@ namespace TravianMonitor
 					
 				case CommunicationStatus.LoginReturn1:
 					string userkey, passkey;
-					if (ParseLogin1(userkey, passkey))
+					if (ParseLogin1(out userkey, out passkey))
 					{
 						status = CommunicationStatus.LoginStart2;
 						Login2(userkey, passkey);
@@ -238,8 +237,8 @@ namespace TravianMonitor
 		{
 			string strURL = "dorf1.php";
 			Dictionary<string, string> postData = new Dictionary<string, string>();
-			postData[userkey] = Username;
-			postData[passkey] = Password;
+			postData[userkey] = UpCall.strName;
+			postData[passkey] = UpCall.strPassword;
 			postData["s1"] = "登录";
 			postData["w"] = @"1024:768";
 			postData["login"] = (UnixTime(DateTime.Now) - 10).ToString();
