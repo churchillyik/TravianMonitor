@@ -36,80 +36,74 @@ namespace TravianMonitor
 		}
 	};
 	
+	public class TaskStatus
+	{
+		public CommunicationStatus status;
+		public int nCurPhase;
+		public int nVillageCursor;
+		public string strQueryResult;
+		
+		public TaskStatus()
+		{
+			status = CommunicationStatus.NoCommunication;
+			nCurPhase = 1;
+			nVillageCursor = 1;
+			strQueryResult = null;
+		}
+		
+		public bool bIsTaskFinished(int nPhasesCnt)
+		{
+			return (nCurPhase > nPhasesCnt);
+		}
+	};
+	
 	/// <summary>
 	/// Description of Task.
 	/// </summary>
 	public class Task
-	{		
-		public TravianAccount UpCall;
-		protected LogTypes logType;
-		protected CommunicationStatus status;
-		protected int nCurPhase;
+	{
+		protected LogTypes logType = LogTypes.TroopsMonitor;
 		protected List<QueryPhase> lstPhase = null;
-		protected int nVillageCursor;
-		protected string strQueryResult = null;
 		
-		public bool bToBeDeleted;
-		
-		public Task(TravianAccount trAccount)
+		public Task()
 		{
-			UpCall = trAccount;
-			logType = LogTypes.TroopsMonitor;
-			status = CommunicationStatus.NoCommunication;
-			nCurPhase = 1;
-			nVillageCursor = 1;
-			bToBeDeleted = false;
-			
-			OtherInit(trAccount);
 		}
 		
-		protected void OtherInit(TravianAccount trAccount)
+		public bool TakeActionAsk(TravianAccount curAccount)
 		{
-			
-		}
-		
-		public void TakeActionAsk()
-		{
-			int nPhaseCnt = 0;
-			if (lstPhase != null)
-			{
-				nPhaseCnt = lstPhase.Count;
-			}
-			bool bNeedCommunication = (nPhaseCnt != 0);
-			if (!bNeedCommunication)
+			if (curAccount = null)
 			{
 				ParseResult();
-				bToBeDeleted = true;
-				return;
+				return true;
 			}
 			
-			QueryPhase phase = lstPhase[nCurPhase - 1];
-			switch (status)
+			if (curAccount.tskStatus.bIsTaskFinished(lstPhase.Count))
+			{
+				return true;
+			}
+			
+			TaskStatus tskStatus = curAccount.tskStatus;
+			QueryPhase phase = lstPhase[tskStatus.nCurPhase - 1];
+			switch (tskStatus.status)
 			{
 				case CommunicationStatus.NoCommunication:
-					if (nCurPhase > nPhaseCnt)
-					{
-						bToBeDeleted = true;
-						return;
-					}
-					
-					status = CommunicationStatus.ToCommunicate;
+					tskStatus.status = CommunicationStatus.ToCommunicate;
 					break;
 					
 				case CommunicationStatus.ToCommunicate: 
-					if (UpCall.trWebClient.strCurCookie == null)
+					if (curAccount.trWebClient.strCurCookie == null)
 					{
-						status = CommunicationStatus.LoginStart1;
+						tskStatus.status = CommunicationStatus.LoginStart1;
 						Login1();
 						break;
 					}
 					
-					status = CommunicationStatus.Communicating;
+					tskStatus.status = CommunicationStatus.Communicating;
 
 					string strURL;
-					if (phase.bRelatedToVillages && nVillageCursor <= UpCall.lstVillages.Count)
+					if (phase.bRelatedToVillages && tskStatus.nVillageCursor <= curAccount.lstVillages.Count)
 					{
-						TravianVillage trVillage = UpCall.lstVillages[nVillageCursor - 1];
+						TravianVillage trVillage = curAccount.lstVillages[tskStatus.nVillageCursor - 1];
 						strURL = AddNewdid(trVillage.nID, phase.strQueryURL);
 					}
 					else
@@ -129,7 +123,7 @@ namespace TravianMonitor
 					}
 					ParseResult();
 					
-					if (phase.bRelatedToVillages && nVillageCursor <= UpCall.lstVillages.Count)
+					if (phase.bRelatedToVillages && nVillageCursor <= curAccount.lstVillages.Count)
 					{
 						nVillageCursor++;
 						if (nVillageCursor > UpCall.lstVillages.Count)

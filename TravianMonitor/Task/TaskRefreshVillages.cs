@@ -17,11 +17,7 @@ namespace TravianMonitor
 	/// </summary>
 	public class TaskRefreshVillages : Task
 	{
-		public TaskRefreshVillages(TravianAccount trAccount) : base(trAccount)
-		{
-		}
-		
-		new protected void OtherInit(TravianAccount trAccount)
+		public TaskRefreshVillages() : base()
 		{
 			lstPhase = new List<QueryPhase>();
 			lstPhase.Add(new QueryPhase(false, "dorf1.php"));

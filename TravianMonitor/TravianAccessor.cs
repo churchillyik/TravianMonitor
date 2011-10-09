@@ -9,7 +9,7 @@ namespace TravianMonitor
     {
         static public TravianAccessor TrAcsr = null;
 
-        public bool bIsAccountRefreshing = false;
+        public bool bIsTaskSet = false;
         
         public GlobalConfig glbCfg = new GlobalConfig();
         public ReinTgs rTgs = new ReinTgs();

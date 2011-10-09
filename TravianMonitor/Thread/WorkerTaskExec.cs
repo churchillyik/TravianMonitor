@@ -17,6 +17,8 @@ namespace TravianMonitor
 	/// </summary>
 	public class WorkerTaskExec
 	{
+		public Task curTask = null;
+		
 		private Thread thrdWorker;
 		
 		public WorkerTaskExec()
@@ -32,22 +34,22 @@ namespace TravianMonitor
 			{
 				Thread.Sleep(1);
 				
-				if (TravianAccessor.TrAcsr.bIsAccountRefreshing)
+				if (!TravianAccessor.TrAcsr.bIsTaskSet)
 				{
 					continue;
 				}
 				
+				bool bTaskFinished = true;
 				foreach (TravianAccount account in TravianAccessor.TrAcsr.lstAccounts)
-				{					
-					foreach (Task tsk in account.lstTask)
-					{
-						if (tsk.bToBeDeleted)
-						{
-							account.lstTask.Remove(tsk);
-							continue;
-						}
-						tsk.TakeActionAsk();
-					}
+				{
+					bool bFinished = curTask.TakeActionAsk(account);
+					bTaskFinished &= bFinished;
+				}
+				
+				if (bTaskFinished)
+				{
+					curTask = null;
+					TravianAccessor.TrAcsr.bIsTaskSet = false;
 				}
 			}
 		}
