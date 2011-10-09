@@ -71,9 +71,9 @@ namespace TravianMonitor
 		
 		public bool TakeActionAsk(TravianAccount curAccount)
 		{
-			if (curAccount = null)
+			if (curAccount == null)
 			{
-				ParseResult();
+				ParseResult(curAccount);
 				return true;
 			}
 			
@@ -94,7 +94,7 @@ namespace TravianMonitor
 					if (curAccount.trWebClient.strCurCookie == null)
 					{
 						tskStatus.status = CommunicationStatus.LoginStart1;
-						Login1();
+						Login1(curAccount);
 						break;
 					}
 					
@@ -111,79 +111,88 @@ namespace TravianMonitor
 						strURL = AddNewdid(0, phase.strQueryURL);
 					}
 					Dictionary<string, string> postData = GetPostData();
-					TravianAccessor.TrAcsr.wk_mgr.StartPageQueryWorker(strURL, postData, this);
+					DebugLog("准备访问：" + strURL + " @[" + curAccount.strName + "]");
+					TravianAccessor.TrAcsr.wk_mgr.StartPageQueryWorker(strURL,
+					                                                   postData,
+					                                                   this,
+					                                                   curAccount);
 					break;
 					
 				case CommunicationStatus.Communicated:
-					if (!CheckIfLogined())
+					if (!CheckIfLogined(tskStatus.strQueryResult))
 					{
-						status = CommunicationStatus.LoginStart1;
-						Login1();
+						tskStatus.status = CommunicationStatus.LoginStart1;
+						Login1(curAccount);
 						break;
 					}
-					ParseResult();
+					ParseResult(curAccount);
 					
-					if (phase.bRelatedToVillages && nVillageCursor <= curAccount.lstVillages.Count)
+					if (phase.bRelatedToVillages && tskStatus.nVillageCursor <= curAccount.lstVillages.Count)
 					{
-						nVillageCursor++;
-						if (nVillageCursor > UpCall.lstVillages.Count)
+						tskStatus.nVillageCursor++;
+						if (tskStatus.nVillageCursor > curAccount.lstVillages.Count)
 						{
-							nVillageCursor = 1;
-							nCurPhase++;
+							tskStatus.nVillageCursor = 1;
+							tskStatus.nCurPhase++;
 						}
 					}
 					else
 					{
-						nCurPhase++;
+						tskStatus.nCurPhase++;
 					}
 					
-					status = CommunicationStatus.NoCommunication;
+					tskStatus.status = CommunicationStatus.NoCommunication;
 					break;
 					
 				case CommunicationStatus.LoginReturn1:
 					string userkey, passkey;
-					if (ParseLogin1(out userkey, out passkey))
+					if (ParseLogin1(out userkey, out passkey, tskStatus.strQueryResult))
 					{
-						status = CommunicationStatus.LoginStart2;
-						Login2(userkey, passkey);
+						DebugLog("准备登录：[" + curAccount.strName + "]");
+						tskStatus.status = CommunicationStatus.LoginStart2;
+						Login2(userkey, passkey, curAccount);
 					}
 					else
 					{
-						DebugLog("无法抓取网页：" + strQueryResult);
-						bToBeDeleted = true;
+						DebugLog("无法抓取网页：" + phase.strQueryURL);
+						tskStatus.status = CommunicationStatus.LoginStart1;
 					}
 					
 					break;
 					
 				case CommunicationStatus.LoginReturn2:
-					if (ParseLogin2())
+					if (ParseLogin2(tskStatus.strQueryResult))
 					{
-						status = CommunicationStatus.ToCommunicate;
+						DebugLog("成功登录：[" + curAccount.strName + "]");
+						tskStatus.status = CommunicationStatus.ToCommunicate;
 					}
 					else
 					{
-						DebugLog("无法抓取网页：" + strQueryResult);
-						bToBeDeleted = true;
+						DebugLog("无法抓取网页：" + phase.strQueryURL);
+						tskStatus.status = CommunicationStatus.LoginStart1;
 					}
 					
 					break;
 			}
+			
+			return false;
 		}
 		
-		public void TakeActionRep()
+		public void TakeActionRep(TravianAccount trAccount)
 		{
-			switch (status)
+			TaskStatus tskStatus = trAccount.tskStatus;
+			switch (tskStatus.status)
 			{
 				case CommunicationStatus.Communicating:
-					status = CommunicationStatus.Communicated;
+					tskStatus.status = CommunicationStatus.Communicated;
 					break;
 					
 				case CommunicationStatus.LoginStart1:
-					status = CommunicationStatus.LoginReturn1;
+					tskStatus.status = CommunicationStatus.LoginReturn1;
 					break;
 					
 				case CommunicationStatus.LoginStart2:
-					status = CommunicationStatus.LoginReturn2;
+					tskStatus.status = CommunicationStatus.LoginReturn2;
 					break;
 			}
 		}
@@ -203,12 +212,12 @@ namespace TravianMonitor
 			return null;
 		}
 		
-		protected void ParseResult()
+		protected virtual void ParseResult(TravianAccount trAccount)
 		{
 			
 		}
 
-		protected bool CheckIfLogined()
+		protected bool CheckIfLogined(string strQueryResult)
 		{
 			if (strQueryResult.Contains("login"))
 			{
@@ -220,26 +229,32 @@ namespace TravianMonitor
 			}
 		}
 		
-		protected void Login1()
+		protected void Login1(TravianAccount trAccount)
 		{
-			string strURL = "dorf1.php";
+			string strURL = "";
 			Dictionary<string, string> postData = null;
-			TravianAccessor.TrAcsr.wk_mgr.StartPageQueryWorker(strURL, postData, this);
+			TravianAccessor.TrAcsr.wk_mgr.StartPageQueryWorker(strURL,
+			                                                   postData,
+			                                                   this,
+			                                                   trAccount);
 		}
 		
-		protected void Login2(string userkey, string passkey)
+		protected void Login2(string userkey, string passkey, TravianAccount trAccount)
 		{
 			string strURL = "dorf1.php";
 			Dictionary<string, string> postData = new Dictionary<string, string>();
-			postData[userkey] = UpCall.strName;
-			postData[passkey] = UpCall.strPassword;
+			postData[userkey] = trAccount.strName;
+			postData[passkey] = trAccount.strPassword;
 			postData["s1"] = "登录";
 			postData["w"] = @"1024:768";
 			postData["login"] = (UnixTime(DateTime.Now) - 10).ToString();
-			TravianAccessor.TrAcsr.wk_mgr.StartPageQueryWorker(strURL, postData, this);
+			TravianAccessor.TrAcsr.wk_mgr.StartPageQueryWorker(strURL,
+			                                                   postData,
+			                                                   this,
+			                                                   trAccount);
 		}
 		
-		protected bool ParseLogin1(out string userkey, out string passkey)
+		protected bool ParseLogin1(out string userkey, out string passkey, string strQueryResult)
 		{
 			userkey = "";
 			passkey = "";
@@ -271,7 +286,7 @@ namespace TravianMonitor
 			return true;
 		}
 		
-		protected bool ParseLogin2()
+		protected bool ParseLogin2(string strQueryResult)
 		{
 			if (strQueryResult == null || strQueryResult.Contains("<span class=\"error\">"))
 			{

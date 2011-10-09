@@ -23,6 +23,7 @@ namespace TravianMonitor
 		public string strURL;
 		public Dictionary<string, string> dicPostData;
 		public Task curTask;
+		public TravianAccount trAccount;
 		public bool bIsActive;
 		
 		public WorkerPageQuery(int nID)
@@ -40,14 +41,15 @@ namespace TravianMonitor
 			{
 				if (!bIsActive)
 				{
-					Thread.CurrentThread.Suspend();
+					ThreadSuspend();
 				}
 				
-				TravianWebClient trWebClient = curTask.UpCall.trWebClient;
-				trWebClient.HttpQuery(strURL, dicPostData);
+				TravianWebClient trWebClient = trAccount.trWebClient;
+				trAccount.tskStatus.strQueryResult = trWebClient.HttpQuery(strURL, dicPostData);
 				
-				curTask.TakeActionRep();
+				curTask.TakeActionRep(trAccount);
 				
+				TravianAccessor.TrAcsr.wk_mgr.StopPageQueryWorker(this);
 				Thread.Sleep(1);
 			}
         }
@@ -59,7 +61,8 @@ namespace TravianMonitor
 		
 		public void ThreadResume()
 		{
-			thrdWorker.Resume();
+			if (thrdWorker.ThreadState == ThreadState.Suspended)
+				thrdWorker.Resume();
 		}
 	}
 }

@@ -22,39 +22,39 @@ namespace TravianMonitor
 			lstPhase = new List<QueryPhase>();
 			lstPhase.Add(new QueryPhase(false, "dorf1.php"));
 			lstPhase.Add(new QueryPhase(false, "a2b.php"));
-			lstPhase.Add(new QueryPhase(false, "build.php?gid=14"));
-			lstPhase.Add(new QueryPhase(false, "build.php?gid=16"));
+			lstPhase.Add(new QueryPhase(true, "build.php?gid=14"));
+			lstPhase.Add(new QueryPhase(true, "build.php?gid=16"));
 		}
 				
-		new protected void ParseResult()
+		protected override void ParseResult(TravianAccount trAccount)
 		{
-			switch (nCurPhase)
+			switch (trAccount.tskStatus.nCurPhase)
 			{
 				case 1:
-					ParsePhase1Result();
+					ParsePhase1Result(trAccount);
 					break;
 					
 				case 2:
-					ParsePhase2Result();
+					ParsePhase2Result(trAccount);
 					break;
 					
 				case 3:
-					ParsePhase3Result();
+					ParsePhase3Result(trAccount);
 					break;
 					
 				case 4:
-					ParsePhase4Result();
+					ParsePhase4Result(trAccount);
 					break;
 			}
 		}
 		
-		private void ParsePhase1Result()
+		private void ParsePhase1Result(TravianAccount trAccount)
 		{
 			MatchCollection mc;
             mc = Regex.Matches(
-            	strQueryResult, "newdid=(\\d+).*?\\((\\-?\\d+).*?\\|[^0-9\\-]*?(\\-?\\d+)\\)[^>]*?>([^<]*?)</a>"
+            	trAccount.tskStatus.strQueryResult, "newdid=(\\d+).*?\\((\\-?\\d+).*?\\|[^0-9\\-]*?(\\-?\\d+)\\)[^>]*?>([^<]*?)</a>"
             	, RegexOptions.Singleline);
-			UpCall.lstVillages.Clear();
+			trAccount.lstVillages.Clear();
 			for (int i = 0; i < mc.Count; i++)
             {
                 Match m = mc[i];
@@ -71,46 +71,46 @@ namespace TravianMonitor
                 
                 trVillage.nSquareLvl = 0;
                 
-                UpCall.lstVillages.Add(trVillage);
+                trAccount.lstVillages.Add(trVillage);
             }
 		}
 		
-		private void ParsePhase2Result()
+		private void ParsePhase2Result(TravianAccount trAccount)
 		{
-			Match m = Regex.Match(strQueryResult, "<img class=\"unit u(\\d*)\"");
+			Match m = Regex.Match(trAccount.tskStatus.strQueryResult, "<img class=\"unit u(\\d*)\"");
 			if (m.Success)
 			{
-            	UpCall.nTribe = Convert.ToInt32(m.Groups[1].Value) / 10 + 1;
+            	trAccount.nTribe = Convert.ToInt32(m.Groups[1].Value) / 10 + 1;
 			}
 			else
 			{
-				UpCall.nTribe = 0;
+				trAccount.nTribe = 0;
 			}
 		}
 		
-		private void ParsePhase3Result()
+		private void ParsePhase3Result(TravianAccount trAccount)
 		{
-			Match levelMatch = Regex.Match(strQueryResult, "<span\\sclass=\"level\">[^\\d]*?(\\d+)</span>");
+			Match levelMatch = Regex.Match(trAccount.tskStatus.strQueryResult, "<span\\sclass=\"level\">[^\\d]*?(\\d+)</span>");
             if (!levelMatch.Success)
             {
             	return;
             }
             
-            TravianVillage trVillage = UpCall.lstVillages[nVillageCursor - 1];
+            TravianVillage trVillage = trAccount.lstVillages[trAccount.tskStatus.nVillageCursor - 1];
             trVillage.nSquareLvl = Convert.ToInt32(levelMatch.Groups[1].Value);
 		}
 		
-		private void ParsePhase4Result()
+		private void ParsePhase4Result(TravianAccount trAccount)
 		{
 			//	分离出部队的数据
-            string[] troopGroups = strQueryResult.Split(new string[] { "</h4>" }
-			                                            , StringSplitOptions.None);
+            string[] troopGroups = trAccount.tskStatus.strQueryResult.Split(
+				new string[] { "</h4>" }, StringSplitOptions.None);
             if (troopGroups.Length < 2)
             {
                 return;
             }
 
-	        TravianVillage trVillage = UpCall.lstVillages[nVillageCursor - 1];
+	        TravianVillage trVillage = trAccount.lstVillages[trAccount.tskStatus.nVillageCursor - 1];
 	        
 	        string[] troopDetails = HtmlUtility.GetElementsWithClass(
                     troopGroups[1],

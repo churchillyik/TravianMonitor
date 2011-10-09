@@ -7,7 +7,7 @@ namespace TravianMonitor
 {
     public class WorkerMgr
     {
-    	private WorkerTaskExec WkrTaskExec = null;
+    	public WorkerTaskExec WkrTaskExec = null;
     	private Queue<WorkerPageQuery> WkrPageQueryPool = new Queue<WorkerPageQuery>();
     	private int nWorkerPageQueryCnt;
 
@@ -24,7 +24,8 @@ namespace TravianMonitor
     	
         public void StartPageQueryWorker(string strURL, 
     	                                 Dictionary<string, string> dicPostData, 
-    	                                 Task tsk)
+    	                                 Task tsk,
+    	                                 TravianAccount trAccount)
         {
     		WorkerPageQuery wk = null;
     		if (WkrPageQueryPool.Count == 0)
@@ -39,11 +40,12 @@ namespace TravianMonitor
             wk.strURL = strURL;
             wk.dicPostData = dicPostData;
             wk.curTask = tsk;
+            wk.trAccount = trAccount;
             wk.bIsActive = true;
             wk.ThreadResume();
         }
 
-    	private void StopPageQueryWorker(WorkerPageQuery wk)
+    	public void StopPageQueryWorker(WorkerPageQuery wk)
     	{
     		if (wk == null)
     			return;
