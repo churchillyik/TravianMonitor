@@ -37,7 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DebugLog.cs" />
+    <Compile Include="UIUpdateHandler.cs" />
     <Compile Include="FormTrMonitor.cs">
       <SubType>Form</SubType>
     </Compile>

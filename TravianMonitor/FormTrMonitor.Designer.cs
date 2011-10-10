@@ -75,6 +75,10 @@
         	this.btnAddToTroopsArray = new System.Windows.Forms.Button();
         	this.btnCalStartTime = new System.Windows.Forms.Button();
         	this.btnRefreshVillages = new System.Windows.Forms.Button();
+        	this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+        	this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+        	this.TaskStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+        	this.ThreadStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
         	this.tabPageTroopSending = new System.Windows.Forms.TabPage();
         	this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
         	this.btnStartSendTroops = new System.Windows.Forms.Button();
@@ -108,6 +112,8 @@
         	this.groupBox3.SuspendLayout();
         	this.groupBox2.SuspendLayout();
         	this.groupBox4.SuspendLayout();
+        	this.flowLayoutPanel5.SuspendLayout();
+        	this.statusStrip1.SuspendLayout();
         	this.tabPageTroopSending.SuspendLayout();
         	this.flowLayoutPanel4.SuspendLayout();
         	this.SuspendLayout();
@@ -122,7 +128,7 @@
         	this.tabControlMainForm.Location = new System.Drawing.Point(0, 0);
         	this.tabControlMainForm.Name = "tabControlMainForm";
         	this.tabControlMainForm.SelectedIndex = 0;
-        	this.tabControlMainForm.Size = new System.Drawing.Size(874, 603);
+        	this.tabControlMainForm.Size = new System.Drawing.Size(915, 603);
         	this.tabControlMainForm.TabIndex = 0;
         	// 
         	// tabPageUsersInfo
@@ -132,7 +138,7 @@
         	this.tabPageUsersInfo.Location = new System.Drawing.Point(4, 26);
         	this.tabPageUsersInfo.Name = "tabPageUsersInfo";
         	this.tabPageUsersInfo.Padding = new System.Windows.Forms.Padding(3);
-        	this.tabPageUsersInfo.Size = new System.Drawing.Size(866, 573);
+        	this.tabPageUsersInfo.Size = new System.Drawing.Size(907, 573);
         	this.tabPageUsersInfo.TabIndex = 0;
         	this.tabPageUsersInfo.Text = "帐号管理";
         	this.tabPageUsersInfo.UseVisualStyleBackColor = true;
@@ -142,7 +148,7 @@
         	this.flowLayoutPanel1.Controls.Add(this.textBoxInstruction);
         	this.flowLayoutPanel1.Controls.Add(this.groupBox1);
         	this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
-        	this.flowLayoutPanel1.Location = new System.Drawing.Point(546, 3);
+        	this.flowLayoutPanel1.Location = new System.Drawing.Point(587, 3);
         	this.flowLayoutPanel1.Name = "flowLayoutPanel1";
         	this.flowLayoutPanel1.Size = new System.Drawing.Size(317, 567);
         	this.flowLayoutPanel1.TabIndex = 1;
@@ -276,7 +282,7 @@
         	this.dataGridViewUserInfo.Location = new System.Drawing.Point(3, 3);
         	this.dataGridViewUserInfo.Name = "dataGridViewUserInfo";
         	this.dataGridViewUserInfo.RowTemplate.Height = 23;
-        	this.dataGridViewUserInfo.Size = new System.Drawing.Size(860, 567);
+        	this.dataGridViewUserInfo.Size = new System.Drawing.Size(901, 567);
         	this.dataGridViewUserInfo.TabIndex = 0;
         	// 
         	// entryDataGridViewTextBoxColumn
@@ -327,7 +333,7 @@
         	this.tabPageMonitor.Location = new System.Drawing.Point(4, 26);
         	this.tabPageMonitor.Name = "tabPageMonitor";
         	this.tabPageMonitor.Padding = new System.Windows.Forms.Padding(3);
-        	this.tabPageMonitor.Size = new System.Drawing.Size(866, 573);
+        	this.tabPageMonitor.Size = new System.Drawing.Size(907, 573);
         	this.tabPageMonitor.TabIndex = 1;
         	this.tabPageMonitor.Text = "兵力情况";
         	this.tabPageMonitor.UseVisualStyleBackColor = true;
@@ -348,7 +354,7 @@
         	this.listViewTroopsInfo.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
         	this.listViewTroopsInfo.Location = new System.Drawing.Point(3, 3);
         	this.listViewTroopsInfo.Name = "listViewTroopsInfo";
-        	this.listViewTroopsInfo.Size = new System.Drawing.Size(560, 567);
+        	this.listViewTroopsInfo.Size = new System.Drawing.Size(563, 567);
         	this.listViewTroopsInfo.TabIndex = 1;
         	this.listViewTroopsInfo.UseCompatibleStateImageBehavior = false;
         	this.listViewTroopsInfo.View = System.Windows.Forms.View.Details;
@@ -387,10 +393,11 @@
         	this.flowLayoutPanel2.Controls.Add(this.textBoxLog4Monitor);
         	this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel3);
         	this.flowLayoutPanel2.Controls.Add(this.groupBox4);
+        	this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel5);
         	this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-        	this.flowLayoutPanel2.Location = new System.Drawing.Point(563, 3);
+        	this.flowLayoutPanel2.Location = new System.Drawing.Point(566, 3);
         	this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-        	this.flowLayoutPanel2.Size = new System.Drawing.Size(300, 567);
+        	this.flowLayoutPanel2.Size = new System.Drawing.Size(338, 567);
         	this.flowLayoutPanel2.TabIndex = 2;
         	// 
         	// textBoxLog4Monitor
@@ -399,7 +406,8 @@
         	this.textBoxLog4Monitor.Multiline = true;
         	this.textBoxLog4Monitor.Name = "textBoxLog4Monitor";
         	this.textBoxLog4Monitor.ReadOnly = true;
-        	this.textBoxLog4Monitor.Size = new System.Drawing.Size(297, 231);
+        	this.textBoxLog4Monitor.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+        	this.textBoxLog4Monitor.Size = new System.Drawing.Size(330, 231);
         	this.textBoxLog4Monitor.TabIndex = 0;
         	// 
         	// flowLayoutPanel3
@@ -408,7 +416,7 @@
         	this.flowLayoutPanel3.Controls.Add(this.groupBox2);
         	this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 240);
         	this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-        	this.flowLayoutPanel3.Size = new System.Drawing.Size(292, 192);
+        	this.flowLayoutPanel3.Size = new System.Drawing.Size(330, 145);
         	this.flowLayoutPanel3.TabIndex = 1;
         	// 
         	// groupBox3
@@ -416,7 +424,7 @@
         	this.groupBox3.Controls.Add(this.dateTimePickerReachTime);
         	this.groupBox3.Location = new System.Drawing.Point(3, 3);
         	this.groupBox3.Name = "groupBox3";
-        	this.groupBox3.Size = new System.Drawing.Size(283, 59);
+        	this.groupBox3.Size = new System.Drawing.Size(327, 59);
         	this.groupBox3.TabIndex = 5;
         	this.groupBox3.TabStop = false;
         	this.groupBox3.Text = "选择部队到达时刻";
@@ -441,7 +449,7 @@
         	this.groupBox2.Controls.Add(this.label4);
         	this.groupBox2.Location = new System.Drawing.Point(3, 68);
         	this.groupBox2.Name = "groupBox2";
-        	this.groupBox2.Size = new System.Drawing.Size(289, 111);
+        	this.groupBox2.Size = new System.Drawing.Size(327, 71);
         	this.groupBox2.TabIndex = 0;
         	this.groupBox2.TabStop = false;
         	this.groupBox2.Text = "增援目标";
@@ -449,9 +457,9 @@
         	// buttonDelTg
         	// 
         	this.buttonDelTg.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        	this.buttonDelTg.Location = new System.Drawing.Point(134, 73);
+        	this.buttonDelTg.Location = new System.Drawing.Point(266, 27);
         	this.buttonDelTg.Name = "buttonDelTg";
-        	this.buttonDelTg.Size = new System.Drawing.Size(49, 26);
+        	this.buttonDelTg.Size = new System.Drawing.Size(54, 26);
         	this.buttonDelTg.TabIndex = 3;
         	this.buttonDelTg.Text = "删除";
         	this.buttonDelTg.UseVisualStyleBackColor = true;
@@ -460,7 +468,7 @@
         	// buttonAddTg
         	// 
         	this.buttonAddTg.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        	this.buttonAddTg.Location = new System.Drawing.Point(134, 29);
+        	this.buttonAddTg.Location = new System.Drawing.Point(121, 28);
         	this.buttonAddTg.Name = "buttonAddTg";
         	this.buttonAddTg.Size = new System.Drawing.Size(49, 26);
         	this.buttonAddTg.TabIndex = 3;
@@ -472,14 +480,14 @@
         	// 
         	this.comboBoxAllTgs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
         	this.comboBoxAllTgs.FormattingEnabled = true;
-        	this.comboBoxAllTgs.Location = new System.Drawing.Point(14, 74);
+        	this.comboBoxAllTgs.Location = new System.Drawing.Point(182, 28);
         	this.comboBoxAllTgs.Name = "comboBoxAllTgs";
-        	this.comboBoxAllTgs.Size = new System.Drawing.Size(105, 25);
+        	this.comboBoxAllTgs.Size = new System.Drawing.Size(81, 25);
         	this.comboBoxAllTgs.TabIndex = 2;
         	// 
         	// textBoxTgY
         	// 
-        	this.textBoxTgY.Location = new System.Drawing.Point(75, 29);
+        	this.textBoxTgY.Location = new System.Drawing.Point(73, 29);
         	this.textBoxTgY.Name = "textBoxTgY";
         	this.textBoxTgY.Size = new System.Drawing.Size(44, 23);
         	this.textBoxTgY.TabIndex = 1;
@@ -494,7 +502,7 @@
         	// label4
         	// 
         	this.label4.AutoSize = true;
-        	this.label4.Location = new System.Drawing.Point(60, 31);
+        	this.label4.Location = new System.Drawing.Point(61, 32);
         	this.label4.Name = "label4";
         	this.label4.Size = new System.Drawing.Size(11, 17);
         	this.label4.TabIndex = 0;
@@ -507,9 +515,9 @@
         	this.groupBox4.Controls.Add(this.btnAddToTroopsArray);
         	this.groupBox4.Controls.Add(this.btnCalStartTime);
         	this.groupBox4.Controls.Add(this.btnRefreshVillages);
-        	this.groupBox4.Location = new System.Drawing.Point(3, 438);
+        	this.groupBox4.Location = new System.Drawing.Point(3, 391);
         	this.groupBox4.Name = "groupBox4";
-        	this.groupBox4.Size = new System.Drawing.Size(292, 123);
+        	this.groupBox4.Size = new System.Drawing.Size(330, 132);
         	this.groupBox4.TabIndex = 2;
         	this.groupBox4.TabStop = false;
         	this.groupBox4.Text = "功能";
@@ -517,9 +525,9 @@
         	// btnClearLog4Monitor
         	// 
         	this.btnClearLog4Monitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.btnClearLog4Monitor.Location = new System.Drawing.Point(108, 76);
+        	this.btnClearLog4Monitor.Location = new System.Drawing.Point(119, 84);
         	this.btnClearLog4Monitor.Name = "btnClearLog4Monitor";
-        	this.btnClearLog4Monitor.Size = new System.Drawing.Size(79, 42);
+        	this.btnClearLog4Monitor.Size = new System.Drawing.Size(91, 40);
         	this.btnClearLog4Monitor.TabIndex = 3;
         	this.btnClearLog4Monitor.Text = "清空日志";
         	this.btnClearLog4Monitor.UseVisualStyleBackColor = true;
@@ -527,9 +535,9 @@
         	// btnStatistics
         	// 
         	this.btnStatistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.btnStatistics.Location = new System.Drawing.Point(14, 76);
+        	this.btnStatistics.Location = new System.Drawing.Point(14, 84);
         	this.btnStatistics.Name = "btnStatistics";
-        	this.btnStatistics.Size = new System.Drawing.Size(79, 42);
+        	this.btnStatistics.Size = new System.Drawing.Size(91, 40);
         	this.btnStatistics.TabIndex = 3;
         	this.btnStatistics.Text = "统计兵力";
         	this.btnStatistics.UseVisualStyleBackColor = true;
@@ -537,9 +545,9 @@
         	// btnAddToTroopsArray
         	// 
         	this.btnAddToTroopsArray.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.btnAddToTroopsArray.Location = new System.Drawing.Point(202, 28);
+        	this.btnAddToTroopsArray.Location = new System.Drawing.Point(224, 32);
         	this.btnAddToTroopsArray.Name = "btnAddToTroopsArray";
-        	this.btnAddToTroopsArray.Size = new System.Drawing.Size(79, 42);
+        	this.btnAddToTroopsArray.Size = new System.Drawing.Size(91, 40);
         	this.btnAddToTroopsArray.TabIndex = 3;
         	this.btnAddToTroopsArray.Text = "加入出兵队列";
         	this.btnAddToTroopsArray.UseVisualStyleBackColor = true;
@@ -547,9 +555,9 @@
         	// btnCalStartTime
         	// 
         	this.btnCalStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.btnCalStartTime.Location = new System.Drawing.Point(108, 28);
+        	this.btnCalStartTime.Location = new System.Drawing.Point(119, 32);
         	this.btnCalStartTime.Name = "btnCalStartTime";
-        	this.btnCalStartTime.Size = new System.Drawing.Size(79, 42);
+        	this.btnCalStartTime.Size = new System.Drawing.Size(91, 40);
         	this.btnCalStartTime.TabIndex = 3;
         	this.btnCalStartTime.Text = "计算出兵时刻";
         	this.btnCalStartTime.UseVisualStyleBackColor = true;
@@ -557,13 +565,60 @@
         	// btnRefreshVillages
         	// 
         	this.btnRefreshVillages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.btnRefreshVillages.Location = new System.Drawing.Point(14, 28);
+        	this.btnRefreshVillages.Location = new System.Drawing.Point(14, 32);
         	this.btnRefreshVillages.Name = "btnRefreshVillages";
-        	this.btnRefreshVillages.Size = new System.Drawing.Size(79, 42);
+        	this.btnRefreshVillages.Size = new System.Drawing.Size(91, 40);
         	this.btnRefreshVillages.TabIndex = 3;
         	this.btnRefreshVillages.Text = "刷新所有村庄";
         	this.btnRefreshVillages.UseVisualStyleBackColor = true;
         	this.btnRefreshVillages.Click += new System.EventHandler(this.BtnRefreshVillagesClick);
+        	// 
+        	// flowLayoutPanel5
+        	// 
+        	this.flowLayoutPanel5.Controls.Add(this.statusStrip1);
+        	this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 529);
+        	this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+        	this.flowLayoutPanel5.Size = new System.Drawing.Size(330, 35);
+        	this.flowLayoutPanel5.TabIndex = 3;
+        	// 
+        	// statusStrip1
+        	// 
+        	this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.TaskStatusLabel,
+        	        	        	this.ThreadStatusLabel});
+        	this.statusStrip1.Location = new System.Drawing.Point(0, 0);
+        	this.statusStrip1.Name = "statusStrip1";
+        	this.statusStrip1.Size = new System.Drawing.Size(360, 35);
+        	this.statusStrip1.SizingGrip = false;
+        	this.statusStrip1.TabIndex = 0;
+        	this.statusStrip1.Text = "statusStrip1";
+        	// 
+        	// TaskStatusLabel
+        	// 
+        	this.TaskStatusLabel.AutoSize = false;
+        	this.TaskStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+        	this.TaskStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+        	this.TaskStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+        	this.TaskStatusLabel.Name = "TaskStatusLabel";
+        	this.TaskStatusLabel.Size = new System.Drawing.Size(210, 30);
+        	this.TaskStatusLabel.Text = "状态：";
+        	this.TaskStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        	// 
+        	// ThreadStatusLabel
+        	// 
+        	this.ThreadStatusLabel.AutoSize = false;
+        	this.ThreadStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+        	this.ThreadStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+        	this.ThreadStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+        	this.ThreadStatusLabel.Name = "ThreadStatusLabel";
+        	this.ThreadStatusLabel.Size = new System.Drawing.Size(104, 30);
+        	this.ThreadStatusLabel.Spring = true;
+        	this.ThreadStatusLabel.Text = "线程：";
+        	this.ThreadStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
         	// 
         	// tabPageTroopSending
         	// 
@@ -572,7 +627,7 @@
         	this.tabPageTroopSending.Location = new System.Drawing.Point(4, 26);
         	this.tabPageTroopSending.Name = "tabPageTroopSending";
         	this.tabPageTroopSending.Padding = new System.Windows.Forms.Padding(3);
-        	this.tabPageTroopSending.Size = new System.Drawing.Size(866, 573);
+        	this.tabPageTroopSending.Size = new System.Drawing.Size(907, 573);
         	this.tabPageTroopSending.TabIndex = 2;
         	this.tabPageTroopSending.Text = "发兵插防";
         	this.tabPageTroopSending.UseVisualStyleBackColor = true;
@@ -586,7 +641,7 @@
         	this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
         	this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 406);
         	this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-        	this.flowLayoutPanel4.Size = new System.Drawing.Size(860, 164);
+        	this.flowLayoutPanel4.Size = new System.Drawing.Size(901, 164);
         	this.flowLayoutPanel4.TabIndex = 1;
         	// 
         	// btnStartSendTroops
@@ -623,6 +678,7 @@
         	this.textBoxLog4TroopSending.Multiline = true;
         	this.textBoxLog4TroopSending.Name = "textBoxLog4TroopSending";
         	this.textBoxLog4TroopSending.ReadOnly = true;
+        	this.textBoxLog4TroopSending.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
         	this.textBoxLog4TroopSending.Size = new System.Drawing.Size(854, 106);
         	this.textBoxLog4TroopSending.TabIndex = 1;
         	// 
@@ -645,7 +701,7 @@
         	this.listViewTroopSending.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
         	this.listViewTroopSending.Location = new System.Drawing.Point(3, 3);
         	this.listViewTroopSending.Name = "listViewTroopSending";
-        	this.listViewTroopSending.Size = new System.Drawing.Size(860, 567);
+        	this.listViewTroopSending.Size = new System.Drawing.Size(901, 567);
         	this.listViewTroopSending.TabIndex = 0;
         	this.listViewTroopSending.UseCompatibleStateImageBehavior = false;
         	this.listViewTroopSending.View = System.Windows.Forms.View.Details;
@@ -700,7 +756,7 @@
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        	this.ClientSize = new System.Drawing.Size(874, 603);
+        	this.ClientSize = new System.Drawing.Size(915, 603);
         	this.Controls.Add(this.tabControlMainForm);
         	this.Name = "FormTrMonitor";
         	this.Text = "Travian插秒工具";
@@ -725,11 +781,19 @@
         	this.groupBox2.ResumeLayout(false);
         	this.groupBox2.PerformLayout();
         	this.groupBox4.ResumeLayout(false);
+        	this.flowLayoutPanel5.ResumeLayout(false);
+        	this.flowLayoutPanel5.PerformLayout();
+        	this.statusStrip1.ResumeLayout(false);
+        	this.statusStrip1.PerformLayout();
         	this.tabPageTroopSending.ResumeLayout(false);
         	this.flowLayoutPanel4.ResumeLayout(false);
         	this.flowLayoutPanel4.PerformLayout();
         	this.ResumeLayout(false);
         }
+        private System.Windows.Forms.ToolStripStatusLabel ThreadStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel TaskStatusLabel;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
 
         #endregion
 

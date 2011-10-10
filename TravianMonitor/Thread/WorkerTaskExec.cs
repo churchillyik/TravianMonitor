@@ -48,6 +48,7 @@ namespace TravianMonitor
 				
 				if (bTaskFinished)
 				{
+					TravianAccessor.TrAcsr.UIUpdate(UIUpdateTypes.VillageList);
 					curTask = null;
 					TravianAccessor.TrAcsr.bIsTaskSet = false;
 				}

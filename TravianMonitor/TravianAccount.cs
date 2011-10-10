@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace TravianMonitor
 {
@@ -19,6 +20,25 @@ namespace TravianMonitor
 		public string strName;
 		public int nSquareLvl;
 		public int[] Troops = new int[11];
+		public string TroopString
+		{
+			get
+			{
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0; i < Troops.Length; i++)
+    			{
+					if (i + 1 == Troops.Length)
+					{
+						sb.Append(Troops[i]);
+					}
+					else
+					{
+						sb.Append(Troops[i] + ", ");
+					}
+    			}
+				return sb.ToString();
+			}
+		}
 	}
 	
 	/// <summary>

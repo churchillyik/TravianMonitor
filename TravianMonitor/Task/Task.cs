@@ -62,7 +62,7 @@ namespace TravianMonitor
 	/// </summary>
 	public class Task
 	{
-		protected LogTypes logType = LogTypes.TroopsMonitor;
+		protected UIUpdateTypes uiType = UIUpdateTypes.TroopsMonitorLog;
 		protected List<QueryPhase> lstPhase = null;
 		
 		public Task()
@@ -299,7 +299,7 @@ namespace TravianMonitor
 		
 		protected void DebugLog(string log)
 		{
-			TravianAccessor.TrAcsr.DebugLog(log, logType);
+			TravianAccessor.TrAcsr.DebugLog(log, uiType);
 		}
 		
 		private int UnixTime(DateTime time)

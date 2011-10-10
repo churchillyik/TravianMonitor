@@ -37,10 +37,11 @@ namespace TravianMonitor
         	DisplayTgs(lsTgs);
         }
         
-        private delegate void dlgWriteLog(string log, LogTypes type);
+        private delegate void dlgWriteLog(string log, UIUpdateTypes type);
+        private delegate void dlgUIUpdate(UIUpdateTypes type);
         private void InitCallBack()
         {
-        	UpCall.OnLog += new EventHandler<LogArgs>(CallBack_WriteLog);
+        	UpCall.OnUIUpdate += new EventHandler<UIUpdateArgs>(CallBack_UIUpdate);
         }
 
         private void FormTrMonitor_Load(object sender, EventArgs e)
@@ -116,27 +117,68 @@ namespace TravianMonitor
         	DisplayTgs(lstTgs);
         }
         
-        void CallBack_WriteLog(object sender, LogArgs e)
+        void CallBack_UIUpdate(object sender, UIUpdateArgs e)
         {
             try
             {
-                Invoke(new dlgWriteLog(WriteLog), new object[] { e.strLog, e.type });
+            	if (e is LogArgs)
+            	{
+            		LogArgs e_log = e as LogArgs;
+                	Invoke(new dlgWriteLog(WriteLog), new object[] { e_log.strLog, e_log.uiType });
+            	}
+            	else
+            	{
+            		Invoke(new dlgUIUpdate(UIUpdate), new object[] { e.uiType });
+            	}
             }
             catch (Exception)
             { }
         }
         
-        private void WriteLog(string log, LogTypes type)
+        private void WriteLog(string log, UIUpdateTypes type)
         {
         	switch (type)
         	{
-        		case LogTypes.TroopsMonitor:
+        		case UIUpdateTypes.TroopsMonitorLog:
         			this.textBoxLog4Monitor.AppendText(log + "\r\n");
         			break;
         			
-        		case LogTypes.TroopsSending:
+        		case UIUpdateTypes.TroopsSendingLog:
         			this.textBoxLog4TroopSending.AppendText(log + "\r\n");
         			break;
+        	}
+        }
+        
+        private void UIUpdate(UIUpdateTypes type)
+        {
+        	switch (type)
+        	{
+        		case UIUpdateTypes.VillageList:
+        			DisplayVillagesDetail();
+        			break;
+        	}
+        }
+        
+        static string[] strTribeName = {"罗马", "条顿", "高卢"};
+        private void DisplayVillagesDetail()
+        {
+        	if (UpCall.lstAccounts == null)
+        		return;
+        	
+        	foreach (TravianAccount trAccount in UpCall.lstAccounts)
+        	{
+        		if (trAccount.lstVillages == null)
+        			continue;
+        		
+        		foreach (TravianVillage trVillage in trAccount.lstVillages)
+        		{
+        			ListViewItem lvi = listViewTroopsInfo.Items.Add("[" + strTribeName[trAccount.nTribe] + "]" + trAccount.strName);
+        			lvi.SubItems.Add(trVillage.strName + "(" + trVillage.nID.ToString() + ")");
+        			lvi.SubItems.Add(trVillage.nPosX + "|" + trVillage.nPosY);
+        			lvi.SubItems.Add(trVillage.TroopString);
+        			lvi.SubItems.Add("0000-00-00 00:00:00");
+        			lvi.SubItems.Add(trVillage.nSquareLvl.ToString());
+        		}
         	}
         }
         
