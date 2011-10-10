@@ -18,7 +18,7 @@ namespace TravianMonitor
 
         public TravianAccessor()
         {
-            
+        	TravianData.InitTRData();
         }
     }
 }

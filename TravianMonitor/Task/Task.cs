@@ -62,7 +62,9 @@ namespace TravianMonitor
 	/// </summary>
 	public class Task
 	{
-		protected UIUpdateTypes uiType = UIUpdateTypes.TroopsMonitorLog;
+		public bool bIsForAccounts = true;
+		public UIUpdateTypes uiType = UIUpdateTypes.None;
+		protected UIUpdateTypes logType = UIUpdateTypes.None;
 		protected List<QueryPhase> lstPhase = null;
 		
 		public Task()
@@ -73,7 +75,7 @@ namespace TravianMonitor
 		{
 			if (curAccount == null)
 			{
-				ParseResult(curAccount);
+				DirectExec();
 				return true;
 			}
 			
@@ -299,7 +301,12 @@ namespace TravianMonitor
 		
 		protected void DebugLog(string log)
 		{
-			TravianAccessor.TrAcsr.DebugLog(log, uiType);
+			TravianAccessor.TrAcsr.DebugLog(log, logType);
+		}
+		
+		protected virtual void DirectExec()
+		{
+			
 		}
 		
 		private int UnixTime(DateTime time)

@@ -37,6 +37,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Task\TaskCalStartTime.cs" />
+    <Compile Include="Task\TaskStatistics.cs" />
+    <Compile Include="TravianData.cs" />
     <Compile Include="UIUpdateHandler.cs" />
     <Compile Include="FormTrMonitor.cs">
       <SubType>Form</SubType>

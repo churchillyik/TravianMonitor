@@ -34,21 +34,32 @@ namespace TravianMonitor
 			{
 				Thread.Sleep(1);
 				
+				if (TravianAccessor.TrAcsr == null)
+				{
+					continue;
+				}
 				if (!TravianAccessor.TrAcsr.bIsTaskSet)
 				{
 					continue;
 				}
 				
 				bool bTaskFinished = true;
-				foreach (TravianAccount account in TravianAccessor.TrAcsr.lstAccounts)
+				if (curTask.bIsForAccounts)
 				{
-					bool bFinished = curTask.TakeActionAsk(account);
-					bTaskFinished &= bFinished;
+					foreach (TravianAccount account in TravianAccessor.TrAcsr.lstAccounts)
+					{
+						bool bFinished = curTask.TakeActionAsk(account);
+						bTaskFinished &= bFinished;
+					}
+				}
+				else
+				{
+					bTaskFinished = curTask.TakeActionAsk(null);
 				}
 				
 				if (bTaskFinished)
 				{
-					TravianAccessor.TrAcsr.UIUpdate(UIUpdateTypes.VillageList);
+					TravianAccessor.TrAcsr.UIUpdate(curTask.uiType);
 					curTask = null;
 					TravianAccessor.TrAcsr.bIsTaskSet = false;
 				}

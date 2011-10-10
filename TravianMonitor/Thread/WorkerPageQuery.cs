@@ -17,7 +17,7 @@ namespace TravianMonitor
 	/// </summary>
 	public class WorkerPageQuery
 	{
-		private int nGuid;
+		public int nGuid;
 		private Thread thrdWorker;
 		
 		public string strURL;

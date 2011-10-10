@@ -14,29 +14,53 @@ namespace TravianMonitor
 {
 	public class TravianVillage
 	{
+		public TravianAccount UpCall;
 		public int nID;
 		public int nPosX;
 		public int nPosY;
 		public string strName;
 		public int nSquareLvl;
 		public int[] Troops = new int[11];
+		public DateTime dtStartTime = DateTime.MinValue;
+		
 		public string TroopString
 		{
 			get
 			{
 				StringBuilder sb = new StringBuilder();
-				for (int i = 0; i < Troops.Length; i++)
-    			{
-					if (i + 1 == Troops.Length)
+				int nTribe = UpCall.nTribe;
+				List<TroopData> lstTd = TravianData.dicDefenseTroop[nTribe];
+				for (int i = 0; i < lstTd.Count; i++)
+				{
+					TroopData td = lstTd[i];
+					if (i == lstTd.Count - 1)
 					{
-						sb.Append(Troops[i]);
+						sb.Append(td.strName + " " + Troops[td.nSeq]);
 					}
 					else
 					{
-						sb.Append(Troops[i] + ", ");
+						sb.Append(td.strName + " " + Troops[td.nSeq] + "，");
 					}
-    			}
+				}
 				return sb.ToString();
+			}
+		}
+		
+		public int nMinTroopSpeed
+		{
+			get
+			{
+				int nTribe = UpCall.nTribe;
+				List<TroopData> lstTd = TravianData.dicDefenseTroop[nTribe];
+				int min_speed = 100;
+				foreach (TroopData td in lstTd)
+				{
+					if (Troops[td.nSeq] != 0 && td.nSpeed < min_speed)
+					{
+						min_speed = td.nSpeed;
+					}
+				}
+				return min_speed;
 			}
 		}
 	}

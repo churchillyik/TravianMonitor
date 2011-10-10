@@ -434,7 +434,7 @@
         	this.dateTimePickerReachTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
         	this.dateTimePickerReachTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
         	this.dateTimePickerReachTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-        	this.dateTimePickerReachTime.Location = new System.Drawing.Point(15, 27);
+        	this.dateTimePickerReachTime.Location = new System.Drawing.Point(13, 27);
         	this.dateTimePickerReachTime.Name = "dateTimePickerReachTime";
         	this.dateTimePickerReachTime.Size = new System.Drawing.Size(168, 21);
         	this.dateTimePickerReachTime.TabIndex = 4;
@@ -457,9 +457,9 @@
         	// buttonDelTg
         	// 
         	this.buttonDelTg.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        	this.buttonDelTg.Location = new System.Drawing.Point(266, 27);
+        	this.buttonDelTg.Location = new System.Drawing.Point(269, 27);
         	this.buttonDelTg.Name = "buttonDelTg";
-        	this.buttonDelTg.Size = new System.Drawing.Size(54, 26);
+        	this.buttonDelTg.Size = new System.Drawing.Size(51, 26);
         	this.buttonDelTg.TabIndex = 3;
         	this.buttonDelTg.Text = "删除";
         	this.buttonDelTg.UseVisualStyleBackColor = true;
@@ -468,7 +468,7 @@
         	// buttonAddTg
         	// 
         	this.buttonAddTg.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        	this.buttonAddTg.Location = new System.Drawing.Point(121, 28);
+        	this.buttonAddTg.Location = new System.Drawing.Point(119, 28);
         	this.buttonAddTg.Name = "buttonAddTg";
         	this.buttonAddTg.Size = new System.Drawing.Size(49, 26);
         	this.buttonAddTg.TabIndex = 3;
@@ -479,22 +479,23 @@
         	// comboBoxAllTgs
         	// 
         	this.comboBoxAllTgs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+        	this.comboBoxAllTgs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
         	this.comboBoxAllTgs.FormattingEnabled = true;
-        	this.comboBoxAllTgs.Location = new System.Drawing.Point(182, 28);
+        	this.comboBoxAllTgs.Location = new System.Drawing.Point(174, 28);
         	this.comboBoxAllTgs.Name = "comboBoxAllTgs";
-        	this.comboBoxAllTgs.Size = new System.Drawing.Size(81, 25);
+        	this.comboBoxAllTgs.Size = new System.Drawing.Size(89, 25);
         	this.comboBoxAllTgs.TabIndex = 2;
         	// 
         	// textBoxTgY
         	// 
-        	this.textBoxTgY.Location = new System.Drawing.Point(73, 29);
+        	this.textBoxTgY.Location = new System.Drawing.Point(71, 29);
         	this.textBoxTgY.Name = "textBoxTgY";
         	this.textBoxTgY.Size = new System.Drawing.Size(44, 23);
         	this.textBoxTgY.TabIndex = 1;
         	// 
         	// textBoxTgX
         	// 
-        	this.textBoxTgX.Location = new System.Drawing.Point(15, 29);
+        	this.textBoxTgX.Location = new System.Drawing.Point(13, 29);
         	this.textBoxTgX.Name = "textBoxTgX";
         	this.textBoxTgX.Size = new System.Drawing.Size(44, 23);
         	this.textBoxTgX.TabIndex = 1;
@@ -502,7 +503,7 @@
         	// label4
         	// 
         	this.label4.AutoSize = true;
-        	this.label4.Location = new System.Drawing.Point(61, 32);
+        	this.label4.Location = new System.Drawing.Point(59, 32);
         	this.label4.Name = "label4";
         	this.label4.Size = new System.Drawing.Size(11, 17);
         	this.label4.TabIndex = 0;
@@ -531,6 +532,7 @@
         	this.btnClearLog4Monitor.TabIndex = 3;
         	this.btnClearLog4Monitor.Text = "清空日志";
         	this.btnClearLog4Monitor.UseVisualStyleBackColor = true;
+        	this.btnClearLog4Monitor.Click += new System.EventHandler(this.BtnClearLog4MonitorClick);
         	// 
         	// btnStatistics
         	// 
@@ -541,6 +543,7 @@
         	this.btnStatistics.TabIndex = 3;
         	this.btnStatistics.Text = "统计兵力";
         	this.btnStatistics.UseVisualStyleBackColor = true;
+        	this.btnStatistics.Click += new System.EventHandler(this.BtnStatisticsClick);
         	// 
         	// btnAddToTroopsArray
         	// 
@@ -551,6 +554,7 @@
         	this.btnAddToTroopsArray.TabIndex = 3;
         	this.btnAddToTroopsArray.Text = "加入出兵队列";
         	this.btnAddToTroopsArray.UseVisualStyleBackColor = true;
+        	this.btnAddToTroopsArray.Click += new System.EventHandler(this.BtnAddToTroopsArrayClick);
         	// 
         	// btnCalStartTime
         	// 
@@ -561,6 +565,7 @@
         	this.btnCalStartTime.TabIndex = 3;
         	this.btnCalStartTime.Text = "计算出兵时刻";
         	this.btnCalStartTime.UseVisualStyleBackColor = true;
+        	this.btnCalStartTime.Click += new System.EventHandler(this.BtnCalStartTimeClick);
         	// 
         	// btnRefreshVillages
         	// 
@@ -615,7 +620,7 @@
         	this.ThreadStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         	this.ThreadStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
         	this.ThreadStatusLabel.Name = "ThreadStatusLabel";
-        	this.ThreadStatusLabel.Size = new System.Drawing.Size(104, 30);
+        	this.ThreadStatusLabel.Size = new System.Drawing.Size(135, 30);
         	this.ThreadStatusLabel.Spring = true;
         	this.ThreadStatusLabel.Text = "线程：";
         	this.ThreadStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

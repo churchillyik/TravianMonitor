@@ -24,6 +24,9 @@ namespace TravianMonitor
 			lstPhase.Add(new QueryPhase(false, "a2b.php"));
 			lstPhase.Add(new QueryPhase(true, "build.php?gid=14"));
 			lstPhase.Add(new QueryPhase(true, "build.php?gid=16"));
+			
+			uiType = UIUpdateTypes.VillageList;
+			logType = UIUpdateTypes.TroopsMonitorLog;
 		}
 				
 		protected override void ParseResult(TravianAccount trAccount)
@@ -64,6 +67,7 @@ namespace TravianMonitor
                 string v_name = m.Groups[4].Value;
                 
                 TravianVillage trVillage = new TravianVillage();
+                trVillage.UpCall = trAccount;
                 trVillage.nID = vid;
                 trVillage.nPosX = Convert.ToInt32(pos_x);
                 trVillage.nPosY = Convert.ToInt32(pos_y);

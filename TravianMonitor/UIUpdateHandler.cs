@@ -12,6 +12,7 @@ namespace TravianMonitor
 {
 	public enum UIUpdateTypes
 	{
+		None,
 		TroopsMonitorLog,
 		TroopsSendingLog,
 		VillageList,

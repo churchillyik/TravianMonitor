@@ -159,12 +159,12 @@ namespace TravianMonitor
         	}
         }
         
-        static string[] strTribeName = {"罗马", "条顿", "高卢"};
         private void DisplayVillagesDetail()
         {
         	if (UpCall.lstAccounts == null)
         		return;
         	
+        	listViewTroopsInfo.Items.Clear();
         	foreach (TravianAccount trAccount in UpCall.lstAccounts)
         	{
         		if (trAccount.lstVillages == null)
@@ -172,11 +172,19 @@ namespace TravianMonitor
         		
         		foreach (TravianVillage trVillage in trAccount.lstVillages)
         		{
-        			ListViewItem lvi = listViewTroopsInfo.Items.Add("[" + strTribeName[trAccount.nTribe] + "]" + trAccount.strName);
+        			ListViewItem lvi = listViewTroopsInfo.Items.Add("[" + TravianData.strTribeName[trAccount.nTribe - 1] + "]" + trAccount.strName);
         			lvi.SubItems.Add(trVillage.strName + "(" + trVillage.nID.ToString() + ")");
         			lvi.SubItems.Add(trVillage.nPosX + "|" + trVillage.nPosY);
         			lvi.SubItems.Add(trVillage.TroopString);
-        			lvi.SubItems.Add("0000-00-00 00:00:00");
+        			string strArrTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
+        			                                  trVillage.dtStartTime.Year,
+        			                                  trVillage.dtStartTime.Month,
+        			                                  trVillage.dtStartTime.Day,
+        			                                  trVillage.dtStartTime.Hour,
+        			                                  trVillage.dtStartTime.Minute,
+        			                                  trVillage.dtStartTime.Second,
+        			                                  trVillage.dtStartTime.Millisecond);
+        			lvi.SubItems.Add(strArrTime);
         			lvi.SubItems.Add(trVillage.nSquareLvl.ToString());
         		}
         	}
@@ -196,6 +204,41 @@ namespace TravianMonitor
         	
         	UpCall.wk_mgr.WkrTaskExec.curTask = new TaskRefreshVillages();
         	UpCall.bIsTaskSet = true;
+        }
+        
+        void BtnCalStartTimeClick(object sender, EventArgs e)
+        {
+        	if (UpCall.bIsTaskSet)
+        		return;
+        	
+        	List<Target> lstTg = UpCall.rTgs.lstTgs;
+        	int nSel = this.comboBoxAllTgs.SelectedIndex;
+        	UpCall.wk_mgr.WkrTaskExec.curTask = new TaskCalStartTime(
+        		dateTimePickerReachTime.Value,
+        		lstTg[nSel].nCoordX,
+        		lstTg[nSel].nCoordY);
+        	
+        	UpCall.bIsTaskSet = true;
+        }
+        
+        void BtnStatisticsClick(object sender, EventArgs e)
+        {
+        	if (UpCall.bIsTaskSet)
+        		return;
+        	
+        	UpCall.wk_mgr.WkrTaskExec.curTask = new TaskStatistics();
+        	
+        	UpCall.bIsTaskSet = true;
+        }
+        
+        void BtnClearLog4MonitorClick(object sender, EventArgs e)
+        {
+        	this.textBoxLog4Monitor.Text = "";
+        }
+        
+        void BtnAddToTroopsArrayClick(object sender, EventArgs e)
+        {
+        	
         }
     }
 }

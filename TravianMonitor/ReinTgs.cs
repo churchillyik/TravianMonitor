@@ -43,7 +43,7 @@ namespace TravianMonitor
 	/// </summary>
 	public class ReinTgs
 	{
-		private List<Target> lstTgs;
+		public List<Target> lstTgs;
 		public ReinTgs()
 		{
 			lstTgs = new List<Target>();

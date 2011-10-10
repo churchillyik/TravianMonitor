@@ -14,7 +14,7 @@ namespace TravianMonitor
     	public WorkerMgr(int nWkPageQueryCnt)
     	{
     		WkrTaskExec = new WorkerTaskExec();
-    		for (int i = 0; i < nWorkerPageQueryCnt; i++)
+    		for (int i = 0; i < nWkPageQueryCnt; i++)
     		{
     			WorkerPageQuery wk = new WorkerPageQuery(i + 1);
     			WkrPageQueryPool.Enqueue(wk);
@@ -32,11 +32,13 @@ namespace TravianMonitor
     		{
     			nWorkerPageQueryCnt++;
     			wk = new WorkerPageQuery(nWorkerPageQueryCnt);
+    			TravianAccessor.TrAcsr.DebugLog("新增线程[" + wk.nGuid + "]", UIUpdateTypes.TroopsMonitorLog);
     		}
     		else
     		{
             	wk = WkrPageQueryPool.Dequeue();
     		}
+    		TravianAccessor.TrAcsr.DebugLog("通讯线程[" + wk.nGuid + "]启动。", UIUpdateTypes.TroopsMonitorLog);
             wk.strURL = strURL;
             wk.dicPostData = dicPostData;
             wk.curTask = tsk;
