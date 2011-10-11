@@ -44,7 +44,7 @@ namespace TravianMonitor
 			if (strLastQueryPageURI != null)
 				request.Referer = strLastQueryPageURI;
 			strLastQueryPageURI = Uri;
-			request.Timeout = 30000;
+			//request.Timeout = 30000;
 			request.UserAgent = "Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0";
 			request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 			request.Headers.Add("Accept-Language", "zh-cn,zh;q=0.5");
@@ -56,15 +56,22 @@ namespace TravianMonitor
 		
 		public string HttpQuery(string Uri, Dictionary<string, string> Data)
 		{
-			string BaseAddress = string.Format("http://{0}/", TravianAccessor.TrAcsr.glbCfg.strSvrURL);
-			CreateRequest(BaseAddress + Uri);
-			if(Data == null)
+			try
 			{
-				return HttpGet();
+				string BaseAddress = string.Format("http://{0}/", TravianAccessor.TrAcsr.glbCfg.strSvrURL);
+				CreateRequest(BaseAddress + Uri);
+				if(Data == null)
+				{
+					return HttpGet();
+				}
+				else
+				{
+					return HttpPost(Data);
+				}
 			}
-			else
+			catch (Exception)
 			{
-				return HttpPost(Data);
+				return "";
 			}
 		}
 		

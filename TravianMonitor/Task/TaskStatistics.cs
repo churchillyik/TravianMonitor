@@ -39,7 +39,7 @@ namespace TravianMonitor
 			}
 			foreach (TravianAccount trAccount in TravianAccessor.TrAcsr.lstAccounts)
 			{
-				if (trAccount.lstVillages == null)
+				if (trAccount.lstVillages == null || trAccount.bIsDead)
 					continue;
 				
 				int nTribe = trAccount.nTribe;

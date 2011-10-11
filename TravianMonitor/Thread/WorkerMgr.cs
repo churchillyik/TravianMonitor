@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Threading;
 
 namespace TravianMonitor
 {
@@ -43,7 +44,19 @@ namespace TravianMonitor
             wk.dicPostData = dicPostData;
             wk.curTask = tsk;
             wk.trAccount = trAccount;
-            wk.bIsActive = true;
+            while (true)
+            {
+            	if (wk.thrdState == ThreadState.Suspended)
+            	{
+            		wk.bIsActive = true;
+            		break;
+            	}
+            	else
+            	{
+            		Thread.Sleep(1);
+            		continue;
+            	}
+            }
             wk.ThreadResume();
         }
 

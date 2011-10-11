@@ -170,6 +170,16 @@ namespace TravianMonitor
         		if (trAccount.lstVillages == null)
         			continue;
         		
+        		if (trAccount.bIsDead)
+        		{
+        			this.WriteLog("------------------------------------\r\n"
+        			              + "帐号名/密码：" + trAccount.strName
+        			              + "/" + trAccount.strPassword + "可能有误，请检查。"
+        			              , UIUpdateTypes.TroopsMonitorLog);
+        			
+        			continue;
+        		}
+        		
         		foreach (TravianVillage trVillage in trAccount.lstVillages)
         		{
         			ListViewItem lvi = listViewTroopsInfo.Items.Add("[" + TravianData.strTribeName[trAccount.nTribe - 1] + "]" + trAccount.strName);
@@ -188,6 +198,8 @@ namespace TravianMonitor
         			lvi.SubItems.Add(trVillage.nSquareLvl.ToString());
         		}
         	}
+        	
+        	UpCall.RemoveDeadAccount();
         }
         
         void BtnRefreshVillagesClick(object sender, EventArgs e)

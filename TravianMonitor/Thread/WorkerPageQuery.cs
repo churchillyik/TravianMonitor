@@ -46,11 +46,13 @@ namespace TravianMonitor
 				
 				TravianWebClient trWebClient = trAccount.trWebClient;
 				trAccount.tskStatus.strQueryResult = trWebClient.HttpQuery(strURL, dicPostData);
-				
+				if (trAccount.tskStatus.strQueryResult == "")
+				{
+					trAccount.tskStatus.status = CommunicationStatus.Retry;
+				}
 				curTask.TakeActionRep(trAccount);
 				
 				TravianAccessor.TrAcsr.wk_mgr.StopPageQueryWorker(this);
-				Thread.Sleep(1);
 			}
         }
 		
@@ -63,6 +65,14 @@ namespace TravianMonitor
 		{
 			if (thrdWorker.ThreadState == ThreadState.Suspended)
 				thrdWorker.Resume();
+		}
+		
+		public ThreadState thrdState
+		{
+			get
+			{
+				return thrdWorker.ThreadState;
+			}
 		}
 	}
 }

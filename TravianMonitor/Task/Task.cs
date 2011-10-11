@@ -22,6 +22,8 @@ namespace TravianMonitor
 		LoginReturn1,
 		LoginStart2,
 		LoginReturn2,
+		Retry,
+		Ignored,
 	};
 	
 	public class QueryPhase
@@ -158,6 +160,7 @@ namespace TravianMonitor
 					{
 						DebugLog("无法抓取网页：" + phase.strQueryURL);
 						tskStatus.status = CommunicationStatus.LoginStart1;
+						Login1(curAccount);
 					}
 					
 					break;
@@ -170,11 +173,23 @@ namespace TravianMonitor
 					}
 					else
 					{
-						DebugLog("无法抓取网页：" + phase.strQueryURL);
-						tskStatus.status = CommunicationStatus.LoginStart1;
+						DebugLog("无法抓取网页：" + phase.strQueryURL + " @[" + curAccount.strName + "]");
+						curAccount.nLoginFailtimes++;
+						if (curAccount.nLoginFailtimes >= TravianAccount.nLoginFailLimit)
+						{
+							tskStatus.status = CommunicationStatus.Ignored;
+						}
+						else
+						{
+							tskStatus.status = CommunicationStatus.LoginStart1;
+							Login1(curAccount);
+						}
 					}
 					
 					break;
+					
+				case CommunicationStatus.Ignored:
+					return true;
 			}
 			
 			return false;
@@ -195,6 +210,9 @@ namespace TravianMonitor
 					
 				case CommunicationStatus.LoginStart2:
 					tskStatus.status = CommunicationStatus.LoginReturn2;
+					break;
+				case CommunicationStatus.Retry:
+					tskStatus.status = CommunicationStatus.ToCommunicate;
 					break;
 			}
 		}
