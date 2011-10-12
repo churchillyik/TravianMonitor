@@ -36,6 +36,8 @@ namespace TravianMonitor
 			if (TravianAccessor.TrAcsr.lstAccounts == null)
 				return;
 			
+			TravianAccessor.TrAcsr.RemoveVillagesWithNoDefTroops();
+			
 			foreach (TravianAccount trAccount in TravianAccessor.TrAcsr.lstAccounts)
 			{
 				if (trAccount.lstVillages == null || trAccount.bIsDead)
@@ -69,7 +71,9 @@ namespace TravianMonitor
 	                if (time_cost < 0.000001)
 	                	continue;
 	                
+	                trVillage.dtReachTime = dtArrTime;
 	                trVillage.dtStartTime = dtArrTime.AddSeconds(-time_cost);
+	                trVillage.reinTg = new Target(nTgX, nTgY);
 				}
 			}
 			

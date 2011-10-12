@@ -37,6 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Task\TaskAddToTroopSending.cs" />
     <Compile Include="Task\TaskCalStartTime.cs" />
     <Compile Include="Task\TaskStatistics.cs" />
     <Compile Include="TravianData.cs" />

@@ -156,6 +156,10 @@ namespace TravianMonitor
         		case UIUpdateTypes.VillageList:
         			DisplayVillagesDetail();
         			break;
+        			
+        		case UIUpdateTypes.TroopSendingList:
+        			DisplayTroopSendingDetail();
+        			break;
         	}
         }
         
@@ -186,7 +190,7 @@ namespace TravianMonitor
         			lvi.SubItems.Add(trVillage.strName + "(" + trVillage.nID.ToString() + ")");
         			lvi.SubItems.Add(trVillage.nPosX + "|" + trVillage.nPosY);
         			lvi.SubItems.Add(trVillage.TroopString);
-        			string strArrTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
+        			string strStartTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
         			                                  trVillage.dtStartTime.Year,
         			                                  trVillage.dtStartTime.Month,
         			                                  trVillage.dtStartTime.Day,
@@ -194,12 +198,56 @@ namespace TravianMonitor
         			                                  trVillage.dtStartTime.Minute,
         			                                  trVillage.dtStartTime.Second,
         			                                  trVillage.dtStartTime.Millisecond);
-        			lvi.SubItems.Add(strArrTime);
+        			lvi.SubItems.Add(strStartTime);
         			lvi.SubItems.Add(trVillage.nSquareLvl.ToString());
         		}
         	}
         	
-        	UpCall.RemoveDeadAccount();
+        	listViewTroopsInfo.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewTroopsInfo.ResumeLayout();
+        	UpCall.RemoveDeadAccounts();
+        }
+        
+        void DisplayTroopSendingDetail()
+        {
+        	if (UpCall.lstAllVillagesForSndTrps == null)
+        		return;
+        	
+        	listViewTroopSending.Items.Clear();
+        	foreach (TravianVillage trVillage in UpCall.lstAllVillagesForSndTrps)
+        	{
+        		ListViewItem lvi = listViewTroopSending.Items.Add(trVillage.trpSndStatus.ToString());
+        		lvi.SubItems.Add(trVillage.reinTg.nCoordX + "|" + trVillage.reinTg.nCoordY);
+        		
+        		string strStartTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
+        			                                  trVillage.dtStartTime.Year,
+        			                                  trVillage.dtStartTime.Month,
+        			                                  trVillage.dtStartTime.Day,
+        			                                  trVillage.dtStartTime.Hour,
+        			                                  trVillage.dtStartTime.Minute,
+        			                                  trVillage.dtStartTime.Second,
+        			                                  trVillage.dtStartTime.Millisecond);
+        		lvi.SubItems.Add(strStartTime);
+        		
+        		string strReachTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
+        			                                  trVillage.dtReachTime.Year,
+        			                                  trVillage.dtReachTime.Month,
+        			                                  trVillage.dtReachTime.Day,
+        			                                  trVillage.dtReachTime.Hour,
+        			                                  trVillage.dtReachTime.Minute,
+        			                                  trVillage.dtReachTime.Second,
+        			                                  trVillage.dtReachTime.Millisecond);
+        		lvi.SubItems.Add(strReachTime);
+        		
+        		lvi.SubItems.Add("[" + TravianData.strTribeName[trVillage.UpCall.nTribe - 1] + "]" + trVillage.UpCall.strName);
+        		lvi.SubItems.Add(trVillage.strName + "(" + trVillage.nID.ToString() + ")");
+        		lvi.SubItems.Add(trVillage.nPosX + "|" + trVillage.nPosY);
+        		lvi.SubItems.Add(trVillage.TroopString);
+        		lvi.SubItems.Add(trVillage.nSquareLvl.ToString());
+        	}
+        	
+        	listViewTroopSending.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewTroopSending.ResumeLayout();
         }
         
         void BtnRefreshVillagesClick(object sender, EventArgs e)
@@ -210,6 +258,9 @@ namespace TravianMonitor
         	UpCall.lstAccounts.Clear();
         	foreach (UsersInfoDataSet.users_infoRow row in usersInfoDataSet.users_info.Rows)
         	{
+        		if (row.RowState == DataRowState.Deleted)
+        			continue;
+        		
         		TravianAccount account = new TravianAccount(row.account, row.password);
         		UpCall.lstAccounts.Add(account);
         	}
@@ -250,7 +301,19 @@ namespace TravianMonitor
         
         void BtnAddToTroopsArrayClick(object sender, EventArgs e)
         {
+        	if (UpCall.bIsTaskSet)
+        		return;
         	
+        	List<int> lstTravianVillageSelected = new List<int>();
+        	for(int i = 0; i < listViewTroopsInfo.SelectedIndices.Count; i++)
+        	{
+        		lstTravianVillageSelected.Add(listViewTroopsInfo.SelectedIndices[i]);
+        	}
+        	
+        	UpCall.wk_mgr.WkrTaskExec.curTask 
+        		= new TaskAddToTroopSending(lstTravianVillageSelected);
+        	
+        	UpCall.bIsTaskSet = true;
         }
     }
 }

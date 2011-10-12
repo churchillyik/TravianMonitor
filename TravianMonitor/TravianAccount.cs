@@ -12,6 +12,15 @@ using System.Text;
 
 namespace TravianMonitor
 {
+	public enum TroopSendingStatus
+	{
+		NoAction,
+		ScaningTimeDiff,
+		PrepareForSending,
+		Sending,
+		Sent,
+	}
+	
 	public class TravianVillage
 	{
 		public TravianAccount UpCall;
@@ -22,6 +31,33 @@ namespace TravianMonitor
 		public int nSquareLvl;
 		public int[] Troops = new int[11];
 		public DateTime dtStartTime = DateTime.MinValue;
+		public DateTime dtReachTime = DateTime.MinValue;
+		public TroopSendingStatus trpSndStatus = TroopSendingStatus.NoAction;
+		public Target reinTg = null;
+		
+		public TravianVillage()
+		{}
+		
+		public TravianVillage(TravianVillage v)
+		{
+			UpCall = v.UpCall;
+			nID = v.nID;
+			nPosX = v.nPosX;
+			nPosY = v.nPosY;
+			strName = v.strName;
+			nSquareLvl = v.nSquareLvl;
+			for (int i = 0; i < Troops.Length; i++)
+			{
+				Troops[i] = v.Troops[i];
+			}
+			dtStartTime = v.dtStartTime;
+			dtReachTime = v.dtReachTime;
+			trpSndStatus = v.trpSndStatus;
+			if (v.reinTg != null)
+			{
+				reinTg = new Target(v.reinTg.nCoordX, v.reinTg.nCoordY);
+			}
+		}
 		
 		public string TroopString
 		{
