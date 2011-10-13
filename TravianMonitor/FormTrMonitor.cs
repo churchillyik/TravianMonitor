@@ -48,7 +48,8 @@ namespace TravianMonitor
         {
             // TODO: 这行代码将数据加载到表“usersInfoDataSet.users_info”中。您可以根据需要移动或移除它。
             this.users_infoTableAdapter.Fill(this.usersInfoDataSet.users_info);
-
+			this.AccNumStripStatusLabel.Text = "帐号数：" + this.usersInfoDataSet.users_info.Rows.Count;
+			
             if (TravianAccessor.TrAcsr == null)
             {
                 TravianAccessor.TrAcsr = new TravianAccessor();
@@ -72,6 +73,15 @@ namespace TravianMonitor
 
         void btnModifyServerURL_Click(object sender, EventArgs e)
         {
+        	this.Validate();
+            this.usersinfoBindingSource.EndEdit();
+            SaveAccountsData(DataRowState.Deleted);
+            SaveAccountsData(DataRowState.Added);
+            SaveAccountsData(DataRowState.Modified);
+            usersInfoDataSet.AcceptChanges();
+			this.users_infoTableAdapter.Fill(this.usersInfoDataSet.users_info);
+            this.AccNumStripStatusLabel.Text = "帐号数：" + this.usersInfoDataSet.users_info.Rows.Count;
+            
             string strURL = this.textBoxSvrURL.Text;
             string strInterval = this.numericUpDownInterval.Value.ToString();
             string strReturnDelay = this.numericUpDownReturnDelay.Value.ToString();
@@ -315,5 +325,33 @@ namespace TravianMonitor
         	
         	UpCall.bIsTaskSet = true;
         }
+        
+        //  保存操作
+        private void SaveAccountsData(DataRowState state)
+        {
+            UsersInfoDataSet.users_infoDataTable op_set;
+            op_set = (UsersInfoDataSet.users_infoDataTable)
+                usersInfoDataSet.users_info.GetChanges(state);
+            if (op_set == null) return;
+            try
+            {
+                users_infoTableAdapter.Update(op_set);
+            }
+            catch (System.Exception)
+            {
+                if (state == DataRowState.Added)
+                {
+                    MessageBox.Show("添加操作失败！");
+                }
+                else if (state == DataRowState.Modified)
+                {
+                    MessageBox.Show("修改操作失败！");
+                }
+                else if (state == DataRowState.Deleted)
+                {
+                    MessageBox.Show("删除操作失败！");
+                }
+            }
+        } 
     }
 }

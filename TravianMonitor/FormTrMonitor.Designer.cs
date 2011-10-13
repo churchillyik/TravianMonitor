@@ -32,6 +32,14 @@
         	System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
         	this.tabControlMainForm = new System.Windows.Forms.TabControl();
         	this.tabPageUsersInfo = new System.Windows.Forms.TabPage();
+        	this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+        	this.dataGridViewUserInfo = new System.Windows.Forms.DataGridView();
+        	this.entryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+        	this.accountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+        	this.passwordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+        	this.usersinfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+        	this.usersInfoDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+        	this.usersInfoDataSet = new TravianMonitor.UsersInfoDataSet();
         	this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
         	this.textBoxInstruction = new System.Windows.Forms.TextBox();
         	this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -42,13 +50,6 @@
         	this.label3 = new System.Windows.Forms.Label();
         	this.label1 = new System.Windows.Forms.Label();
         	this.textBoxSvrURL = new System.Windows.Forms.TextBox();
-        	this.dataGridViewUserInfo = new System.Windows.Forms.DataGridView();
-        	this.entryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-        	this.accountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-        	this.passwordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-        	this.usersinfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-        	this.usersInfoDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-        	this.usersInfoDataSet = new TravianMonitor.UsersInfoDataSet();
         	this.tabPageMonitor = new System.Windows.Forms.TabPage();
         	this.listViewTroopsInfo = new System.Windows.Forms.ListView();
         	this.colHdAccount = new System.Windows.Forms.ColumnHeader();
@@ -75,10 +76,6 @@
         	this.btnAddToTroopsArray = new System.Windows.Forms.Button();
         	this.btnCalStartTime = new System.Windows.Forms.Button();
         	this.btnRefreshVillages = new System.Windows.Forms.Button();
-        	this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-        	this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-        	this.TaskStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-        	this.ThreadStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
         	this.tabPageTroopSending = new System.Windows.Forms.TabPage();
         	this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
         	this.btnStartSendTroops = new System.Windows.Forms.Button();
@@ -96,26 +93,30 @@
         	this.colHdSrcTroops = new System.Windows.Forms.ColumnHeader();
         	this.colHdSrcSquare = new System.Windows.Forms.ColumnHeader();
         	this.users_infoTableAdapter = new TravianMonitor.UsersInfoDataSetTableAdapters.users_infoTableAdapter();
+        	this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+        	this.TaskStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+        	this.ThreadStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+        	this.AccNumStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
         	this.tabControlMainForm.SuspendLayout();
         	this.tabPageUsersInfo.SuspendLayout();
-        	this.flowLayoutPanel1.SuspendLayout();
-        	this.groupBox1.SuspendLayout();
-        	((System.ComponentModel.ISupportInitialize)(this.numericUpDownReturnDelay)).BeginInit();
-        	((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
+        	this.flowLayoutPanel6.SuspendLayout();
         	((System.ComponentModel.ISupportInitialize)(this.dataGridViewUserInfo)).BeginInit();
         	((System.ComponentModel.ISupportInitialize)(this.usersinfoBindingSource)).BeginInit();
         	((System.ComponentModel.ISupportInitialize)(this.usersInfoDataSetBindingSource)).BeginInit();
         	((System.ComponentModel.ISupportInitialize)(this.usersInfoDataSet)).BeginInit();
+        	this.flowLayoutPanel1.SuspendLayout();
+        	this.groupBox1.SuspendLayout();
+        	((System.ComponentModel.ISupportInitialize)(this.numericUpDownReturnDelay)).BeginInit();
+        	((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
         	this.tabPageMonitor.SuspendLayout();
         	this.flowLayoutPanel2.SuspendLayout();
         	this.flowLayoutPanel3.SuspendLayout();
         	this.groupBox3.SuspendLayout();
         	this.groupBox2.SuspendLayout();
         	this.groupBox4.SuspendLayout();
-        	this.flowLayoutPanel5.SuspendLayout();
-        	this.statusStrip1.SuspendLayout();
         	this.tabPageTroopSending.SuspendLayout();
         	this.flowLayoutPanel4.SuspendLayout();
+        	this.statusStrip1.SuspendLayout();
         	this.SuspendLayout();
         	// 
         	// tabControlMainForm
@@ -128,29 +129,95 @@
         	this.tabControlMainForm.Location = new System.Drawing.Point(0, 0);
         	this.tabControlMainForm.Name = "tabControlMainForm";
         	this.tabControlMainForm.SelectedIndex = 0;
-        	this.tabControlMainForm.Size = new System.Drawing.Size(915, 603);
+        	this.tabControlMainForm.Size = new System.Drawing.Size(915, 638);
         	this.tabControlMainForm.TabIndex = 0;
         	// 
         	// tabPageUsersInfo
         	// 
-        	this.tabPageUsersInfo.Controls.Add(this.flowLayoutPanel1);
-        	this.tabPageUsersInfo.Controls.Add(this.dataGridViewUserInfo);
+        	this.tabPageUsersInfo.Controls.Add(this.flowLayoutPanel6);
         	this.tabPageUsersInfo.Location = new System.Drawing.Point(4, 26);
         	this.tabPageUsersInfo.Name = "tabPageUsersInfo";
         	this.tabPageUsersInfo.Padding = new System.Windows.Forms.Padding(3);
-        	this.tabPageUsersInfo.Size = new System.Drawing.Size(907, 573);
+        	this.tabPageUsersInfo.Size = new System.Drawing.Size(907, 608);
         	this.tabPageUsersInfo.TabIndex = 0;
         	this.tabPageUsersInfo.Text = "帐号管理";
         	this.tabPageUsersInfo.UseVisualStyleBackColor = true;
+        	// 
+        	// flowLayoutPanel6
+        	// 
+        	this.flowLayoutPanel6.Controls.Add(this.dataGridViewUserInfo);
+        	this.flowLayoutPanel6.Controls.Add(this.flowLayoutPanel1);
+        	this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+        	this.flowLayoutPanel6.Location = new System.Drawing.Point(3, 3);
+        	this.flowLayoutPanel6.Name = "flowLayoutPanel6";
+        	this.flowLayoutPanel6.Size = new System.Drawing.Size(901, 602);
+        	this.flowLayoutPanel6.TabIndex = 2;
+        	// 
+        	// dataGridViewUserInfo
+        	// 
+        	this.dataGridViewUserInfo.AutoGenerateColumns = false;
+        	this.dataGridViewUserInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        	this.dataGridViewUserInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+        	        	        	this.entryDataGridViewTextBoxColumn,
+        	        	        	this.accountDataGridViewTextBoxColumn,
+        	        	        	this.passwordDataGridViewTextBoxColumn});
+        	this.dataGridViewUserInfo.DataSource = this.usersinfoBindingSource;
+        	this.dataGridViewUserInfo.Dock = System.Windows.Forms.DockStyle.Left;
+        	this.dataGridViewUserInfo.Location = new System.Drawing.Point(3, 3);
+        	this.dataGridViewUserInfo.Name = "dataGridViewUserInfo";
+        	this.dataGridViewUserInfo.RowTemplate.Height = 23;
+        	this.dataGridViewUserInfo.Size = new System.Drawing.Size(571, 568);
+        	this.dataGridViewUserInfo.TabIndex = 0;
+        	// 
+        	// entryDataGridViewTextBoxColumn
+        	// 
+        	this.entryDataGridViewTextBoxColumn.DataPropertyName = "entry";
+        	dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+        	this.entryDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+        	this.entryDataGridViewTextBoxColumn.HeaderText = "顺序号";
+        	this.entryDataGridViewTextBoxColumn.Name = "entryDataGridViewTextBoxColumn";
+        	this.entryDataGridViewTextBoxColumn.ReadOnly = true;
+        	this.entryDataGridViewTextBoxColumn.Visible = false;
+        	this.entryDataGridViewTextBoxColumn.Width = 117;
+        	// 
+        	// accountDataGridViewTextBoxColumn
+        	// 
+        	this.accountDataGridViewTextBoxColumn.DataPropertyName = "account";
+        	this.accountDataGridViewTextBoxColumn.HeaderText = "帐号名";
+        	this.accountDataGridViewTextBoxColumn.Name = "accountDataGridViewTextBoxColumn";
+        	this.accountDataGridViewTextBoxColumn.Width = 200;
+        	// 
+        	// passwordDataGridViewTextBoxColumn
+        	// 
+        	this.passwordDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+        	this.passwordDataGridViewTextBoxColumn.DataPropertyName = "password";
+        	this.passwordDataGridViewTextBoxColumn.HeaderText = "密码";
+        	this.passwordDataGridViewTextBoxColumn.Name = "passwordDataGridViewTextBoxColumn";
+        	// 
+        	// usersinfoBindingSource
+        	// 
+        	this.usersinfoBindingSource.DataMember = "users_info";
+        	this.usersinfoBindingSource.DataSource = this.usersInfoDataSetBindingSource;
+        	// 
+        	// usersInfoDataSetBindingSource
+        	// 
+        	this.usersInfoDataSetBindingSource.DataSource = this.usersInfoDataSet;
+        	this.usersInfoDataSetBindingSource.Position = 0;
+        	// 
+        	// usersInfoDataSet
+        	// 
+        	this.usersInfoDataSet.DataSetName = "UsersInfoDataSet";
+        	this.usersInfoDataSet.Namespace = "http://tempuri.org/UsersInfoDataSet.xsd";
+        	this.usersInfoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         	// 
         	// flowLayoutPanel1
         	// 
         	this.flowLayoutPanel1.Controls.Add(this.textBoxInstruction);
         	this.flowLayoutPanel1.Controls.Add(this.groupBox1);
-        	this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
-        	this.flowLayoutPanel1.Location = new System.Drawing.Point(587, 3);
+        	this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+        	this.flowLayoutPanel1.Location = new System.Drawing.Point(580, 3);
         	this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-        	this.flowLayoutPanel1.Size = new System.Drawing.Size(317, 567);
+        	this.flowLayoutPanel1.Size = new System.Drawing.Size(317, 568);
         	this.flowLayoutPanel1.TabIndex = 1;
         	// 
         	// textBoxInstruction
@@ -160,7 +227,7 @@
         	this.textBoxInstruction.Multiline = true;
         	this.textBoxInstruction.Name = "textBoxInstruction";
         	this.textBoxInstruction.ReadOnly = true;
-        	this.textBoxInstruction.Size = new System.Drawing.Size(309, 251);
+        	this.textBoxInstruction.Size = new System.Drawing.Size(309, 248);
         	this.textBoxInstruction.TabIndex = 1;
         	// 
         	// groupBox1
@@ -173,7 +240,7 @@
         	this.groupBox1.Controls.Add(this.label1);
         	this.groupBox1.Controls.Add(this.textBoxSvrURL);
         	this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-        	this.groupBox1.Location = new System.Drawing.Point(3, 260);
+        	this.groupBox1.Location = new System.Drawing.Point(3, 257);
         	this.groupBox1.Name = "groupBox1";
         	this.groupBox1.Size = new System.Drawing.Size(311, 305);
         	this.groupBox1.TabIndex = 0;
@@ -226,11 +293,11 @@
         	// 
         	// btnModifyServerURL
         	// 
-        	this.btnModifyServerURL.Location = new System.Drawing.Point(112, 260);
+        	this.btnModifyServerURL.Location = new System.Drawing.Point(87, 258);
         	this.btnModifyServerURL.Name = "btnModifyServerURL";
-        	this.btnModifyServerURL.Size = new System.Drawing.Size(87, 32);
+        	this.btnModifyServerURL.Size = new System.Drawing.Size(148, 32);
         	this.btnModifyServerURL.TabIndex = 2;
-        	this.btnModifyServerURL.Text = "确认修改";
+        	this.btnModifyServerURL.Text = "确认帐号和设置修改";
         	this.btnModifyServerURL.UseVisualStyleBackColor = true;
         	this.btnModifyServerURL.Click += new System.EventHandler(this.btnModifyServerURL_Click);
         	// 
@@ -269,63 +336,6 @@
         	this.textBoxSvrURL.TabIndex = 0;
         	this.textBoxSvrURL.Text = "ts1.travian.cc";
         	// 
-        	// dataGridViewUserInfo
-        	// 
-        	this.dataGridViewUserInfo.AutoGenerateColumns = false;
-        	this.dataGridViewUserInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        	this.dataGridViewUserInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-        	        	        	this.entryDataGridViewTextBoxColumn,
-        	        	        	this.accountDataGridViewTextBoxColumn,
-        	        	        	this.passwordDataGridViewTextBoxColumn});
-        	this.dataGridViewUserInfo.DataSource = this.usersinfoBindingSource;
-        	this.dataGridViewUserInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-        	this.dataGridViewUserInfo.Location = new System.Drawing.Point(3, 3);
-        	this.dataGridViewUserInfo.Name = "dataGridViewUserInfo";
-        	this.dataGridViewUserInfo.RowTemplate.Height = 23;
-        	this.dataGridViewUserInfo.Size = new System.Drawing.Size(901, 567);
-        	this.dataGridViewUserInfo.TabIndex = 0;
-        	// 
-        	// entryDataGridViewTextBoxColumn
-        	// 
-        	this.entryDataGridViewTextBoxColumn.DataPropertyName = "entry";
-        	dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-        	this.entryDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-        	this.entryDataGridViewTextBoxColumn.HeaderText = "顺序号";
-        	this.entryDataGridViewTextBoxColumn.Name = "entryDataGridViewTextBoxColumn";
-        	this.entryDataGridViewTextBoxColumn.ReadOnly = true;
-        	this.entryDataGridViewTextBoxColumn.Visible = false;
-        	this.entryDataGridViewTextBoxColumn.Width = 117;
-        	// 
-        	// accountDataGridViewTextBoxColumn
-        	// 
-        	this.accountDataGridViewTextBoxColumn.DataPropertyName = "account";
-        	this.accountDataGridViewTextBoxColumn.HeaderText = "帐号名";
-        	this.accountDataGridViewTextBoxColumn.Name = "accountDataGridViewTextBoxColumn";
-        	this.accountDataGridViewTextBoxColumn.Width = 200;
-        	// 
-        	// passwordDataGridViewTextBoxColumn
-        	// 
-        	this.passwordDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-        	this.passwordDataGridViewTextBoxColumn.DataPropertyName = "password";
-        	this.passwordDataGridViewTextBoxColumn.HeaderText = "密码";
-        	this.passwordDataGridViewTextBoxColumn.Name = "passwordDataGridViewTextBoxColumn";
-        	// 
-        	// usersinfoBindingSource
-        	// 
-        	this.usersinfoBindingSource.DataMember = "users_info";
-        	this.usersinfoBindingSource.DataSource = this.usersInfoDataSetBindingSource;
-        	// 
-        	// usersInfoDataSetBindingSource
-        	// 
-        	this.usersInfoDataSetBindingSource.DataSource = this.usersInfoDataSet;
-        	this.usersInfoDataSetBindingSource.Position = 0;
-        	// 
-        	// usersInfoDataSet
-        	// 
-        	this.usersInfoDataSet.DataSetName = "UsersInfoDataSet";
-        	this.usersInfoDataSet.Namespace = "http://tempuri.org/UsersInfoDataSet.xsd";
-        	this.usersInfoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-        	// 
         	// tabPageMonitor
         	// 
         	this.tabPageMonitor.Controls.Add(this.listViewTroopsInfo);
@@ -333,7 +343,7 @@
         	this.tabPageMonitor.Location = new System.Drawing.Point(4, 26);
         	this.tabPageMonitor.Name = "tabPageMonitor";
         	this.tabPageMonitor.Padding = new System.Windows.Forms.Padding(3);
-        	this.tabPageMonitor.Size = new System.Drawing.Size(907, 573);
+        	this.tabPageMonitor.Size = new System.Drawing.Size(907, 608);
         	this.tabPageMonitor.TabIndex = 1;
         	this.tabPageMonitor.Text = "兵力情况";
         	this.tabPageMonitor.UseVisualStyleBackColor = true;
@@ -354,7 +364,7 @@
         	this.listViewTroopsInfo.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
         	this.listViewTroopsInfo.Location = new System.Drawing.Point(3, 3);
         	this.listViewTroopsInfo.Name = "listViewTroopsInfo";
-        	this.listViewTroopsInfo.Size = new System.Drawing.Size(563, 567);
+        	this.listViewTroopsInfo.Size = new System.Drawing.Size(563, 602);
         	this.listViewTroopsInfo.TabIndex = 1;
         	this.listViewTroopsInfo.UseCompatibleStateImageBehavior = false;
         	this.listViewTroopsInfo.View = System.Windows.Forms.View.Details;
@@ -393,11 +403,10 @@
         	this.flowLayoutPanel2.Controls.Add(this.textBoxLog4Monitor);
         	this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel3);
         	this.flowLayoutPanel2.Controls.Add(this.groupBox4);
-        	this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel5);
         	this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
         	this.flowLayoutPanel2.Location = new System.Drawing.Point(566, 3);
         	this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-        	this.flowLayoutPanel2.Size = new System.Drawing.Size(338, 567);
+        	this.flowLayoutPanel2.Size = new System.Drawing.Size(338, 602);
         	this.flowLayoutPanel2.TabIndex = 2;
         	// 
         	// textBoxLog4Monitor
@@ -449,7 +458,7 @@
         	this.groupBox2.Controls.Add(this.label4);
         	this.groupBox2.Location = new System.Drawing.Point(3, 68);
         	this.groupBox2.Name = "groupBox2";
-        	this.groupBox2.Size = new System.Drawing.Size(327, 71);
+        	this.groupBox2.Size = new System.Drawing.Size(327, 77);
         	this.groupBox2.TabIndex = 0;
         	this.groupBox2.TabStop = false;
         	this.groupBox2.Text = "增援目标";
@@ -518,7 +527,7 @@
         	this.groupBox4.Controls.Add(this.btnRefreshVillages);
         	this.groupBox4.Location = new System.Drawing.Point(3, 391);
         	this.groupBox4.Name = "groupBox4";
-        	this.groupBox4.Size = new System.Drawing.Size(330, 132);
+        	this.groupBox4.Size = new System.Drawing.Size(330, 135);
         	this.groupBox4.TabIndex = 2;
         	this.groupBox4.TabStop = false;
         	this.groupBox4.Text = "功能";
@@ -578,53 +587,6 @@
         	this.btnRefreshVillages.UseVisualStyleBackColor = true;
         	this.btnRefreshVillages.Click += new System.EventHandler(this.BtnRefreshVillagesClick);
         	// 
-        	// flowLayoutPanel5
-        	// 
-        	this.flowLayoutPanel5.Controls.Add(this.statusStrip1);
-        	this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 529);
-        	this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-        	this.flowLayoutPanel5.Size = new System.Drawing.Size(330, 35);
-        	this.flowLayoutPanel5.TabIndex = 3;
-        	// 
-        	// statusStrip1
-        	// 
-        	this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        	        	        	this.TaskStatusLabel,
-        	        	        	this.ThreadStatusLabel});
-        	this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-        	this.statusStrip1.Name = "statusStrip1";
-        	this.statusStrip1.Size = new System.Drawing.Size(360, 35);
-        	this.statusStrip1.SizingGrip = false;
-        	this.statusStrip1.TabIndex = 0;
-        	this.statusStrip1.Text = "statusStrip1";
-        	// 
-        	// TaskStatusLabel
-        	// 
-        	this.TaskStatusLabel.AutoSize = false;
-        	this.TaskStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-        	this.TaskStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-        	this.TaskStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.TaskStatusLabel.Name = "TaskStatusLabel";
-        	this.TaskStatusLabel.Size = new System.Drawing.Size(210, 30);
-        	this.TaskStatusLabel.Text = "状态：";
-        	this.TaskStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-        	// 
-        	// ThreadStatusLabel
-        	// 
-        	this.ThreadStatusLabel.AutoSize = false;
-        	this.ThreadStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-        	this.ThreadStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-        	this.ThreadStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.ThreadStatusLabel.Name = "ThreadStatusLabel";
-        	this.ThreadStatusLabel.Size = new System.Drawing.Size(135, 30);
-        	this.ThreadStatusLabel.Spring = true;
-        	this.ThreadStatusLabel.Text = "线程：";
-        	this.ThreadStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-        	// 
         	// tabPageTroopSending
         	// 
         	this.tabPageTroopSending.Controls.Add(this.flowLayoutPanel4);
@@ -632,7 +594,7 @@
         	this.tabPageTroopSending.Location = new System.Drawing.Point(4, 26);
         	this.tabPageTroopSending.Name = "tabPageTroopSending";
         	this.tabPageTroopSending.Padding = new System.Windows.Forms.Padding(3);
-        	this.tabPageTroopSending.Size = new System.Drawing.Size(907, 573);
+        	this.tabPageTroopSending.Size = new System.Drawing.Size(907, 608);
         	this.tabPageTroopSending.TabIndex = 2;
         	this.tabPageTroopSending.Text = "发兵插防";
         	this.tabPageTroopSending.UseVisualStyleBackColor = true;
@@ -644,7 +606,7 @@
         	this.flowLayoutPanel4.Controls.Add(this.btnClearLog4TroopSending);
         	this.flowLayoutPanel4.Controls.Add(this.textBoxLog4TroopSending);
         	this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-        	this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 406);
+        	this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 441);
         	this.flowLayoutPanel4.Name = "flowLayoutPanel4";
         	this.flowLayoutPanel4.Size = new System.Drawing.Size(901, 164);
         	this.flowLayoutPanel4.TabIndex = 1;
@@ -706,7 +668,7 @@
         	this.listViewTroopSending.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
         	this.listViewTroopSending.Location = new System.Drawing.Point(3, 3);
         	this.listViewTroopSending.Name = "listViewTroopSending";
-        	this.listViewTroopSending.Size = new System.Drawing.Size(901, 567);
+        	this.listViewTroopSending.Size = new System.Drawing.Size(901, 602);
         	this.listViewTroopSending.TabIndex = 0;
         	this.listViewTroopSending.UseCompatibleStateImageBehavior = false;
         	this.listViewTroopSending.View = System.Windows.Forms.View.Details;
@@ -757,27 +719,82 @@
         	// 
         	this.users_infoTableAdapter.ClearBeforeFill = true;
         	// 
+        	// statusStrip1
+        	// 
+        	this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.TaskStatusLabel,
+        	        	        	this.ThreadStatusLabel,
+        	        	        	this.AccNumStripStatusLabel});
+        	this.statusStrip1.Location = new System.Drawing.Point(0, 603);
+        	this.statusStrip1.Name = "statusStrip1";
+        	this.statusStrip1.Size = new System.Drawing.Size(915, 35);
+        	this.statusStrip1.SizingGrip = false;
+        	this.statusStrip1.TabIndex = 1;
+        	this.statusStrip1.Text = "statusStrip1";
+        	// 
+        	// TaskStatusLabel
+        	// 
+        	this.TaskStatusLabel.AutoSize = false;
+        	this.TaskStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+        	this.TaskStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+        	this.TaskStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+        	this.TaskStatusLabel.Name = "TaskStatusLabel";
+        	this.TaskStatusLabel.Size = new System.Drawing.Size(600, 30);
+        	this.TaskStatusLabel.Text = "状态：";
+        	this.TaskStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        	// 
+        	// ThreadStatusLabel
+        	// 
+        	this.ThreadStatusLabel.AutoSize = false;
+        	this.ThreadStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+        	this.ThreadStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+        	this.ThreadStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+        	this.ThreadStatusLabel.Name = "ThreadStatusLabel";
+        	this.ThreadStatusLabel.Size = new System.Drawing.Size(134, 30);
+        	this.ThreadStatusLabel.Spring = true;
+        	this.ThreadStatusLabel.Text = "线程：";
+        	this.ThreadStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        	// 
+        	// AccNumStripStatusLabel
+        	// 
+        	this.AccNumStripStatusLabel.AutoSize = false;
+        	this.AccNumStripStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+        	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+        	this.AccNumStripStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        	this.AccNumStripStatusLabel.Name = "AccNumStripStatusLabel";
+        	this.AccNumStripStatusLabel.Size = new System.Drawing.Size(134, 30);
+        	this.AccNumStripStatusLabel.Spring = true;
+        	this.AccNumStripStatusLabel.Text = "帐号数：";
+        	this.AccNumStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        	// 
         	// FormTrMonitor
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        	this.ClientSize = new System.Drawing.Size(915, 603);
+        	this.ClientSize = new System.Drawing.Size(915, 638);
+        	this.Controls.Add(this.statusStrip1);
         	this.Controls.Add(this.tabControlMainForm);
         	this.Name = "FormTrMonitor";
         	this.Text = "Travian插秒工具";
         	this.Load += new System.EventHandler(this.FormTrMonitor_Load);
         	this.tabControlMainForm.ResumeLayout(false);
         	this.tabPageUsersInfo.ResumeLayout(false);
+        	this.flowLayoutPanel6.ResumeLayout(false);
+        	((System.ComponentModel.ISupportInitialize)(this.dataGridViewUserInfo)).EndInit();
+        	((System.ComponentModel.ISupportInitialize)(this.usersinfoBindingSource)).EndInit();
+        	((System.ComponentModel.ISupportInitialize)(this.usersInfoDataSetBindingSource)).EndInit();
+        	((System.ComponentModel.ISupportInitialize)(this.usersInfoDataSet)).EndInit();
         	this.flowLayoutPanel1.ResumeLayout(false);
         	this.flowLayoutPanel1.PerformLayout();
         	this.groupBox1.ResumeLayout(false);
         	this.groupBox1.PerformLayout();
         	((System.ComponentModel.ISupportInitialize)(this.numericUpDownReturnDelay)).EndInit();
         	((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
-        	((System.ComponentModel.ISupportInitialize)(this.dataGridViewUserInfo)).EndInit();
-        	((System.ComponentModel.ISupportInitialize)(this.usersinfoBindingSource)).EndInit();
-        	((System.ComponentModel.ISupportInitialize)(this.usersInfoDataSetBindingSource)).EndInit();
-        	((System.ComponentModel.ISupportInitialize)(this.usersInfoDataSet)).EndInit();
         	this.tabPageMonitor.ResumeLayout(false);
         	this.flowLayoutPanel2.ResumeLayout(false);
         	this.flowLayoutPanel2.PerformLayout();
@@ -786,19 +803,19 @@
         	this.groupBox2.ResumeLayout(false);
         	this.groupBox2.PerformLayout();
         	this.groupBox4.ResumeLayout(false);
-        	this.flowLayoutPanel5.ResumeLayout(false);
-        	this.flowLayoutPanel5.PerformLayout();
-        	this.statusStrip1.ResumeLayout(false);
-        	this.statusStrip1.PerformLayout();
         	this.tabPageTroopSending.ResumeLayout(false);
         	this.flowLayoutPanel4.ResumeLayout(false);
         	this.flowLayoutPanel4.PerformLayout();
+        	this.statusStrip1.ResumeLayout(false);
+        	this.statusStrip1.PerformLayout();
         	this.ResumeLayout(false);
+        	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripStatusLabel AccNumStripStatusLabel;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
         private System.Windows.Forms.ToolStripStatusLabel ThreadStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel TaskStatusLabel;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
 
         #endregion
 
