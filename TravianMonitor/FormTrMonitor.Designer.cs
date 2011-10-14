@@ -95,7 +95,7 @@
         	this.users_infoTableAdapter = new TravianMonitor.UsersInfoDataSetTableAdapters.users_infoTableAdapter();
         	this.statusStrip1 = new System.Windows.Forms.StatusStrip();
         	this.TaskStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-        	this.ThreadStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+        	this.GuageStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
         	this.AccNumStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
         	this.tabControlMainForm.SuspendLayout();
         	this.tabPageUsersInfo.SuspendLayout();
@@ -723,7 +723,7 @@
         	// 
         	this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
         	        	        	this.TaskStatusLabel,
-        	        	        	this.ThreadStatusLabel,
+        	        	        	this.GuageStatusLabel,
         	        	        	this.AccNumStripStatusLabel});
         	this.statusStrip1.Location = new System.Drawing.Point(0, 603);
         	this.statusStrip1.Name = "statusStrip1";
@@ -741,23 +741,23 @@
         	this.TaskStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         	this.TaskStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
         	this.TaskStatusLabel.Name = "TaskStatusLabel";
-        	this.TaskStatusLabel.Size = new System.Drawing.Size(600, 30);
+        	this.TaskStatusLabel.Size = new System.Drawing.Size(500, 30);
         	this.TaskStatusLabel.Text = "状态：";
         	this.TaskStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
         	// 
-        	// ThreadStatusLabel
+        	// GuageStatusLabel
         	// 
-        	this.ThreadStatusLabel.AutoSize = false;
-        	this.ThreadStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+        	this.GuageStatusLabel.AutoSize = false;
+        	this.GuageStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
         	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
         	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-        	this.ThreadStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-        	this.ThreadStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.ThreadStatusLabel.Name = "ThreadStatusLabel";
-        	this.ThreadStatusLabel.Size = new System.Drawing.Size(134, 30);
-        	this.ThreadStatusLabel.Spring = true;
-        	this.ThreadStatusLabel.Text = "线程：";
-        	this.ThreadStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        	this.GuageStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+        	this.GuageStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+        	this.GuageStatusLabel.Name = "GuageStatusLabel";
+        	this.GuageStatusLabel.Size = new System.Drawing.Size(184, 30);
+        	this.GuageStatusLabel.Spring = true;
+        	this.GuageStatusLabel.Text = "进度：";
+        	this.GuageStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
         	// 
         	// AccNumStripStatusLabel
         	// 
@@ -767,7 +767,7 @@
         	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
         	this.AccNumStripStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         	this.AccNumStripStatusLabel.Name = "AccNumStripStatusLabel";
-        	this.AccNumStripStatusLabel.Size = new System.Drawing.Size(134, 30);
+        	this.AccNumStripStatusLabel.Size = new System.Drawing.Size(184, 30);
         	this.AccNumStripStatusLabel.Spring = true;
         	this.AccNumStripStatusLabel.Text = "帐号数：";
         	this.AccNumStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -782,6 +782,7 @@
         	this.Name = "FormTrMonitor";
         	this.Text = "Travian插秒工具";
         	this.Load += new System.EventHandler(this.FormTrMonitor_Load);
+        	this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormTrMonitorFormClosed);
         	this.tabControlMainForm.ResumeLayout(false);
         	this.tabPageUsersInfo.ResumeLayout(false);
         	this.flowLayoutPanel6.ResumeLayout(false);
@@ -811,9 +812,9 @@
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripStatusLabel GuageStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel AccNumStripStatusLabel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
-        private System.Windows.Forms.ToolStripStatusLabel ThreadStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel TaskStatusLabel;
         private System.Windows.Forms.StatusStrip statusStrip1;
 

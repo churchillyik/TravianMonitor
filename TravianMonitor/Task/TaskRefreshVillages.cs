@@ -16,9 +16,11 @@ namespace TravianMonitor
 	/// Description of TaskRefreshVillages.
 	/// </summary>
 	public class TaskRefreshVillages : Task
-	{
+	{		
 		public TaskRefreshVillages() : base()
 		{
+			strName = "[刷新所有村庄]";
+			
 			lstPhase = new List<QueryPhase>();
 			lstPhase.Add(new QueryPhase(false, "dorf1.php"));
 			lstPhase.Add(new QueryPhase(false, "a2b.php"));

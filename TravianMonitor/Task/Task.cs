@@ -67,8 +67,9 @@ namespace TravianMonitor
 		public bool bIsForAccounts = true;
 		public UIUpdateTypes uiType = UIUpdateTypes.None;
 		protected UIUpdateTypes logType = UIUpdateTypes.None;
-		protected List<QueryPhase> lstPhase = null;
+		public List<QueryPhase> lstPhase = null;
 		
+		public string strName = "";
 		public Task()
 		{
 		}
@@ -317,7 +318,7 @@ namespace TravianMonitor
 			return true;
 		}
 		
-		protected void DebugLog(string log)
+		public void DebugLog(string log)
 		{
 			TravianAccessor.TrAcsr.DebugLog(log, logType);
 		}

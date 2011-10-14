@@ -16,9 +16,11 @@ namespace TravianMonitor
 	/// Description of TaskStatistics.
 	/// </summary>
 	public class TaskStatistics : Task
-	{
+	{		
 		public TaskStatistics() : base()
 		{
+			strName = "[统计所有兵力]";
+			
 			bIsForAccounts = false;
 			uiType = UIUpdateTypes.None;
 			logType = UIUpdateTypes.TroopsMonitorLog;

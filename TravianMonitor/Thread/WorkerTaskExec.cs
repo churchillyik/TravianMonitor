@@ -46,11 +46,16 @@ namespace TravianMonitor
 				bool bTaskFinished = true;
 				if (curTask.bIsForAccounts)
 				{
+					int nPhasesFinished = 0;
 					foreach (TravianAccount account in TravianAccessor.TrAcsr.lstAccounts)
 					{
 						bool bFinished = curTask.TakeActionAsk(account);
 						bTaskFinished &= bFinished;
+						nPhasesFinished += (account.tskStatus.nCurPhase - 1);
 					}
+					int nAllPhasesCnt = TravianAccessor.TrAcsr.lstAccounts.Count * curTask.lstPhase.Count;
+					TravianAccessor.TrAcsr.TaskStatusUpdate(
+						nPhasesFinished + " / " + nAllPhasesCnt, UIUpdateTypes.TaskProcess);
 				}
 				else
 				{
@@ -60,10 +65,21 @@ namespace TravianMonitor
 				if (bTaskFinished)
 				{
 					TravianAccessor.TrAcsr.UIUpdate(curTask.uiType);
+					TravianAccessor.TrAcsr.TaskStatusUpdate(
+						"任务 " + curTask + " 已完成", UIUpdateTypes.TaskDetail);
 					curTask = null;
 					TravianAccessor.TrAcsr.bIsTaskSet = false;
 				}
 			}
+		}
+		
+		public void AbortThread()
+		{
+			try
+			{
+				this.thrdWorker.Abort();
+			}
+			catch{}
 		}
 	}
 }

@@ -22,6 +22,7 @@ namespace TravianMonitor
 		private int nTgY;
 		public TaskCalStartTime(DateTime arrTime, int x, int y) : base()
 		{
+			strName = "[计算出兵时刻]";
 			dtArrTime = arrTime;
 			nTgX = x;
 			nTgY = y;

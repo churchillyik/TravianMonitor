@@ -38,7 +38,9 @@ namespace TravianMonitor
         }
         
         private delegate void dlgWriteLog(string log, UIUpdateTypes type);
+        private delegate void dlgTaskStatus(string sta, UIUpdateTypes type);
         private delegate void dlgUIUpdate(UIUpdateTypes type);
+        
         private void InitCallBack()
         {
         	UpCall.OnUIUpdate += new EventHandler<UIUpdateArgs>(CallBack_UIUpdate);
@@ -136,6 +138,11 @@ namespace TravianMonitor
             		LogArgs e_log = e as LogArgs;
                 	Invoke(new dlgWriteLog(WriteLog), new object[] { e_log.strLog, e_log.uiType });
             	}
+            	else if (e is TaskStaArgs)
+            	{
+            		TaskStaArgs e_sta = e as TaskStaArgs;
+            		Invoke(new dlgTaskStatus(TaskStatus), new object[] { e_sta.strSta, e_sta.uiType });
+            	}
             	else
             	{
             		Invoke(new dlgUIUpdate(UIUpdate), new object[] { e.uiType });
@@ -155,6 +162,20 @@ namespace TravianMonitor
         			
         		case UIUpdateTypes.TroopsSendingLog:
         			this.textBoxLog4TroopSending.AppendText(log + "\r\n");
+        			break;
+        	}
+        }
+        
+        private void TaskStatus(string sta, UIUpdateTypes type)
+        {
+        	switch (type)
+        	{
+        		case UIUpdateTypes.TaskDetail:
+        			this.TaskStatusLabel.Text = "状态：" + sta;
+        			break;
+        			
+        		case UIUpdateTypes.TaskProcess:
+        			this.GuageStatusLabel.Text = "进度：" + sta;
         			break;
         	}
         }
@@ -276,6 +297,8 @@ namespace TravianMonitor
         	}
         	
         	UpCall.wk_mgr.WkrTaskExec.curTask = new TaskRefreshVillages();
+        	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
+        	           + "开始", UIUpdateTypes.TaskDetail);
         	UpCall.bIsTaskSet = true;
         }
         
@@ -290,7 +313,8 @@ namespace TravianMonitor
         		dateTimePickerReachTime.Value,
         		lstTg[nSel].nCoordX,
         		lstTg[nSel].nCoordY);
-        	
+        	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
+        	           + "开始", UIUpdateTypes.TaskDetail);
         	UpCall.bIsTaskSet = true;
         }
         
@@ -300,7 +324,8 @@ namespace TravianMonitor
         		return;
         	
         	UpCall.wk_mgr.WkrTaskExec.curTask = new TaskStatistics();
-        	
+        	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
+        	           + "开始", UIUpdateTypes.TaskDetail);
         	UpCall.bIsTaskSet = true;
         }
         
@@ -322,7 +347,8 @@ namespace TravianMonitor
         	
         	UpCall.wk_mgr.WkrTaskExec.curTask 
         		= new TaskAddToTroopSending(lstTravianVillageSelected);
-        	
+        	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
+        	           + "开始", UIUpdateTypes.TaskDetail);
         	UpCall.bIsTaskSet = true;
         }
         
@@ -353,5 +379,10 @@ namespace TravianMonitor
                 }
             }
         } 
+        
+        void FormTrMonitorFormClosed(object sender, FormClosedEventArgs e)
+        {
+        	TravianAccessor.TrAcsr.wk_mgr.WkrTaskExec.AbortThread();
+        }
     }
 }

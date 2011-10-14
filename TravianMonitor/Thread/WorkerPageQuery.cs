@@ -13,66 +13,38 @@ using System.Threading;
 namespace TravianMonitor
 {
 	/// <summary>
-	/// Description of WorkerPageQuery.
+	/// 通讯处理模块
 	/// </summary>
 	public class WorkerPageQuery
-	{
-		public int nGuid;
-		private Thread thrdWorker;
+	{		
+		private string strURL;
+		private Dictionary<string, string> dicPostData;
+		private Task curTask;
+		private TravianAccount trAccount;
 		
-		public string strURL;
-		public Dictionary<string, string> dicPostData;
-		public Task curTask;
-		public TravianAccount trAccount;
-		public bool bIsActive;
-		
-		public WorkerPageQuery(int nID)
+		public WorkerPageQuery(
+			string url,
+		    Dictionary<string, string> data,
+		   	Task tsk,
+		   	TravianAccount acc)
 		{
-			nGuid = nID;
-			bIsActive = false;
-			thrdWorker = new Thread(new ThreadStart(PageQuery));
-			thrdWorker.Name = "PageQuery" + nGuid.ToString();
-            thrdWorker.Start();
+			strURL = url;
+			dicPostData = data;
+			curTask = tsk;
+			trAccount = acc;
 		}
 		
-		private void PageQuery()
-        {
-			while(true)
+		public void PageQuery(Object threadContext)
+        {				
+			TravianWebClient trWebClient = trAccount.trWebClient;
+			trAccount.tskStatus.strQueryResult = trWebClient.HttpQuery(strURL, dicPostData);
+			if (trAccount.tskStatus.strQueryResult == "")
 			{
-				if (!bIsActive)
-				{
-					ThreadSuspend();
-				}
-				
-				TravianWebClient trWebClient = trAccount.trWebClient;
-				trAccount.tskStatus.strQueryResult = trWebClient.HttpQuery(strURL, dicPostData);
-				if (trAccount.tskStatus.strQueryResult == "")
-				{
-					trAccount.tskStatus.status = CommunicationStatus.Retry;
-				}
-				curTask.TakeActionRep(trAccount);
-				
-				TravianAccessor.TrAcsr.wk_mgr.StopPageQueryWorker(this);
+				curTask.DebugLog("访问：" + strURL + "@[" 
+				                 + trAccount.strName + "]时发生异常，准备重试");
+				trAccount.tskStatus.status = CommunicationStatus.Retry;
 			}
+			curTask.TakeActionRep(trAccount);
         }
-		
-		public void ThreadSuspend()
-		{
-			thrdWorker.Suspend();
-		}
-		
-		public void ThreadResume()
-		{
-			if (thrdWorker.ThreadState == ThreadState.Suspended)
-				thrdWorker.Resume();
-		}
-		
-		public ThreadState thrdState
-		{
-			get
-			{
-				return thrdWorker.ThreadState;
-			}
-		}
 	}
 }

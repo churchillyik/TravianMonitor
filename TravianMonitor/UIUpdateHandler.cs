@@ -17,6 +17,8 @@ namespace TravianMonitor
 		TroopsSendingLog,
 		VillageList,
 		TroopSendingList,
+		TaskDetail,
+		TaskProcess,
 	};
     
     public class UIUpdateArgs : EventArgs
@@ -29,6 +31,11 @@ namespace TravianMonitor
         public string strLog;
     };
     
+    public class TaskStaArgs : UIUpdateArgs
+    {
+    	public string strSta;
+    };
+    
 	partial class TravianAccessor
 	{
 		public event EventHandler<UIUpdateArgs> OnUIUpdate;
@@ -36,6 +43,14 @@ namespace TravianMonitor
         {
             LogArgs arg = new LogArgs();
             arg.strLog = log;
+            arg.uiType = type;
+            OnUIUpdate(this, arg);
+        }
+        
+        public void TaskStatusUpdate(string strSta, UIUpdateTypes type)
+        {
+        	TaskStaArgs arg = new TaskStaArgs();
+            arg.strSta = strSta;
             arg.uiType = type;
             OnUIUpdate(this, arg);
         }

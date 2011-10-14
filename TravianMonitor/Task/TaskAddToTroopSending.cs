@@ -21,7 +21,8 @@ namespace TravianMonitor
 		public TaskAddToTroopSending(List<int> lstTVSel) : base()
 		{
 			lstTravianVillageSelected = lstTVSel;
-			
+			strName = "[添加到出兵队列]";
+				
 			bIsForAccounts = false;
 			uiType = UIUpdateTypes.TroopSendingList;
 			logType = UIUpdateTypes.TroopsMonitorLog;
