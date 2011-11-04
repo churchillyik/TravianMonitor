@@ -79,8 +79,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Threads.cs" />
+    <Compile Include="ReinTgs.cs" />
+    <Compile Include="Task\Task.cs" />
+    <Compile Include="Task\TaskRefreshVillages.cs" />
+    <Compile Include="Thread\WorkerMgr.cs" />
+    <Compile Include="Thread\WorkerPageQuery.cs" />
+    <Compile Include="Thread\WorkerTaskExec.cs" />
     <Compile Include="TravianAccessor.cs" />
+    <Compile Include="TravianAccount.cs" />
+    <Compile Include="TravianWebClient.cs" />
     <Compile Include="UsersInfoDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -91,6 +98,10 @@
     <Content Include="Database.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Thread" />
+    <Folder Include="Task" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

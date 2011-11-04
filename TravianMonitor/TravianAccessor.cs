@@ -10,6 +10,8 @@ namespace TravianMonitor
         static public TravianAccessor TrAcsr = null;
 
         public GlobalConfig glbCfg = new GlobalConfig();
+        public ReinTgs rTgs = new ReinTgs();
+        public List<Task> lstTask = new List<Task>();
         
         public TravianAccessor()
         {

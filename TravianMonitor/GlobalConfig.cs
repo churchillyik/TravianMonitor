@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Net;
 
 namespace TravianMonitor
 {
@@ -62,6 +63,8 @@ namespace TravianMonitor
 				}
 			}
 		}
+        
+        public WebProxy Proxy;
         
         private Dictionary<string, string> Options = new Dictionary<string, string>();
         
