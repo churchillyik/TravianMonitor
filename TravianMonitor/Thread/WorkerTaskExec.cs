@@ -43,6 +43,15 @@ namespace TravianMonitor
 					continue;
 				}
 				
+				if (!TravianAccessor.TrAcsr.bIsAllAcountReset)
+				{
+					foreach (TravianAccount account in TravianAccessor.TrAcsr.lstAccounts)
+					{
+						account.tskStatus.ClearTaskStatus();
+					}
+					TravianAccessor.TrAcsr.bIsAllAcountReset = true;
+				}
+				
 				bool bTaskFinished = true;
 				if (curTask.bIsForAccounts)
 				{
@@ -66,7 +75,7 @@ namespace TravianMonitor
 				{
 					TravianAccessor.TrAcsr.UIUpdate(curTask.uiType);
 					TravianAccessor.TrAcsr.TaskStatusUpdate(
-						"任务 " + curTask + " 已完成", UIUpdateTypes.TaskDetail);
+						"任务 " + curTask.strName + " 已完成", UIUpdateTypes.TaskDetail);
 					curTask = null;
 					TravianAccessor.TrAcsr.bIsTaskSet = false;
 				}

@@ -37,8 +37,9 @@ namespace TravianMonitor
         	DisplayTgs(lsTgs);
         }
         
-        private delegate void dlgWriteLog(string log, UIUpdateTypes type);
+        private delegate void dlgWriteLog(string log);
         private delegate void dlgTaskStatus(string sta, UIUpdateTypes type);
+        private delegate void dlgTrpSta(int[,] trp_num);
         private delegate void dlgUIUpdate(UIUpdateTypes type);
         
         private void InitCallBack()
@@ -136,12 +137,17 @@ namespace TravianMonitor
             	if (e is LogArgs)
             	{
             		LogArgs e_log = e as LogArgs;
-                	Invoke(new dlgWriteLog(WriteLog), new object[] { e_log.strLog, e_log.uiType });
+                	Invoke(new dlgWriteLog(WriteLog), new object[] { e_log.strLog });
             	}
             	else if (e is TaskStaArgs)
             	{
             		TaskStaArgs e_sta = e as TaskStaArgs;
             		Invoke(new dlgTaskStatus(TaskStatus), new object[] { e_sta.strSta, e_sta.uiType });
+            	}
+            	else if (e is TrpStaArgs)
+            	{
+            		TrpStaArgs s_trp_sta = e as TrpStaArgs;
+            		Invoke(new dlgTrpSta(DisplayTroopStatistics), new object[] { s_trp_sta.nTroopNums });
             	}
             	else
             	{
@@ -152,18 +158,9 @@ namespace TravianMonitor
             { }
         }
         
-        private void WriteLog(string log, UIUpdateTypes type)
+        private void WriteLog(string log)
         {
-        	switch (type)
-        	{
-        		case UIUpdateTypes.TroopsMonitorLog:
-        			this.textBoxLog4Monitor.AppendText(log + "\r\n");
-        			break;
-        			
-        		case UIUpdateTypes.TroopsSendingLog:
-        			this.textBoxLog4TroopSending.AppendText(log + "\r\n");
-        			break;
-        	}
+        	this.tbLog.AppendText("[" + DateTime.Now.ToString() + "]" + log + "\r\n");
         }
         
         private void TaskStatus(string sta, UIUpdateTypes type)
@@ -210,7 +207,7 @@ namespace TravianMonitor
         			this.WriteLog("------------------------------------\r\n"
         			              + "帐号名/密码：" + trAccount.strName
         			              + "/" + trAccount.strPassword + "可能有误，请检查。"
-        			              , UIUpdateTypes.TroopsMonitorLog);
+        			              );
         			
         			continue;
         		}
@@ -221,16 +218,8 @@ namespace TravianMonitor
         			lvi.SubItems.Add(trVillage.strName + "(" + trVillage.nID.ToString() + ")");
         			lvi.SubItems.Add(trVillage.nPosX + "|" + trVillage.nPosY);
         			lvi.SubItems.Add(trVillage.TroopString);
-        			string strStartTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
-        			                                  trVillage.dtStartTime.Year,
-        			                                  trVillage.dtStartTime.Month,
-        			                                  trVillage.dtStartTime.Day,
-        			                                  trVillage.dtStartTime.Hour,
-        			                                  trVillage.dtStartTime.Minute,
-        			                                  trVillage.dtStartTime.Second,
-        			                                  trVillage.dtStartTime.Millisecond);
-        			lvi.SubItems.Add(strStartTime);
-        			lvi.SubItems.Add(trVillage.nSquareLvl.ToString());
+        			lvi.SubItems.Add(trVillage.strStartTime);
+        			lvi.SubItems.Add(trVillage.strTimeCost);
         		}
         	}
         	
@@ -249,36 +238,29 @@ namespace TravianMonitor
         	{
         		ListViewItem lvi = listViewTroopSending.Items.Add(trVillage.trpSndStatus.ToString());
         		lvi.SubItems.Add(trVillage.reinTg.nCoordX + "|" + trVillage.reinTg.nCoordY);
-        		
-        		string strStartTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
-        			                                  trVillage.dtStartTime.Year,
-        			                                  trVillage.dtStartTime.Month,
-        			                                  trVillage.dtStartTime.Day,
-        			                                  trVillage.dtStartTime.Hour,
-        			                                  trVillage.dtStartTime.Minute,
-        			                                  trVillage.dtStartTime.Second,
-        			                                  trVillage.dtStartTime.Millisecond);
-        		lvi.SubItems.Add(strStartTime);
-        		
-        		string strReachTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
-        			                                  trVillage.dtReachTime.Year,
-        			                                  trVillage.dtReachTime.Month,
-        			                                  trVillage.dtReachTime.Day,
-        			                                  trVillage.dtReachTime.Hour,
-        			                                  trVillage.dtReachTime.Minute,
-        			                                  trVillage.dtReachTime.Second,
-        			                                  trVillage.dtReachTime.Millisecond);
-        		lvi.SubItems.Add(strReachTime);
-        		
+        		lvi.SubItems.Add(trVillage.strStartTime);
+        		lvi.SubItems.Add(trVillage.strReachTime);
         		lvi.SubItems.Add("[" + TravianData.strTribeName[trVillage.UpCall.nTribe - 1] + "]" + trVillage.UpCall.strName);
         		lvi.SubItems.Add(trVillage.strName + "(" + trVillage.nID.ToString() + ")");
         		lvi.SubItems.Add(trVillage.nPosX + "|" + trVillage.nPosY);
         		lvi.SubItems.Add(trVillage.TroopString);
-        		lvi.SubItems.Add(trVillage.nSquareLvl.ToString());
         	}
         	
         	listViewTroopSending.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewTroopSending.ResumeLayout();
+        }
+        
+        void DisplayTroopStatistics(int[,] nTroopNums)
+        {
+        	this.tbS1.Text = nTroopNums[0, 0].ToString();
+        	this.tbS2.Text = nTroopNums[0, 1].ToString();
+        	this.tbS3.Text = nTroopNums[0, 2].ToString();
+        	this.tbS4.Text = nTroopNums[1, 0].ToString();
+        	this.tbS5.Text = nTroopNums[1, 1].ToString();
+        	this.tbS6.Text = nTroopNums[1, 2].ToString();
+        	this.tbS7.Text = nTroopNums[2, 0].ToString();
+        	this.tbS8.Text = nTroopNums[2, 1].ToString();
+        	this.tbS9.Text = nTroopNums[2, 2].ToString();
         }
         
         void BtnRefreshVillagesClick(object sender, EventArgs e)
@@ -299,6 +281,8 @@ namespace TravianMonitor
         	UpCall.wk_mgr.WkrTaskExec.curTask = new TaskRefreshVillages();
         	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
         	           + "开始", UIUpdateTypes.TaskDetail);
+        	
+        	UpCall.bIsAllAcountReset = false;
         	UpCall.bIsTaskSet = true;
         }
         
@@ -306,6 +290,8 @@ namespace TravianMonitor
         {
         	if (UpCall.bIsTaskSet)
         		return;
+        	
+        	UpCall.RemoveVillagesWithNoDefTroops();
         	
         	List<Target> lstTg = UpCall.rTgs.lstTgs;
         	int nSel = this.comboBoxAllTgs.SelectedIndex;
@@ -315,6 +301,8 @@ namespace TravianMonitor
         		lstTg[nSel].nCoordY);
         	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
         	           + "开始", UIUpdateTypes.TaskDetail);
+        	
+        	UpCall.bIsAllAcountReset = false;
         	UpCall.bIsTaskSet = true;
         }
         
@@ -327,11 +315,6 @@ namespace TravianMonitor
         	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
         	           + "开始", UIUpdateTypes.TaskDetail);
         	UpCall.bIsTaskSet = true;
-        }
-        
-        void BtnClearLog4MonitorClick(object sender, EventArgs e)
-        {
-        	this.textBoxLog4Monitor.Text = "";
         }
         
         void BtnAddToTroopsArrayClick(object sender, EventArgs e)

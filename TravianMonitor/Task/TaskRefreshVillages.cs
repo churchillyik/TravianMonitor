@@ -23,12 +23,12 @@ namespace TravianMonitor
 			
 			lstPhase = new List<QueryPhase>();
 			lstPhase.Add(new QueryPhase(false, "dorf1.php"));
-			lstPhase.Add(new QueryPhase(false, "a2b.php"));
-			lstPhase.Add(new QueryPhase(true, "build.php?gid=14"));
-			lstPhase.Add(new QueryPhase(true, "build.php?gid=16"));
+			lstPhase.Add(new QueryPhase(false, "build.php?tt=2&id=39"));
+			lstPhase.Add(new QueryPhase(true, "dorf2.php"));
+			lstPhase.Add(new QueryPhase(true, "build.php?gid=16&tt=1"));
 			
 			uiType = UIUpdateTypes.VillageList;
-			logType = UIUpdateTypes.TroopsMonitorLog;
+			logType = UIUpdateTypes.DebugLog;
 		}
 				
 		protected override void ParseResult(TravianAccount trAccount)
@@ -75,8 +75,6 @@ namespace TravianMonitor
                 trVillage.nPosY = Convert.ToInt32(pos_y);
                 trVillage.strName = v_name;
                 
-                trVillage.nSquareLvl = 0;
-                
                 trAccount.lstVillages.Add(trVillage);
             }
 		}
@@ -96,14 +94,43 @@ namespace TravianMonitor
 		
 		private void ParsePhase3Result(TravianAccount trAccount)
 		{
-			Match levelMatch = Regex.Match(trAccount.tskStatus.strQueryResult, "<span\\sclass=\"level\">[^\\d]*?(\\d+)</span>");
-            if (!levelMatch.Success)
-            {
-            	return;
-            }
+            MatchCollection mc_gid = Regex.Matches(trAccount.tskStatus.strQueryResult
+			                                       , "class=\"building\\s*?g(\\d+)b*\""
+			                                       , RegexOptions.Singleline);
+            MatchCollection mc_bid = Regex.Matches(trAccount.tskStatus.strQueryResult
+			                                       , "class=\"aid(\\d+)\\s?\\w*?\">(\\d+)</div>"
+			                                       , RegexOptions.Singleline);
+            if (mc_gid.Count == 0 || 
+                !(mc_gid.Count == mc_bid.Count || mc_gid.Count + 1 == mc_bid.Count))
+                return;
             
             TravianVillage trVillage = trAccount.lstVillages[trAccount.tskStatus.nVillageCursor - 1];
-            trVillage.nSquareLvl = Convert.ToInt32(levelMatch.Groups[1].Value);
+            
+            int bid, gid, lvl;
+            bool bRallyPointFound = false;
+            for (int i = 0; i < mc_gid.Count; i++)
+            {
+            	gid = Convert.ToInt32(mc_gid[i].Groups[1].Value);
+            	bid = Convert.ToInt32(mc_bid[i].Groups[1].Value);
+            	lvl = Convert.ToInt32(mc_bid[i].Groups[2].Value);
+            	
+            	if (gid == 16 && lvl > 0)
+            	{
+            		bRallyPointFound = true;
+            	}
+            }
+            
+            if (bRallyPointFound)
+            	return;
+            
+            if (trAccount.tskStatus.dicIgnoredPhases.ContainsKey(trAccount.tskStatus.nVillageCursor))
+            {
+            	trAccount.tskStatus.dicIgnoredPhases[trAccount.tskStatus.nVillageCursor] = 4;
+            }
+            else
+            {
+            	trAccount.tskStatus.dicIgnoredPhases.Add(trAccount.tskStatus.nVillageCursor, 4);
+            }
 		}
 		
 		private void ParsePhase4Result(TravianAccount trAccount)
@@ -116,11 +143,10 @@ namespace TravianMonitor
                 return;
             }
 
-	        TravianVillage trVillage = trAccount.lstVillages[trAccount.tskStatus.nVillageCursor - 1];
-	        
+	        TravianVillage trVillage = trAccount.lstVillages[trAccount.tskStatus.nVillageCursor - 1];	        
 	        string[] troopDetails = HtmlUtility.GetElementsWithClass(
                     troopGroups[1],
-                    "table",
+                    "table.*?",
                     "troop_details\\s*[^\"]*?");
 	        if (troopDetails.Length < 1)
             {

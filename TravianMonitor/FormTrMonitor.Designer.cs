@@ -57,9 +57,8 @@
         	this.colHdCoord = new System.Windows.Forms.ColumnHeader();
         	this.colHdTroops = new System.Windows.Forms.ColumnHeader();
         	this.colHdStartTime = new System.Windows.Forms.ColumnHeader();
-        	this.colHdSquare = new System.Windows.Forms.ColumnHeader();
+        	this.colHdTimeNeeded = new System.Windows.Forms.ColumnHeader();
         	this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-        	this.textBoxLog4Monitor = new System.Windows.Forms.TextBox();
         	this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
         	this.groupBox3 = new System.Windows.Forms.GroupBox();
         	this.dateTimePickerReachTime = new System.Windows.Forms.DateTimePicker();
@@ -71,17 +70,34 @@
         	this.textBoxTgX = new System.Windows.Forms.TextBox();
         	this.label4 = new System.Windows.Forms.Label();
         	this.groupBox4 = new System.Windows.Forms.GroupBox();
-        	this.btnClearLog4Monitor = new System.Windows.Forms.Button();
-        	this.btnStatistics = new System.Windows.Forms.Button();
+        	this.label14 = new System.Windows.Forms.Label();
         	this.btnAddToTroopsArray = new System.Windows.Forms.Button();
         	this.btnCalStartTime = new System.Windows.Forms.Button();
         	this.btnRefreshVillages = new System.Windows.Forms.Button();
+        	this.groupBox5 = new System.Windows.Forms.GroupBox();
+        	this.tbS8 = new System.Windows.Forms.TextBox();
+        	this.tbS5 = new System.Windows.Forms.TextBox();
+        	this.tbS2 = new System.Windows.Forms.TextBox();
+        	this.tbS9 = new System.Windows.Forms.TextBox();
+        	this.tbS6 = new System.Windows.Forms.TextBox();
+        	this.tbS3 = new System.Windows.Forms.TextBox();
+        	this.tbS7 = new System.Windows.Forms.TextBox();
+        	this.tbS4 = new System.Windows.Forms.TextBox();
+        	this.tbS1 = new System.Windows.Forms.TextBox();
+        	this.label13 = new System.Windows.Forms.Label();
+        	this.label10 = new System.Windows.Forms.Label();
+        	this.label6 = new System.Windows.Forms.Label();
+        	this.label12 = new System.Windows.Forms.Label();
+        	this.label11 = new System.Windows.Forms.Label();
+        	this.label9 = new System.Windows.Forms.Label();
+        	this.label8 = new System.Windows.Forms.Label();
+        	this.label7 = new System.Windows.Forms.Label();
+        	this.label5 = new System.Windows.Forms.Label();
+        	this.btnStatistics = new System.Windows.Forms.Button();
         	this.tabPageTroopSending = new System.Windows.Forms.TabPage();
         	this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
         	this.btnStartSendTroops = new System.Windows.Forms.Button();
         	this.btnStopSendTroops = new System.Windows.Forms.Button();
-        	this.btnClearLog4TroopSending = new System.Windows.Forms.Button();
-        	this.textBoxLog4TroopSending = new System.Windows.Forms.TextBox();
         	this.listViewTroopSending = new System.Windows.Forms.ListView();
         	this.colHdCurStatus = new System.Windows.Forms.ColumnHeader();
         	this.colHdTgCoord = new System.Windows.Forms.ColumnHeader();
@@ -91,7 +107,8 @@
         	this.colHdSrcVillage = new System.Windows.Forms.ColumnHeader();
         	this.colHdSrcVillageCoord = new System.Windows.Forms.ColumnHeader();
         	this.colHdSrcTroops = new System.Windows.Forms.ColumnHeader();
-        	this.colHdSrcSquare = new System.Windows.Forms.ColumnHeader();
+        	this.tabPage1 = new System.Windows.Forms.TabPage();
+        	this.tbLog = new System.Windows.Forms.TextBox();
         	this.users_infoTableAdapter = new TravianMonitor.UsersInfoDataSetTableAdapters.users_infoTableAdapter();
         	this.statusStrip1 = new System.Windows.Forms.StatusStrip();
         	this.TaskStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -114,8 +131,10 @@
         	this.groupBox3.SuspendLayout();
         	this.groupBox2.SuspendLayout();
         	this.groupBox4.SuspendLayout();
+        	this.groupBox5.SuspendLayout();
         	this.tabPageTroopSending.SuspendLayout();
         	this.flowLayoutPanel4.SuspendLayout();
+        	this.tabPage1.SuspendLayout();
         	this.statusStrip1.SuspendLayout();
         	this.SuspendLayout();
         	// 
@@ -124,6 +143,7 @@
         	this.tabControlMainForm.Controls.Add(this.tabPageUsersInfo);
         	this.tabControlMainForm.Controls.Add(this.tabPageMonitor);
         	this.tabControlMainForm.Controls.Add(this.tabPageTroopSending);
+        	this.tabControlMainForm.Controls.Add(this.tabPage1);
         	this.tabControlMainForm.Dock = System.Windows.Forms.DockStyle.Fill;
         	this.tabControlMainForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
         	this.tabControlMainForm.Location = new System.Drawing.Point(0, 0);
@@ -356,7 +376,7 @@
         	        	        	this.colHdCoord,
         	        	        	this.colHdTroops,
         	        	        	this.colHdStartTime,
-        	        	        	this.colHdSquare});
+        	        	        	this.colHdTimeNeeded});
         	this.listViewTroopsInfo.Dock = System.Windows.Forms.DockStyle.Fill;
         	this.listViewTroopsInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
         	this.listViewTroopsInfo.FullRowSelect = true;
@@ -393,37 +413,27 @@
         	this.colHdStartTime.Text = "发兵时刻";
         	this.colHdStartTime.Width = 100;
         	// 
-        	// colHdSquare
+        	// colHdTimeNeeded
         	// 
-        	this.colHdSquare.Text = "竞技场等级";
-        	this.colHdSquare.Width = 80;
+        	this.colHdTimeNeeded.Text = "行程时间";
+        	this.colHdTimeNeeded.Width = 80;
         	// 
         	// flowLayoutPanel2
         	// 
-        	this.flowLayoutPanel2.Controls.Add(this.textBoxLog4Monitor);
         	this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel3);
         	this.flowLayoutPanel2.Controls.Add(this.groupBox4);
+        	this.flowLayoutPanel2.Controls.Add(this.groupBox5);
         	this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
         	this.flowLayoutPanel2.Location = new System.Drawing.Point(566, 3);
         	this.flowLayoutPanel2.Name = "flowLayoutPanel2";
         	this.flowLayoutPanel2.Size = new System.Drawing.Size(338, 602);
         	this.flowLayoutPanel2.TabIndex = 2;
         	// 
-        	// textBoxLog4Monitor
-        	// 
-        	this.textBoxLog4Monitor.Location = new System.Drawing.Point(3, 3);
-        	this.textBoxLog4Monitor.Multiline = true;
-        	this.textBoxLog4Monitor.Name = "textBoxLog4Monitor";
-        	this.textBoxLog4Monitor.ReadOnly = true;
-        	this.textBoxLog4Monitor.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-        	this.textBoxLog4Monitor.Size = new System.Drawing.Size(330, 231);
-        	this.textBoxLog4Monitor.TabIndex = 0;
-        	// 
         	// flowLayoutPanel3
         	// 
         	this.flowLayoutPanel3.Controls.Add(this.groupBox3);
         	this.flowLayoutPanel3.Controls.Add(this.groupBox2);
-        	this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 240);
+        	this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
         	this.flowLayoutPanel3.Name = "flowLayoutPanel3";
         	this.flowLayoutPanel3.Size = new System.Drawing.Size(330, 145);
         	this.flowLayoutPanel3.TabIndex = 1;
@@ -520,39 +530,25 @@
         	// 
         	// groupBox4
         	// 
-        	this.groupBox4.Controls.Add(this.btnClearLog4Monitor);
-        	this.groupBox4.Controls.Add(this.btnStatistics);
+        	this.groupBox4.Controls.Add(this.label14);
         	this.groupBox4.Controls.Add(this.btnAddToTroopsArray);
         	this.groupBox4.Controls.Add(this.btnCalStartTime);
         	this.groupBox4.Controls.Add(this.btnRefreshVillages);
-        	this.groupBox4.Location = new System.Drawing.Point(3, 391);
+        	this.groupBox4.Location = new System.Drawing.Point(3, 154);
         	this.groupBox4.Name = "groupBox4";
         	this.groupBox4.Size = new System.Drawing.Size(330, 135);
         	this.groupBox4.TabIndex = 2;
         	this.groupBox4.TabStop = false;
         	this.groupBox4.Text = "功能";
         	// 
-        	// btnClearLog4Monitor
+        	// label14
         	// 
-        	this.btnClearLog4Monitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.btnClearLog4Monitor.Location = new System.Drawing.Point(119, 84);
-        	this.btnClearLog4Monitor.Name = "btnClearLog4Monitor";
-        	this.btnClearLog4Monitor.Size = new System.Drawing.Size(91, 40);
-        	this.btnClearLog4Monitor.TabIndex = 3;
-        	this.btnClearLog4Monitor.Text = "清空日志";
-        	this.btnClearLog4Monitor.UseVisualStyleBackColor = true;
-        	this.btnClearLog4Monitor.Click += new System.EventHandler(this.BtnClearLog4MonitorClick);
-        	// 
-        	// btnStatistics
-        	// 
-        	this.btnStatistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.btnStatistics.Location = new System.Drawing.Point(14, 84);
-        	this.btnStatistics.Name = "btnStatistics";
-        	this.btnStatistics.Size = new System.Drawing.Size(91, 40);
-        	this.btnStatistics.TabIndex = 3;
-        	this.btnStatistics.Text = "统计兵力";
-        	this.btnStatistics.UseVisualStyleBackColor = true;
-        	this.btnStatistics.Click += new System.EventHandler(this.BtnStatisticsClick);
+        	this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        	this.label14.Location = new System.Drawing.Point(16, 87);
+        	this.label14.Name = "label14";
+        	this.label14.Size = new System.Drawing.Size(299, 42);
+        	this.label14.TabIndex = 4;
+        	this.label14.Text = "添加到发兵队列时，需要先选中发兵村（按ctrl键可多选），再添加到出兵队列";
         	// 
         	// btnAddToTroopsArray
         	// 
@@ -572,7 +568,7 @@
         	this.btnCalStartTime.Name = "btnCalStartTime";
         	this.btnCalStartTime.Size = new System.Drawing.Size(91, 40);
         	this.btnCalStartTime.TabIndex = 3;
-        	this.btnCalStartTime.Text = "计算出兵时刻";
+        	this.btnCalStartTime.Text = "获取行程时间";
         	this.btnCalStartTime.UseVisualStyleBackColor = true;
         	this.btnCalStartTime.Click += new System.EventHandler(this.BtnCalStartTimeClick);
         	// 
@@ -586,6 +582,198 @@
         	this.btnRefreshVillages.Text = "刷新所有村庄";
         	this.btnRefreshVillages.UseVisualStyleBackColor = true;
         	this.btnRefreshVillages.Click += new System.EventHandler(this.BtnRefreshVillagesClick);
+        	// 
+        	// groupBox5
+        	// 
+        	this.groupBox5.Controls.Add(this.tbS8);
+        	this.groupBox5.Controls.Add(this.tbS5);
+        	this.groupBox5.Controls.Add(this.tbS2);
+        	this.groupBox5.Controls.Add(this.tbS9);
+        	this.groupBox5.Controls.Add(this.tbS6);
+        	this.groupBox5.Controls.Add(this.tbS3);
+        	this.groupBox5.Controls.Add(this.tbS7);
+        	this.groupBox5.Controls.Add(this.tbS4);
+        	this.groupBox5.Controls.Add(this.tbS1);
+        	this.groupBox5.Controls.Add(this.label13);
+        	this.groupBox5.Controls.Add(this.label10);
+        	this.groupBox5.Controls.Add(this.label6);
+        	this.groupBox5.Controls.Add(this.label12);
+        	this.groupBox5.Controls.Add(this.label11);
+        	this.groupBox5.Controls.Add(this.label9);
+        	this.groupBox5.Controls.Add(this.label8);
+        	this.groupBox5.Controls.Add(this.label7);
+        	this.groupBox5.Controls.Add(this.label5);
+        	this.groupBox5.Controls.Add(this.btnStatistics);
+        	this.groupBox5.Location = new System.Drawing.Point(3, 295);
+        	this.groupBox5.Name = "groupBox5";
+        	this.groupBox5.Size = new System.Drawing.Size(330, 277);
+        	this.groupBox5.TabIndex = 3;
+        	this.groupBox5.TabStop = false;
+        	this.groupBox5.Text = "统计";
+        	// 
+        	// tbS8
+        	// 
+        	this.tbS8.BackColor = System.Drawing.Color.White;
+        	this.tbS8.Location = new System.Drawing.Point(119, 190);
+        	this.tbS8.Name = "tbS8";
+        	this.tbS8.ReadOnly = true;
+        	this.tbS8.Size = new System.Drawing.Size(81, 23);
+        	this.tbS8.TabIndex = 5;
+        	// 
+        	// tbS5
+        	// 
+        	this.tbS5.BackColor = System.Drawing.Color.White;
+        	this.tbS5.Location = new System.Drawing.Point(119, 122);
+        	this.tbS5.Name = "tbS5";
+        	this.tbS5.ReadOnly = true;
+        	this.tbS5.Size = new System.Drawing.Size(81, 23);
+        	this.tbS5.TabIndex = 5;
+        	// 
+        	// tbS2
+        	// 
+        	this.tbS2.BackColor = System.Drawing.Color.White;
+        	this.tbS2.Location = new System.Drawing.Point(119, 54);
+        	this.tbS2.Name = "tbS2";
+        	this.tbS2.ReadOnly = true;
+        	this.tbS2.Size = new System.Drawing.Size(81, 23);
+        	this.tbS2.TabIndex = 5;
+        	// 
+        	// tbS9
+        	// 
+        	this.tbS9.BackColor = System.Drawing.Color.White;
+        	this.tbS9.Location = new System.Drawing.Point(224, 190);
+        	this.tbS9.Name = "tbS9";
+        	this.tbS9.ReadOnly = true;
+        	this.tbS9.Size = new System.Drawing.Size(81, 23);
+        	this.tbS9.TabIndex = 5;
+        	// 
+        	// tbS6
+        	// 
+        	this.tbS6.BackColor = System.Drawing.Color.White;
+        	this.tbS6.Location = new System.Drawing.Point(224, 122);
+        	this.tbS6.Name = "tbS6";
+        	this.tbS6.ReadOnly = true;
+        	this.tbS6.Size = new System.Drawing.Size(81, 23);
+        	this.tbS6.TabIndex = 5;
+        	// 
+        	// tbS3
+        	// 
+        	this.tbS3.BackColor = System.Drawing.Color.White;
+        	this.tbS3.Location = new System.Drawing.Point(224, 54);
+        	this.tbS3.Name = "tbS3";
+        	this.tbS3.ReadOnly = true;
+        	this.tbS3.Size = new System.Drawing.Size(81, 23);
+        	this.tbS3.TabIndex = 5;
+        	// 
+        	// tbS7
+        	// 
+        	this.tbS7.BackColor = System.Drawing.Color.White;
+        	this.tbS7.Location = new System.Drawing.Point(16, 190);
+        	this.tbS7.Name = "tbS7";
+        	this.tbS7.ReadOnly = true;
+        	this.tbS7.Size = new System.Drawing.Size(81, 23);
+        	this.tbS7.TabIndex = 5;
+        	// 
+        	// tbS4
+        	// 
+        	this.tbS4.BackColor = System.Drawing.Color.White;
+        	this.tbS4.Location = new System.Drawing.Point(16, 122);
+        	this.tbS4.Name = "tbS4";
+        	this.tbS4.ReadOnly = true;
+        	this.tbS4.Size = new System.Drawing.Size(81, 23);
+        	this.tbS4.TabIndex = 5;
+        	// 
+        	// tbS1
+        	// 
+        	this.tbS1.BackColor = System.Drawing.Color.White;
+        	this.tbS1.Location = new System.Drawing.Point(16, 54);
+        	this.tbS1.Name = "tbS1";
+        	this.tbS1.ReadOnly = true;
+        	this.tbS1.Size = new System.Drawing.Size(81, 23);
+        	this.tbS1.TabIndex = 5;
+        	// 
+        	// label13
+        	// 
+        	this.label13.Location = new System.Drawing.Point(119, 165);
+        	this.label13.Name = "label13";
+        	this.label13.Size = new System.Drawing.Size(57, 23);
+        	this.label13.TabIndex = 4;
+        	this.label13.Text = "德骑";
+        	// 
+        	// label10
+        	// 
+        	this.label10.Location = new System.Drawing.Point(119, 97);
+        	this.label10.Name = "label10";
+        	this.label10.Size = new System.Drawing.Size(57, 23);
+        	this.label10.TabIndex = 4;
+        	this.label10.Text = "圣骑";
+        	// 
+        	// label6
+        	// 
+        	this.label6.Location = new System.Drawing.Point(119, 29);
+        	this.label6.Name = "label6";
+        	this.label6.Size = new System.Drawing.Size(57, 23);
+        	this.label6.TabIndex = 4;
+        	this.label6.Text = "禁卫";
+        	// 
+        	// label12
+        	// 
+        	this.label12.Location = new System.Drawing.Point(16, 165);
+        	this.label12.Name = "label12";
+        	this.label12.Size = new System.Drawing.Size(57, 23);
+        	this.label12.TabIndex = 4;
+        	this.label12.Text = "方阵";
+        	// 
+        	// label11
+        	// 
+        	this.label11.Location = new System.Drawing.Point(224, 165);
+        	this.label11.Name = "label11";
+        	this.label11.Size = new System.Drawing.Size(57, 23);
+        	this.label11.TabIndex = 4;
+        	this.label11.Text = "海骑";
+        	// 
+        	// label9
+        	// 
+        	this.label9.Location = new System.Drawing.Point(16, 97);
+        	this.label9.Name = "label9";
+        	this.label9.Size = new System.Drawing.Size(57, 23);
+        	this.label9.TabIndex = 4;
+        	this.label9.Text = "矛兵";
+        	// 
+        	// label8
+        	// 
+        	this.label8.Location = new System.Drawing.Point(224, 97);
+        	this.label8.Name = "label8";
+        	this.label8.Size = new System.Drawing.Size(57, 23);
+        	this.label8.TabIndex = 4;
+        	this.label8.Text = "日骑";
+        	// 
+        	// label7
+        	// 
+        	this.label7.Location = new System.Drawing.Point(16, 29);
+        	this.label7.Name = "label7";
+        	this.label7.Size = new System.Drawing.Size(57, 23);
+        	this.label7.TabIndex = 4;
+        	this.label7.Text = "古罗";
+        	// 
+        	// label5
+        	// 
+        	this.label5.Location = new System.Drawing.Point(224, 29);
+        	this.label5.Name = "label5";
+        	this.label5.Size = new System.Drawing.Size(57, 23);
+        	this.label5.TabIndex = 4;
+        	this.label5.Text = "将骑";
+        	// 
+        	// btnStatistics
+        	// 
+        	this.btnStatistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+        	this.btnStatistics.Location = new System.Drawing.Point(119, 224);
+        	this.btnStatistics.Name = "btnStatistics";
+        	this.btnStatistics.Size = new System.Drawing.Size(91, 40);
+        	this.btnStatistics.TabIndex = 3;
+        	this.btnStatistics.Text = "统计兵力";
+        	this.btnStatistics.UseVisualStyleBackColor = true;
+        	this.btnStatistics.Click += new System.EventHandler(this.BtnStatisticsClick);
         	// 
         	// tabPageTroopSending
         	// 
@@ -603,12 +791,10 @@
         	// 
         	this.flowLayoutPanel4.Controls.Add(this.btnStartSendTroops);
         	this.flowLayoutPanel4.Controls.Add(this.btnStopSendTroops);
-        	this.flowLayoutPanel4.Controls.Add(this.btnClearLog4TroopSending);
-        	this.flowLayoutPanel4.Controls.Add(this.textBoxLog4TroopSending);
         	this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-        	this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 441);
+        	this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 525);
         	this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-        	this.flowLayoutPanel4.Size = new System.Drawing.Size(901, 164);
+        	this.flowLayoutPanel4.Size = new System.Drawing.Size(901, 80);
         	this.flowLayoutPanel4.TabIndex = 1;
         	// 
         	// btnStartSendTroops
@@ -629,26 +815,6 @@
         	this.btnStopSendTroops.Text = "停止发兵";
         	this.btnStopSendTroops.UseVisualStyleBackColor = true;
         	// 
-        	// btnClearLog4TroopSending
-        	// 
-        	this.btnClearLog4TroopSending.Location = new System.Drawing.Point(181, 3);
-        	this.btnClearLog4TroopSending.Name = "btnClearLog4TroopSending";
-        	this.btnClearLog4TroopSending.Size = new System.Drawing.Size(83, 46);
-        	this.btnClearLog4TroopSending.TabIndex = 0;
-        	this.btnClearLog4TroopSending.Text = "清空日志";
-        	this.btnClearLog4TroopSending.UseVisualStyleBackColor = true;
-        	// 
-        	// textBoxLog4TroopSending
-        	// 
-        	this.textBoxLog4TroopSending.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-        	this.textBoxLog4TroopSending.Location = new System.Drawing.Point(3, 55);
-        	this.textBoxLog4TroopSending.Multiline = true;
-        	this.textBoxLog4TroopSending.Name = "textBoxLog4TroopSending";
-        	this.textBoxLog4TroopSending.ReadOnly = true;
-        	this.textBoxLog4TroopSending.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-        	this.textBoxLog4TroopSending.Size = new System.Drawing.Size(854, 106);
-        	this.textBoxLog4TroopSending.TabIndex = 1;
-        	// 
         	// listViewTroopSending
         	// 
         	this.listViewTroopSending.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -659,8 +825,7 @@
         	        	        	this.colHdSrcAccount,
         	        	        	this.colHdSrcVillage,
         	        	        	this.colHdSrcVillageCoord,
-        	        	        	this.colHdSrcTroops,
-        	        	        	this.colHdSrcSquare});
+        	        	        	this.colHdSrcTroops});
         	this.listViewTroopSending.Dock = System.Windows.Forms.DockStyle.Fill;
         	this.listViewTroopSending.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
         	this.listViewTroopSending.FullRowSelect = true;
@@ -676,20 +841,22 @@
         	// colHdCurStatus
         	// 
         	this.colHdCurStatus.Text = "当前状态";
+        	this.colHdCurStatus.Width = 99;
         	// 
         	// colHdTgCoord
         	// 
         	this.colHdTgCoord.Text = "目标坐标";
+        	this.colHdTgCoord.Width = 75;
         	// 
         	// colHdTroopStartTime
         	// 
         	this.colHdTroopStartTime.Text = "出发时刻";
-        	this.colHdTroopStartTime.Width = 100;
+        	this.colHdTroopStartTime.Width = 110;
         	// 
         	// colHdTroopReachTime
         	// 
         	this.colHdTroopReachTime.Text = "到达时刻";
-        	this.colHdTroopReachTime.Width = 100;
+        	this.colHdTroopReachTime.Width = 112;
         	// 
         	// colHdSrcAccount
         	// 
@@ -699,21 +866,39 @@
         	// colHdSrcVillage
         	// 
         	this.colHdSrcVillage.Text = "发兵村（ID）";
-        	this.colHdSrcVillage.Width = 120;
+        	this.colHdSrcVillage.Width = 132;
         	// 
         	// colHdSrcVillageCoord
         	// 
         	this.colHdSrcVillageCoord.Text = "兵村坐标";
+        	this.colHdSrcVillageCoord.Width = 86;
         	// 
         	// colHdSrcTroops
         	// 
         	this.colHdSrcTroops.Text = "军队信息";
-        	this.colHdSrcTroops.Width = 200;
+        	this.colHdSrcTroops.Width = 226;
         	// 
-        	// colHdSrcSquare
+        	// tabPage1
         	// 
-        	this.colHdSrcSquare.Text = "竞技场等级";
-        	this.colHdSrcSquare.Width = 80;
+        	this.tabPage1.Controls.Add(this.tbLog);
+        	this.tabPage1.Location = new System.Drawing.Point(4, 26);
+        	this.tabPage1.Name = "tabPage1";
+        	this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+        	this.tabPage1.Size = new System.Drawing.Size(907, 608);
+        	this.tabPage1.TabIndex = 3;
+        	this.tabPage1.Text = "日志";
+        	this.tabPage1.UseVisualStyleBackColor = true;
+        	// 
+        	// tbLog
+        	// 
+        	this.tbLog.Dock = System.Windows.Forms.DockStyle.Fill;
+        	this.tbLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        	this.tbLog.Location = new System.Drawing.Point(3, 3);
+        	this.tbLog.Multiline = true;
+        	this.tbLog.Name = "tbLog";
+        	this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+        	this.tbLog.Size = new System.Drawing.Size(901, 602);
+        	this.tbLog.TabIndex = 0;
         	// 
         	// users_infoTableAdapter
         	// 
@@ -754,7 +939,7 @@
         	this.GuageStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         	this.GuageStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
         	this.GuageStatusLabel.Name = "GuageStatusLabel";
-        	this.GuageStatusLabel.Size = new System.Drawing.Size(184, 30);
+        	this.GuageStatusLabel.Size = new System.Drawing.Size(200, 30);
         	this.GuageStatusLabel.Spring = true;
         	this.GuageStatusLabel.Text = "进度：";
         	this.GuageStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -767,7 +952,7 @@
         	        	        	| System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
         	this.AccNumStripStatusLabel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         	this.AccNumStripStatusLabel.Name = "AccNumStripStatusLabel";
-        	this.AccNumStripStatusLabel.Size = new System.Drawing.Size(184, 30);
+        	this.AccNumStripStatusLabel.Size = new System.Drawing.Size(200, 30);
         	this.AccNumStripStatusLabel.Spring = true;
         	this.AccNumStripStatusLabel.Text = "帐号数：";
         	this.AccNumStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -798,20 +983,45 @@
         	((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
         	this.tabPageMonitor.ResumeLayout(false);
         	this.flowLayoutPanel2.ResumeLayout(false);
-        	this.flowLayoutPanel2.PerformLayout();
         	this.flowLayoutPanel3.ResumeLayout(false);
         	this.groupBox3.ResumeLayout(false);
         	this.groupBox2.ResumeLayout(false);
         	this.groupBox2.PerformLayout();
         	this.groupBox4.ResumeLayout(false);
+        	this.groupBox5.ResumeLayout(false);
+        	this.groupBox5.PerformLayout();
         	this.tabPageTroopSending.ResumeLayout(false);
         	this.flowLayoutPanel4.ResumeLayout(false);
-        	this.flowLayoutPanel4.PerformLayout();
+        	this.tabPage1.ResumeLayout(false);
+        	this.tabPage1.PerformLayout();
         	this.statusStrip1.ResumeLayout(false);
         	this.statusStrip1.PerformLayout();
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.TextBox tbS8;
+        private System.Windows.Forms.TextBox tbS9;
+        private System.Windows.Forms.ColumnHeader colHdTimeNeeded;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox tbS1;
+        private System.Windows.Forms.TextBox tbS4;
+        private System.Windows.Forms.TextBox tbS7;
+        private System.Windows.Forms.TextBox tbS3;
+        private System.Windows.Forms.TextBox tbS6;
+        private System.Windows.Forms.TextBox tbS2;
+        private System.Windows.Forms.TextBox tbS5;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox tbLog;
+        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ToolStripStatusLabel GuageStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel AccNumStripStatusLabel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
@@ -840,7 +1050,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDownInterval;
         private System.Windows.Forms.TextBox textBoxInstruction;
-        private System.Windows.Forms.TextBox textBoxLog4Monitor;
         private System.Windows.Forms.ListView listViewTroopsInfo;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
@@ -874,14 +1083,9 @@
         private System.Windows.Forms.ColumnHeader colHdSrcVillage;
         private System.Windows.Forms.ColumnHeader colHdSrcVillageCoord;
         private System.Windows.Forms.ColumnHeader colHdSrcTroops;
-        private System.Windows.Forms.ColumnHeader colHdSquare;
-        private System.Windows.Forms.ColumnHeader colHdSrcSquare;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.Button btnStartSendTroops;
         private System.Windows.Forms.Button btnStopSendTroops;
-        private System.Windows.Forms.TextBox textBoxLog4TroopSending;
-        private System.Windows.Forms.Button btnClearLog4Monitor;
-        private System.Windows.Forms.Button btnClearLog4TroopSending;
     }
 }
 

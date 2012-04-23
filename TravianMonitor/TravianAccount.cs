@@ -28,10 +28,9 @@ namespace TravianMonitor
 		public int nPosX;
 		public int nPosY;
 		public string strName;
-		public int nSquareLvl;
 		public int[] Troops = new int[11];
-		public DateTime dtStartTime = DateTime.MinValue;
 		public DateTime dtReachTime = DateTime.MinValue;
+		public int nTimeCost;
 		public TroopSendingStatus trpSndStatus = TroopSendingStatus.NoAction;
 		public Target reinTg = null;
 		
@@ -45,13 +44,12 @@ namespace TravianMonitor
 			nPosX = v.nPosX;
 			nPosY = v.nPosY;
 			strName = v.strName;
-			nSquareLvl = v.nSquareLvl;
 			for (int i = 0; i < Troops.Length; i++)
 			{
 				Troops[i] = v.Troops[i];
 			}
-			dtStartTime = v.dtStartTime;
 			dtReachTime = v.dtReachTime;
+			nTimeCost = v.nTimeCost;
 			trpSndStatus = v.trpSndStatus;
 			if (v.reinTg != null)
 			{
@@ -97,6 +95,61 @@ namespace TravianMonitor
 					}
 				}
 				return min_speed;
+			}
+		}
+		
+		public DateTime dtStartTime
+		{
+			get
+			{
+				return dtReachTime.AddSeconds(-nTimeCost);
+			}
+		}
+		
+		public string strStartTime
+		{
+			get
+			{
+				DateTime st = dtStartTime;
+				return string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
+	                                  st.Year,
+	                                  st.Month,
+	                                  st.Day,
+	                                  st.Hour,
+	                                  st.Minute,
+	                                  st.Second,
+	                                  st.Millisecond);
+			}
+		}
+		
+		public string strReachTime
+		{
+			get
+			{
+				return string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6}", 
+	                                  dtReachTime.Year,
+	                                  dtReachTime.Month,
+	                                  dtReachTime.Day,
+	                                  dtReachTime.Hour,
+	                                  dtReachTime.Minute,
+	                                  dtReachTime.Second,
+	                                  dtReachTime.Millisecond);
+			}
+		}
+		
+		public string strTimeCost
+		{
+			get
+			{
+				int h, m, s;
+				h = this.nTimeCost / 3600;
+				m = (this.nTimeCost - 3600 * h) / 60;
+				s = this.nTimeCost - 3600 * h - 60 * m;
+				
+				return string.Format("{0}:{1}:{2}"
+				                     , h.ToString()
+				                     , m.ToString()
+				                     , s.ToString());
 			}
 		}
 	}

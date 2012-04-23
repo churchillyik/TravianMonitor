@@ -13,9 +13,9 @@ namespace TravianMonitor
 	public enum UIUpdateTypes
 	{
 		None,
-		TroopsMonitorLog,
-		TroopsSendingLog,
+		DebugLog,
 		VillageList,
+		TroopStatistics,
 		TroopSendingList,
 		TaskDetail,
 		TaskProcess,
@@ -36,6 +36,11 @@ namespace TravianMonitor
     	public string strSta;
     };
     
+    public class TrpStaArgs : UIUpdateArgs
+    {
+    	public int[,] nTroopNums;
+    };
+    
 	partial class TravianAccessor
 	{
 		public event EventHandler<UIUpdateArgs> OnUIUpdate;
@@ -51,6 +56,14 @@ namespace TravianMonitor
         {
         	TaskStaArgs arg = new TaskStaArgs();
             arg.strSta = strSta;
+            arg.uiType = type;
+            OnUIUpdate(this, arg);
+        }
+        
+        public void TrpStaUpdate(int[,] trp_num, UIUpdateTypes type)
+        {
+        	TrpStaArgs arg = new TrpStaArgs();
+            arg.nTroopNums = trp_num;
             arg.uiType = type;
             OnUIUpdate(this, arg);
         }

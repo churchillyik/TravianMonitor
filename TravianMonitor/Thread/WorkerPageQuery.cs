@@ -37,11 +37,13 @@ namespace TravianMonitor
 		public void PageQuery(Object threadContext)
         {				
 			TravianWebClient trWebClient = trAccount.trWebClient;
-			trAccount.tskStatus.strQueryResult = trWebClient.HttpQuery(strURL, dicPostData);
+			string strEx = "";
+			trAccount.tskStatus.strQueryResult = trWebClient.HttpQuery(strURL, dicPostData, out strEx);
 			if (trAccount.tskStatus.strQueryResult == "")
 			{
 				curTask.DebugLog("访问：" + strURL + "@[" 
 				                 + trAccount.strName + "]时发生异常，准备重试");
+				curTask.DebugLog(strEx.Substring(0, strEx.IndexOfAny(new char [] {'\r', '\n'})));
 				trAccount.tskStatus.status = CommunicationStatus.Retry;
 			}
 			curTask.TakeActionRep(trAccount);

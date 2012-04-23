@@ -23,7 +23,7 @@ namespace TravianMonitor
 			
 			bIsForAccounts = false;
 			uiType = UIUpdateTypes.None;
-			logType = UIUpdateTypes.TroopsMonitorLog;
+			logType = UIUpdateTypes.DebugLog;
 		}
 		
 		protected override void DirectExec()
@@ -56,25 +56,7 @@ namespace TravianMonitor
 				
 			}
 			
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < 3; i++)
-			{
-				List<TroopData> lstTd = TravianData.dicDefenseTroop[i + 1];
-				sb.AppendLine(TravianData.strTribeName[i] + "：");
-				for (int j = 0; j < 3; j++)
-				{
-					if (j != 2)
-					{
-						sb.Append(lstTd[j].strName + " " + trStsc[i, j] + "，");
-					}
-					else
-					{
-						sb.Append(lstTd[j].strName + " " + trStsc[i, j] + "\r\n");
-					}
-				}
-			}
-			
-			DebugLog(sb.ToString());
+			TravianAccessor.TrAcsr.TrpStaUpdate(trStsc, UIUpdateTypes.TroopStatistics);
 		}
 	}
 }

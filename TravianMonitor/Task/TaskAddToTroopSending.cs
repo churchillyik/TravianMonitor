@@ -25,7 +25,7 @@ namespace TravianMonitor
 				
 			bIsForAccounts = false;
 			uiType = UIUpdateTypes.TroopSendingList;
-			logType = UIUpdateTypes.TroopsMonitorLog;
+			logType = UIUpdateTypes.DebugLog;
 		}
 		
 		protected override void DirectExec()
