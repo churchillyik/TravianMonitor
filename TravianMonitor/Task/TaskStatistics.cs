@@ -17,18 +17,16 @@ namespace TravianMonitor
 	/// </summary>
 	public class TaskStatistics : Task
 	{		
-		public TaskStatistics() : base()
+		private List<TravianAccount> lstAccs;
+		public TaskStatistics(List<TravianAccount> all_accs) : base()
 		{
-			strName = "[统计所有兵力]";
-			
-			bIsForAccounts = false;
-			uiType = UIUpdateTypes.None;
-			logType = UIUpdateTypes.DebugLog;
+			lstAccs = all_accs;
+			bIsTaskDirect = true;
 		}
 		
-		protected override void DirectExec()
+		public override void DirectExec()
 		{
-			if (TravianAccessor.TrAcsr.lstAccounts == null)
+			if (lstAccs == null)
 				return;
 			
 			int[,] trStsc = new int[3, 3];
@@ -39,7 +37,7 @@ namespace TravianMonitor
 					trStsc[i, j] = 0;
 				}
 			}
-			foreach (TravianAccount trAccount in TravianAccessor.TrAcsr.lstAccounts)
+			foreach (TravianAccount trAccount in lstAccs)
 			{
 				if (trAccount.lstVillages == null || trAccount.bIsDead)
 					continue;
@@ -53,7 +51,6 @@ namespace TravianMonitor
 						trStsc[nTribe - 1, k] += trVillage.Troops[lstTd[k].nSeq];
 					}
 				}
-				
 			}
 			
 			TravianAccessor.TrAcsr.TrpStaUpdate(trStsc, UIUpdateTypes.TroopStatistics);

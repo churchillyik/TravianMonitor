@@ -278,11 +278,9 @@ namespace TravianMonitor
         		UpCall.lstAccounts.Add(account);
         	}
         	
-        	UpCall.wk_mgr.WkrTaskExec.curTask = new TaskRefreshVillages();
-        	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
-        	           + "开始", UIUpdateTypes.TaskDetail);
-        	
-        	UpCall.bIsAllAcountReset = false;
+        	UpCall.tskWkr.curTask = new TaskRefreshVillages(UpCall.lstAccounts);
+        	TaskStatus("任务[刷新所有村庄]", UIUpdateTypes.TaskDetail);
+
         	UpCall.bIsTaskSet = true;
         }
         
@@ -295,14 +293,13 @@ namespace TravianMonitor
         	
         	List<Target> lstTg = UpCall.rTgs.lstTgs;
         	int nSel = this.comboBoxAllTgs.SelectedIndex;
-        	UpCall.wk_mgr.WkrTaskExec.curTask = new TaskCalStartTime(
+        	UpCall.tskWkr.curTask = new TaskCalStartTime(
+        		UpCall.lstAccounts,
         		dateTimePickerReachTime.Value,
         		lstTg[nSel].nCoordX,
         		lstTg[nSel].nCoordY);
-        	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
-        	           + "开始", UIUpdateTypes.TaskDetail);
+        	TaskStatus("任务[计算发兵时间]", UIUpdateTypes.TaskDetail);
         	
-        	UpCall.bIsAllAcountReset = false;
         	UpCall.bIsTaskSet = true;
         }
         
@@ -311,9 +308,8 @@ namespace TravianMonitor
         	if (UpCall.bIsTaskSet)
         		return;
         	
-        	UpCall.wk_mgr.WkrTaskExec.curTask = new TaskStatistics();
-        	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
-        	           + "开始", UIUpdateTypes.TaskDetail);
+        	UpCall.tskWkr.curTask = new TaskStatistics(UpCall.lstAccounts);
+        	TaskStatus("任务[统计兵力]", UIUpdateTypes.TaskDetail);
         	UpCall.bIsTaskSet = true;
         }
         
@@ -328,10 +324,11 @@ namespace TravianMonitor
         		lstTravianVillageSelected.Add(listViewTroopsInfo.SelectedIndices[i]);
         	}
         	
-        	UpCall.wk_mgr.WkrTaskExec.curTask 
-        		= new TaskAddToTroopSending(lstTravianVillageSelected);
-        	TaskStatus("任务" + UpCall.wk_mgr.WkrTaskExec.curTask.strName
-        	           + "开始", UIUpdateTypes.TaskDetail);
+        	UpCall.tskWkr.curTask 
+        		= new TaskAddToTroopSending(
+        			UpCall.lstAccounts, lstTravianVillageSelected);
+        	TaskStatus("任务[添加发兵]", UIUpdateTypes.TaskDetail);
+        	
         	UpCall.bIsTaskSet = true;
         }
         
@@ -365,7 +362,7 @@ namespace TravianMonitor
         
         void FormTrMonitorFormClosed(object sender, FormClosedEventArgs e)
         {
-        	TravianAccessor.TrAcsr.wk_mgr.WkrTaskExec.AbortThread();
+        	TravianAccessor.TrAcsr.tskWkr.AbortThread();
         }
     }
 }

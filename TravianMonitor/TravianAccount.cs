@@ -167,14 +167,8 @@ namespace TravianMonitor
 		
 		public TravianWebClient trWebClient = new TravianWebClient();
 		
-		public TaskStatus tskStatus = new TaskStatus();
-		public int nLoginFailtimes = 0;
-		public static int nLoginFailLimit = 2;
-		public bool bIsDead
-		{
-			get { return (nLoginFailtimes >= TravianAccount.nLoginFailLimit); }
-		}
-		
+		public bool bIsDead = false;
+				
 		public TravianAccount(string name, string passwd)
 		{
 			strName = name;

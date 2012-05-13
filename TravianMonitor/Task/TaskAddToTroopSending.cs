@@ -16,25 +16,25 @@ namespace TravianMonitor
 	/// </summary>
 	public class TaskAddToTroopSending : Task
 	{
-		List<int> lstTravianVillageSelected = null;
+		private List<TravianAccount> lstAccs;
+		private List<int> lstTravianVillageSelected = null;
 		
-		public TaskAddToTroopSending(List<int> lstTVSel) : base()
+		public TaskAddToTroopSending(List<TravianAccount> all_accs
+		                             , List<int> lstTVSel) : base()
 		{
+			lstAccs = all_accs;
 			lstTravianVillageSelected = lstTVSel;
-			strName = "[添加到出兵队列]";
-				
-			bIsForAccounts = false;
-			uiType = UIUpdateTypes.TroopSendingList;
-			logType = UIUpdateTypes.DebugLog;
+			
+			bIsTaskDirect = true;
 		}
 		
-		protected override void DirectExec()
+		public override void DirectExec()
 		{
-			if (TravianAccessor.TrAcsr.lstAccounts == null)
+			if (lstAccs == null)
 				return;
 			
 			List<TravianVillage> lstAllVillages = new List<TravianVillage>();
-			foreach (TravianAccount trAccount in TravianAccessor.TrAcsr.lstAccounts)
+			foreach (TravianAccount trAccount in lstAccs)
 			{
 				if (trAccount.lstVillages == null || trAccount.bIsDead)
 					continue;
@@ -67,6 +67,8 @@ namespace TravianMonitor
 				TravianVillage trVillageForWar = new TravianVillage(trVillage);
 				TravianAccessor.TrAcsr.lstAllVillagesForSndTrps.Add(trVillageForWar);
 			}
+			
+			TravianAccessor.TrAcsr.UIUpdate(UIUpdateTypes.TroopSendingList);
 		}
 	}
 }

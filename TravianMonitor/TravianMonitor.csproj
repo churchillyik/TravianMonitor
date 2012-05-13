@@ -40,6 +40,7 @@
     <Compile Include="Task\TaskAddToTroopSending.cs" />
     <Compile Include="Task\TaskCalStartTime.cs" />
     <Compile Include="Task\TaskStatistics.cs" />
+    <Compile Include="Task\WorkerTaskExec.cs" />
     <Compile Include="TravianData.cs" />
     <Compile Include="UIUpdateHandler.cs" />
     <Compile Include="FormTrMonitor.cs">
@@ -87,11 +88,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ReinTgs.cs" />
-    <Compile Include="Task\Task.cs" />
+    <Compile Include="Task\Phase.cs" />
     <Compile Include="Task\TaskRefreshVillages.cs" />
-    <Compile Include="Thread\WorkerMgr.cs" />
-    <Compile Include="Thread\WorkerPageQuery.cs" />
-    <Compile Include="Thread\WorkerTaskExec.cs" />
     <Compile Include="TravianAccessor.cs" />
     <Compile Include="TravianAccount.cs" />
     <Compile Include="TravianWebClient.cs" />

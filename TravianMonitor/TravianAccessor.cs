@@ -10,14 +10,13 @@ namespace TravianMonitor
         static public TravianAccessor TrAcsr = null;
 
         public bool bIsTaskSet = false;
-        public bool bIsAllAcountReset = true;
+        
+        public WorkerTaskExec tskWkr = new WorkerTaskExec();
         
         public GlobalConfig glbCfg = new GlobalConfig();
         public ReinTgs rTgs = new ReinTgs();
         public List<TravianAccount> lstAccounts = new List<TravianAccount>();
         public List<TravianVillage> lstAllVillagesForSndTrps = new List<TravianVillage>();
-        
-        public WorkerMgr wk_mgr = new WorkerMgr(0);
 
         public TravianAccessor()
         {

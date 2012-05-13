@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-# SharpDevelop 3.2.1.6466
+# SharpDevelop 3.2.0.5777
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianMonitor", "TravianMonitor\TravianMonitor.csproj", "{38D27B28-B002-4B24-8307-896AF8BC5324}"
 EndProject
 Global
