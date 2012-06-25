@@ -56,7 +56,7 @@ namespace TravianMonitor
 		
 		protected override void SpecialParseResult(string strPageContent)
 		{
-			Match m = Regex.Match(strPageContent, "iPopup\\((\\d+),4\\)");
+			Match m = Regex.Match(strPageContent, "iPopup\\((\\d+),4");
 			if (m.Success)
 			{
             	trAcc.nTribe = Convert.ToInt32(m.Groups[1].Value) % 10;
@@ -86,11 +86,23 @@ namespace TravianMonitor
                 return;
             }
        
-	        string[] troopDetails = HtmlUtility.GetElementsWithClass(
-                    troopGroups[1],
-                    "table.*?",
-                    "troop_details");
-	        if (troopDetails.Length < 1)
+            string[] troopDetails = null;
+            for (int i = 1; i < troopGroups.Length; i++)
+            {
+		        troopDetails = HtmlUtility.GetElementsWithClass(
+	                    troopGroups[i],
+	                    "table.*?",
+	                    "troop_details");
+            	if (troopDetails.Length < 1)
+	            {
+	                continue;
+	            }
+            	else
+            	{
+            		break;
+            	}
+            }
+	        if (troopDetails == null || troopDetails.Length < 1)
             {
                 return;
             }

@@ -64,6 +64,21 @@ namespace TravianMonitor
 			}
 		}
         
+        public string strProxy
+		{
+			get
+			{
+				if (Options.ContainsKey("Proxy"))
+	            {
+	                return Options["Proxy"];
+	            }
+				else
+				{
+					return "";
+				}
+			}
+		}
+        
         public WebProxy Proxy;
         
         private Dictionary<string, string> Options = new Dictionary<string, string>();
@@ -91,9 +106,23 @@ namespace TravianMonitor
                 }
             }
             sr.Close();
+            
+            if (Options.ContainsKey("Proxy") && Options["Proxy"] != "")
+            {
+            	if (Options["Proxy"] == "IE")
+            	{
+            		Proxy = WebProxy.GetDefaultProxy();
+                	Proxy.UseDefaultCredentials = true;
+            	}
+            	else
+            	{
+            		Proxy = new WebProxy(Options["Proxy"]);
+            	}
+            }
+            
         }
 
-        public void SaveOptions(string strURL, string strInterval, string strReturnDelay)
+        public void SaveOptions(string strURL, string strInterval, string strReturnDelay, string strProxy)
         {
             if (Options.ContainsKey("SvrURL"))
             {
@@ -121,7 +150,16 @@ namespace TravianMonitor
             {
                 Options.Add("ReturnDelay", strReturnDelay);
             }
-
+            
+			if (Options.ContainsKey("Proxy"))
+            {
+                Options["Proxy"] = strProxy;
+            }
+            else
+            {
+                Options.Add("Proxy", strProxy);
+            }
+            
             FileStream fs = new FileStream("Options.ini", FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
             foreach (KeyValuePair<string, string> pair in Options)
@@ -132,6 +170,19 @@ namespace TravianMonitor
                 );
             }
             sw.Close();
+            
+            if (Options.ContainsKey("Proxy") && Options["Proxy"] != "")
+            {
+            	if (Options["Proxy"] == "IE")
+            	{
+            		Proxy = WebProxy.GetDefaultProxy();
+                	Proxy.UseDefaultCredentials = true;
+            	}
+            	else
+            	{
+            		Proxy = new WebProxy(Options["Proxy"]);
+            	}
+            }
         }
 	}
 }

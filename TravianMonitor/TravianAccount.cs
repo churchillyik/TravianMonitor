@@ -20,6 +20,16 @@ namespace TravianMonitor
 		Sending,
 		Sent,
 	}
+
+	public class EnemyInfo
+	{
+		public int Tribe;
+        public string Owner;
+        public int OwnerVillageZ;
+        public string OwnerVillageUrl;
+        public string VillageName;
+        public DateTime FinishTime;
+	}
 	
 	public class TravianVillage
 	{
@@ -33,6 +43,9 @@ namespace TravianMonitor
 		public int nTimeCost;
 		public TroopSendingStatus trpSndStatus = TroopSendingStatus.NoAction;
 		public Target reinTg = null;
+		
+		public bool bIsEnemyInfoUpdating = false;
+		public List<EnemyInfo> lstEmyInfo = new List<EnemyInfo>();
 		
 		public TravianVillage()
 		{}

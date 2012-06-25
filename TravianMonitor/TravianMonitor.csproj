@@ -9,6 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TravianMonitor</RootNamespace>
     <AssemblyName>TravianMonitor</AssemblyName>
+    <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\Administrator\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <ApplicationIcon>Applications_QuickTime_Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,8 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormRemindMe.cs" />
+    <Compile Include="FormRemindMe.Designer.cs">
+      <DependentUpon>FormRemindMe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Task\TaskAddToTroopSending.cs" />
     <Compile Include="Task\TaskCalStartTime.cs" />
+    <Compile Include="Task\TaskCheckRaiding.cs" />
     <Compile Include="Task\TaskStatistics.cs" />
     <Compile Include="Task\WorkerTaskExec.cs" />
     <Compile Include="TravianData.cs" />
@@ -53,6 +60,9 @@
     <Compile Include="HtmlUtility.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormRemindMe.resx">
+      <DependentUpon>FormRemindMe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormTrMonitor.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FormTrMonitor.cs</DependentUpon>

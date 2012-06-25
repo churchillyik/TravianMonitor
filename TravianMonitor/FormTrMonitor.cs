@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace TravianMonitor
 {
@@ -68,6 +69,16 @@ namespace TravianMonitor
             {
                 this.numericUpDownInterval.Value = UpCall.glbCfg.nInterval;
             }
+            
+            if (UpCall.glbCfg.nReturnDelay != 0)
+            {
+                this.numericUpDownReturnDelay.Value = UpCall.glbCfg.nReturnDelay;
+            }
+            
+            if (UpCall.glbCfg.strProxy != "")
+            {
+                this.textBoxProxy.Text = UpCall.glbCfg.strProxy;
+            }
 
             InstructionLoad();
             ReinforcementLoad();
@@ -88,7 +99,8 @@ namespace TravianMonitor
             string strURL = this.textBoxSvrURL.Text;
             string strInterval = this.numericUpDownInterval.Value.ToString();
             string strReturnDelay = this.numericUpDownReturnDelay.Value.ToString();
-            UpCall.glbCfg.SaveOptions(strURL, strInterval, strReturnDelay);
+            string strProxy = this.textBoxProxy.Text;
+            UpCall.glbCfg.SaveOptions(strURL, strInterval, strReturnDelay, strProxy);
         }
         
         private void DisplayTgs(List<Target> lstTgs)
@@ -250,6 +262,79 @@ namespace TravianMonitor
             listViewTroopSending.ResumeLayout();
         }
         
+        private DateTime dtLastRemind = DateTime.MinValue;
+        void DisplayRaidCheck()
+        {
+        	if (UpCall.lstAccounts == null)
+        		return;
+        	
+        	listViewRaidCheck.Items.Clear();
+        	foreach (TravianAccount trAccount in UpCall.lstAccounts)
+        	{
+        		if (trAccount.lstVillages == null)
+        			continue;
+        		      		
+        		foreach (TravianVillage trVillage in trAccount.lstVillages)
+        		{
+        			if (trVillage.bIsEnemyInfoUpdating)
+        				continue;
+        			
+        			foreach (EnemyInfo info in trVillage.lstEmyInfo)
+        			{
+        				ListViewItem lvi = listViewRaidCheck.Items.Add("[" + TravianData.strTribeName[trAccount.nTribe - 1] + "]" + trAccount.strName);
+	        			lvi.SubItems.Add(trVillage.strName + "(" + trVillage.nID.ToString() + ")");
+	        			lvi.SubItems.Add(trVillage.nPosX + "|" + trVillage.nPosY);
+	        			
+	        			int x = (info.OwnerVillageZ - 1) % 801 - 400;
+						int y = 400 - (info.OwnerVillageZ - 1) / 801;
+	        			lvi.SubItems.Add(info.Owner + "(" + x + "|" + y + ")");
+	        			lvi.SubItems.Add(TravianData.strTribeName[info.Tribe - 1]);
+	        			
+	        			string fin = "-";
+	        			if (info.FinishTime != DateTime.MinValue)
+	        			{
+	        				TimeSpan ts = new TimeSpan((long)info.FinishTime.Subtract(DateTime.Now).TotalSeconds * 10000000);
+		        			if (ts.Days == 0)
+		                	{
+		                		fin = string.Format(
+		                			"{0}:{1}:{2}", ts.Hours, ts.Minutes, ts.Seconds);
+		                	}
+		                	else
+		                	{
+			            		fin = string.Format(
+		                			"{0}天{1}:{2}:{3}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
+		                	}
+	        			}
+	        			lvi.SubItems.Add(fin);
+        			}
+        		}
+        	}
+        	
+        	if (listViewRaidCheck.Items.Count > 0
+        	    && !FormRemindMe.bIsFormOpen
+        	    && (dtLastRemind == DateTime.MinValue
+        	        || DateTime.Now.Subtract(dtLastRemind).TotalSeconds > TravianAccessor.TrAcsr.glbCfg.nInterval * 60))
+        	{
+        		dtLastRemind = DateTime.Now;
+        		FormRemindMe fm = new FormRemindMe();
+	    		fm.message = "检查到 " + listViewRaidCheck.Items.Count + " 波攻击";
+	    		for (int i = 1; i <= 10; i++)
+	    		{
+	    			fm.SetFormPos(i, 10);
+	    			fm.Show();
+	    			if (i != 10)
+	    			{
+	    				Thread.Sleep(10);
+	    				fm.Hide();
+	    			}
+	    		}
+        	}
+        	
+        	listViewRaidCheck.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewRaidCheck.ResumeLayout();
+        	UpCall.RemoveDeadAccounts();
+        }
+        
         void DisplayTroopStatistics(int[,] nTroopNums)
         {
         	this.tbS1.Text = nTroopNums[0, 0].ToString();
@@ -363,6 +448,39 @@ namespace TravianMonitor
         void FormTrMonitorFormClosed(object sender, FormClosedEventArgs e)
         {
         	TravianAccessor.TrAcsr.tskWkr.AbortThread();
+        }
+        
+        void Timer1Tick(object sender, EventArgs e)
+        {
+        	DisplayRaidCheck();
+        }
+        
+        void BtnStartStaringClick(object sender, EventArgs e)
+        {
+        	if (UpCall.bIsTaskSet)
+        		return;
+        	
+        	if (UpCall.lstAccounts.Count == 0)
+        	{
+	        	foreach (UsersInfoDataSet.users_infoRow row in usersInfoDataSet.users_info.Rows)
+	        	{
+	        		if (row.RowState == DataRowState.Deleted)
+	        			continue;
+	        		
+	        		TravianAccount account = new TravianAccount(row.account, row.password);
+	        		UpCall.lstAccounts.Add(account);
+	        	}
+        	}
+        	UpCall.tskWkr.curTask = new TaskCheckRaiding(
+        		UpCall.lstAccounts);
+        	TaskStatus("任务[监控攻击来临]", UIUpdateTypes.TaskDetail);
+        	
+        	UpCall.bIsTaskSet = true;
+        }
+        
+        void BtnStopStaringClick(object sender, EventArgs e)
+        {
+        	UpCall.bIsTaskSet = false;
         }
     }
 }
